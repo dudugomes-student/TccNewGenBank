@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Visão geral da sua conta NewGenBank.">
+        <title>Dashboard | NewGenBank</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <script src="../js/theme.js"></script>
+        <link rel="stylesheet" href="../css/style.css">
+        <script src="../js/main.js" defer>
+        </script>
+    </head>
+    <body class="app-page">
+        <div class="app-shell">
+            <aside class="sidebar" aria-label="Menu principal">
+                <header class="sidebar__header">
+                    <a class="brand" href="dashboard.html">
+                        <span class="brand__symbol">NG</span>
+                        <span class="brand__name">NewGenBank</span>
+                    </a>
+                    <button class="sidebar__close" type="button" data-menu-close aria-label="Fechar menu">×</button>
+                </header>
+                <nav class="sidebar__navigation">
+                    <p class="sidebar__section-label">CONTA</p>
+                    <ul class="sidebar__menu">
+                        <li>
+                            <a class="sidebar__link" href="dashboard.html" aria-current="page">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/casa preta.png" alt="">
+                                </span>
+                                Visão geral
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="pix.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/pix-preto.png" alt="">
+                                </span>
+                                Pix
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="cartoes.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/cardblack.png" alt="">
+                                </span>
+                                Cartões
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="extrato.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/receipt.png" alt="">
+                                </span>
+                                Extrato
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="supervisao.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/shield.png" alt="">
+                                </span>
+                                Supervisão
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="perfil.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/user.png" alt="">
+                                </span>
+                                Perfil
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="configuracoes.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/configurações-preta.png" alt="">
+                                </span>
+                                Configurações
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="ajuda.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/help-web-button.png" alt="">
+                                </span>
+                                Ajuda
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <footer class="sidebar__footer">
+                    <div class="sidebar__profile">
+                        <span class="sidebar__avatar" data-user-initials>EG</span>
+                        <span class="sidebar__profile-info">
+                            <strong data-user-name>Eduardo Gomes</strong>
+                            <span>Conta pessoal</span>
+                        </span>
+                    </div>
+                    <a class="sidebar__logout" href="../index.html" data-logout>Sair da conta</a>
+                </footer>
+            </aside>
+            <div class="sidebar-overlay" data-menu-overlay>
+            </div>
+            <div class="app-content">
+                <header class="topbar">
+                    <div class="topbar__left">
+                        <button class="topbar__menu-button" type="button" data-menu-open aria-label="Abrir menu" aria-expanded="false">
+                            <span>
+                            </span>
+                            <span>
+                            </span>
+                            <span>
+                            </span>
+                        </button>
+                        <div class="topbar__greeting">
+                            <p>
+                                Olá,
+                                <span data-user-first-name>Eduardo</span>
+                            </p>
+                            <h1>Visão geral</h1>
+                        </div>
+                    </div>
+                    <div class="topbar__actions">
+                        <a class="icon-button" href="notificacoes.html" aria-label="Notificações">
+                            <img class="ui-icon" src="../assets/icons/sino-preto.png" alt="">
+                            <span class="icon-button__dot" data-notification-dot>
+                            </span>
+                        </a>
+                        <a class="topbar__profile" href="perfil.html">
+                            <span class="topbar__avatar" data-user-initials>EG</span>
+                            <span class="topbar__profile-info">
+                                <strong data-user-first-name>Eduardo</strong>
+                                <small>Conta pessoal</small>
+                            </span>
+                        </a>
+                    </div>
+                </header>
+                <main class="app-main">
+                    <section class="page-hero">
+                        <div class="page-hero__content">
+                            <p class="eyebrow">Visão geral</p>
+                            <h2>Sua vida financeira em um só lugar.</h2>
+                            <p>Acompanhe saldo, gastos e serviços com clareza para tomar decisões melhores todos os dias.</p>
+                        </div>
+                        <a class="button button--primary" href="pix.html">Fazer um Pix →</a>
+                    </section>
+                    <section class="page-grid" aria-label="Resumo financeiro">
+                        <article class="card card--accent">
+                            <div class="card__header">
+                                <div>
+                                    <span class="stat-label">Saldo disponível</span>
+                                    <strong class="stat-value" id="balance-value" data-balance-value>R$ 12.480,50</strong>
+                                    <span class="status">Conta ativa</span>
+                                </div>
+                                <button class="icon-button" type="button" data-balance-toggle="#balance-value" aria-label="Ocultar saldo" aria-pressed="false">
+                                    <img class="ui-icon" src="../assets/icons/view.png" alt="" data-balance-icon>
+                                </button>
+                            </div>
+                            <div class="data-grid">
+                                <div class="data-box">
+                                    <span>Limite Pix</span>
+                                    <strong data-limit-pix>R$ 500,00</strong>
+                                </div>
+                                <div class="data-box">
+                                    <span>Investido</span>
+                                    <strong>R$ 2.350,00</strong>
+                                </div>
+                                <div class="data-box">
+                                    <span>Rendimento</span>
+                                    <strong class="positive">+8,4%</strong>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="card">
+                            <div class="card__header">
+                                <div>
+                                    <span class="stat-label">Entradas no mês</span>
+                                    <strong class="stat-value">R$ 8.750,00</strong>
+                                    <span class="stat-meta positive">+12,4% comparado ao mês anterior</span>
+                                </div>
+                                <span class="quick-action__icon">
+                                    <img class="ui-icon" src="../assets/icons/send.png" alt="">
+                                </span>
+                            </div>
+                            <div class="chart" aria-label="Gráfico das entradas dos últimos seis meses">
+                                <span class="chart__bar--1">
+                                </span>
+                                <span class="chart__bar--2">
+                                </span>
+                                <span class="chart__bar--3">
+                                </span>
+                                <span class="chart__bar--4">
+                                </span>
+                                <span class="chart__bar--5">
+                                </span>
+                                <span class="chart__bar--6">
+                                </span>
+                            </div>
+                        </article>
+                    </section>
+                    <section class="section">
+                        <div class="section-heading">
+                            <div>
+                                <p class="eyebrow">Atalhos</p>
+                                <h2>O que você precisa?</h2>
+                            </div>
+                        </div>
+                        <div class="quick-grid">
+                            <a class="quick-action" href="pix.html">
+                                <span class="quick-action__icon">
+                                    <img class="ui-icon" src="../assets/icons/send.png" alt="">
+                                </span>
+                                <span class="quick-action__text">
+                                    <strong>Fazer Pix</strong>
+                                    <small>Envie dinheiro em segundos</small>
+                                </span>
+                            </a>
+                            <a class="quick-action" href="cartoes.html">
+                                <span class="quick-action__icon">
+                                    <img class="ui-icon" src="../assets/icons/cardblack.png" alt="">
+                                </span>
+                                <span class="quick-action__text">
+                                    <strong>Meus cartões</strong>
+                                    <small>Limite, fatura e segurança</small>
+                                </span>
+                            </a>
+                            <a class="quick-action" href="extrato.html">
+                                <span class="quick-action__icon">
+                                    <img class="ui-icon" src="../assets/icons/receipt.png" alt="">
+                                </span>
+                                <span class="quick-action__text">
+                                    <strong>Ver extrato</strong>
+                                    <small>Consulte e exporte movimentações</small>
+                                </span>
+                            </a>
+                            <a class="quick-action" href="supervisao.html">
+                                <span class="quick-action__icon">
+                                    <img class="ui-icon" src="../assets/icons/shield.png" alt="">
+                                </span>
+                                <span class="quick-action__text">
+                                    <strong>Supervisão</strong>
+                                    <small>Limites e permissões da conta</small>
+                                </span>
+                            </a>
+                        </div>
+                    </section>
+                    <section class="section">
+                        <div class="section-heading">
+                            <div>
+                                <p class="eyebrow">Atividade</p>
+                                <h2>Movimentações recentes</h2>
+                            </div>
+                            <a href="extrato.html">Ver extrato completo →</a>
+                        </div>
+                        <article class="card card--wide">
+                            <div class="list">
+                                <div class="list-item">
+                                    <div class="list-item__main">
+                                        <span class="list-item__icon">
+                                            <img class="ui-icon" src="../assets/icons/receive-money.png" alt="">
+                                        </span>
+                                        <span class="list-item__text">
+                                            <strong>Pix recebido</strong>
+                                            <small>Hoje, 09:42 · Lucas Ferreira</small>
+                                        </span>
+                                    </div>
+                                    <span class="list-item__value positive">
+                                        <strong>+ R$ 450,00</strong>
+                                        <small>Concluído</small>
+                                    </span>
+                                </div>
+                                <div class="list-item">
+                                    <div class="list-item__main">
+                                        <span class="list-item__icon">
+                                            <img class="ui-icon" src="../assets/icons/send.png" alt="">
+                                        </span>
+                                        <span class="list-item__text">
+                                            <strong>Mercado Central</strong>
+                                            <small>Ontem, 18:15 · Débito</small>
+                                        </span>
+                                    </div>
+                                    <span class="list-item__value">
+                                        <strong>− R$ 86,40</strong>
+                                        <small>Concluído</small>
+                                    </span>
+                                </div>
+                                <div class="list-item">
+                                    <div class="list-item__main">
+                                        <span class="list-item__icon">
+                                            <img class="ui-icon" src="../assets/icons/send.png" alt="">
+                                        </span>
+                                        <span class="list-item__text">
+                                            <strong>Assinatura digital</strong>
+                                            <small>27 jul, 08:00 · Cartão virtual</small>
+                                        </span>
+                                    </div>
+                                    <span class="list-item__value">
+                                        <strong>− R$ 29,90</strong>
+                                        <small>Concluído</small>
+                                    </span>
+                                </div>
+                            </div>
+                        </article>
+                    </section>
+                </main>
+                <footer class="app-footer">
+                    <p>NewGenBank © 2026 · Protótipo acadêmico</p>
+                    <nav>
+                        <a href="configuracoes.html">Privacidade</a>
+                        <a href="ajuda.html">Central de ajuda</a>
+                    </nav>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

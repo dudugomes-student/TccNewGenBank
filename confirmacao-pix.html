@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Comprovante Pix | NewGenBank</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <script src="../js/theme.js"></script>
+        <link rel="stylesheet" href="../css/style.css">
+        <script src="../js/main.js" defer>
+        </script>
+    </head>
+    <body class="auth-page">
+        <header class="auth-header">
+            <a class="brand" href="dashboard.html">
+                <span class="brand__symbol">NG</span>
+                <span class="brand__name">NewGenBank</span>
+            </a>
+            <a class="auth-header__link" href="pix.html">Voltar ao Pix</a>
+        </header>
+        <main class="auth-main">
+            <div class="auth-layout--single">
+                <section class="auth-card receipt" aria-labelledby="confirmation-title">
+                    <span class="receipt__check">
+                        <img class="ui-icon" src="../assets/icons/check preto.png" alt="">
+                    </span>
+                    <p class="eyebrow">Transferência concluída</p>
+                    <h2 id="confirmation-title">Pix enviado!</h2>
+                    <p class="muted">Este comprovante representa uma operação demonstrativa.</p>
+                    <div class="receipt__amount">R$ 150,00</div>
+                    <div class="receipt__data">
+                        <div class="receipt__row">
+                            <span>Para</span>
+                            <strong>Lucas Ferreira</strong>
+                        </div>
+                        <div class="receipt__row">
+                            <span>Chave</span>
+                            <strong>lucas@exemplo.com</strong>
+                        </div>
+                        <div class="receipt__row">
+                            <span>Data</span>
+                            <strong>Hoje, 10:32</strong>
+                        </div>
+                        <div class="receipt__row">
+                            <span>Status</span>
+                            <strong class="positive">Concluído</strong>
+                        </div>
+                    </div>
+                    <div class="action-stack">
+                        <button class="button button--secondary button--full" type="button" data-copy="Pix NewGenBank | R$ 150,00 | Lucas Ferreira | Operação concluída">Copiar comprovante</button>
+                        <a class="button button--primary button--full" href="pix.html">Concluir</a>
+                    </div>
+                </section>
+            </div>
+        </main>
+        <footer class="auth-footer">
+            <span>NewGenBank © 2026</span>
+            <span>Comprovante demonstrativo.</span>
+        </footer>
+    </body>
+</html>

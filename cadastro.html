@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Abra sua conta digital NewGenBank.">
+        <title>Criar conta | NewGenBank</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <script src="../js/theme.js"></script>
+        <link rel="stylesheet" href="../css/style.css">
+        <script src="../js/main.js" defer>
+        </script>
+    </head>
+    <body class="auth-page">
+        <header class="auth-header">
+            <a class="brand" href="../index.html">
+                <span class="brand__symbol">NG</span>
+                <span class="brand__name">NewGenBank</span>
+            </a>
+            <a class="auth-header__link" href="../index.html">Já tenho conta</a>
+        </header>
+        <main class="auth-main">
+            <div class="auth-layout--single">
+                <section class="auth-card auth-card--wide" aria-labelledby="register-title">
+                    <header class="auth-card__header">
+                        <p class="eyebrow">Nova conta</p>
+                        <h2 id="register-title">Comece sua jornada</h2>
+                        <p>Leva poucos minutos. Os dados abaixo ficam salvos apenas neste dispositivo para fins de demonstração.</p>
+                    </header>
+                    <form class="auth-form" data-register-form novalidate>
+                        <div class="progress" data-progress>
+                            <div class="progress__meta">
+                                <span data-progress-label>Etapa 1 de 3</span>
+                                <span>Cadastro seguro</span>
+                            </div>
+                            <div class="progress__track">
+                                <div class="progress__bar">
+                                </div>
+                            </div>
+                        </div>
+                        <section data-step aria-label="Dados pessoais">
+                            <div class="auth-form">
+                                <div class="field">
+                                    <label for="register-name">Nome completo</label>
+                                    <input id="register-name" name="name" autocomplete="name" placeholder="Como aparece no documento" required>
+                                    <small class="field__error">
+                                    </small>
+                                </div>
+                                <div class="form-row">
+                                    <div class="field">
+                                        <label for="register-cpf">CPF</label>
+                                        <input id="register-cpf" name="cpf" inputmode="numeric" data-mask="cpf" placeholder="000.000.000-00" maxlength="14" required>
+                                        <small class="field__error">
+                                        </small>
+                                    </div>
+                                    <div class="field">
+                                        <label for="register-birth">Data de nascimento</label>
+                                        <input id="register-birth" name="birth" type="date" required>
+                                        <small class="field__error">
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="step-actions">
+                                    <button class="button button--primary" type="button" data-next>Continuar →</button>
+                                </div>
+                            </div>
+                        </section>
+                        <section data-step aria-label="Contato" hidden>
+                            <div class="auth-form">
+                                <div class="form-row">
+                                    <div class="field">
+                                        <label for="register-email">E-mail</label>
+                                        <input id="register-email" name="email" type="email" autocomplete="email" placeholder="voce@exemplo.com" required>
+                                        <small class="field__error">
+                                        </small>
+                                    </div>
+                                    <div class="field">
+                                        <label for="register-phone">Celular</label>
+                                        <input id="register-phone" name="phone" inputmode="tel" autocomplete="tel" data-mask="phone" placeholder="(00) 00000-0000" required>
+                                        <small class="field__error">
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label for="register-guardian">
+                                        Nome do responsável
+                                        <span class="muted">(se aplicável)</span>
+                                    </label>
+                                    <input id="register-guardian" name="guardian" autocomplete="name" placeholder="Nome completo do responsável">
+                                    <small class="field__error">
+                                    </small>
+                                </div>
+                                <div class="step-actions">
+                                    <button class="button button--secondary" type="button" data-previous>Voltar</button>
+                                    <button class="button button--primary" type="button" data-next>Continuar →</button>
+                                </div>
+                            </div>
+                        </section>
+                        <section data-step aria-label="Segurança" hidden>
+                            <div class="auth-form">
+                                <div class="form-row">
+                                    <div class="field">
+                                        <label for="register-password">Crie uma senha</label>
+                                        <div class="field__control">
+                                            <input id="register-password" name="password" type="password" minlength="8" autocomplete="new-password" placeholder="Mínimo de 8 caracteres" required>
+                                            <button class="field__toggle" type="button" data-password-toggle="#register-password">Mostrar</button>
+                                        </div>
+                                        <small class="field__error">
+                                        </small>
+                                    </div>
+                                    <div class="field">
+                                        <label for="register-confirm">Confirme a senha</label>
+                                        <div class="field__control">
+                                            <input id="register-confirm" name="confirmPassword" type="password" minlength="8" autocomplete="new-password" placeholder="Repita a senha" required>
+                                            <button class="field__toggle" type="button" data-password-toggle="#register-confirm">Mostrar</button>
+                                        </div>
+                                        <small class="field__error">
+                                        </small>
+                                    </div>
+                                </div>
+                                <label class="check">
+                                    <input name="terms" type="checkbox" required>
+                                    <span>Li e aceito os termos de uso e a política de privacidade deste protótipo.</span>
+                                </label>
+                                <div class="step-actions">
+                                    <button class="button button--secondary" type="button" data-previous>Voltar</button>
+                                    <button class="button button--primary" type="submit">Criar minha conta</button>
+                                </div>
+                            </div>
+                        </section>
+                    </form>
+                </section>
+            </div>
+        </main>
+        <footer class="auth-footer">
+            <span>NewGenBank © 2026</span>
+            <span>Ambiente demonstrativo e seguro.</span>
+        </footer>
+    </body>
+</html>

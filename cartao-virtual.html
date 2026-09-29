@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Cartão virtual | NewGenBank</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <script src="../js/theme.js"></script>
+        <link rel="stylesheet" href="../css/style.css">
+        <script src="../js/main.js" defer>
+        </script>
+    </head>
+    <body class="app-page">
+        <div class="app-shell">
+            <aside class="sidebar">
+                <header class="sidebar__header">
+                    <a class="brand" href="dashboard.html">
+                        <span class="brand__symbol">NG</span>
+                        <span class="brand__name">NewGenBank</span>
+                    </a>
+                    <button type="button" class="sidebar__close" data-menu-close aria-label="Fechar menu">×</button>
+                </header>
+                <nav class="sidebar__navigation">
+                    <p class="sidebar__section-label">CONTA</p>
+                    <ul class="sidebar__menu">
+                        <li>
+                            <a class="sidebar__link" href="dashboard.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/casa preta.png" alt="">
+                                </span>
+                                Visão geral
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="pix.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/pix-preto.png" alt="">
+                                </span>
+                                Pix
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="cartoes.html" aria-current="page">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/cardblack.png" alt="">
+                                </span>
+                                Cartões
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="extrato.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/receipt.png" alt="">
+                                </span>
+                                Extrato
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="supervisao.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/shield.png" alt="">
+                                </span>
+                                Supervisão
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="perfil.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/user.png" alt="">
+                                </span>
+                                Perfil
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="configuracoes.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/configurações-preta.png" alt="">
+                                </span>
+                                Configurações
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="ajuda.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/help-web-button.png" alt="">
+                                </span>
+                                Ajuda
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <footer class="sidebar__footer">
+                    <div class="sidebar__profile">
+                        <span class="sidebar__avatar" data-user-initials>EG</span>
+                        <span class="sidebar__profile-info">
+                            <strong data-user-name>Eduardo Gomes</strong>
+                            <span>Conta pessoal</span>
+                        </span>
+                    </div>
+                    <a class="sidebar__logout" href="../index.html" data-logout>Sair da conta</a>
+                </footer>
+            </aside>
+            <div class="sidebar-overlay" data-menu-overlay>
+            </div>
+            <div class="app-content">
+                <header class="topbar">
+                    <div class="topbar__left">
+                        <button type="button" class="topbar__menu-button" data-menu-open aria-label="Abrir menu">
+                            <span>
+                            </span>
+                            <span>
+                            </span>
+                            <span>
+                            </span>
+                        </button>
+                        <div class="topbar__greeting">
+                            <p>Compras digitais</p>
+                            <h1>Cartão virtual</h1>
+                        </div>
+                    </div>
+                    <div class="topbar__actions">
+                        <a class="topbar__profile" href="perfil.html">
+                            <span class="topbar__avatar" data-user-initials>EG</span>
+                            <span class="topbar__profile-info">
+                                <strong data-user-first-name>Eduardo</strong>
+                                <small>Conta pessoal</small>
+                            </span>
+                        </a>
+                    </div>
+                </header>
+                <main class="app-main">
+                    <section class="page-hero">
+                        <div class="page-hero__content">
+                            <p class="eyebrow">Cartão virtual</p>
+                            <h2>Mais segurança para comprar online.</h2>
+                            <p>Visualize os dados somente quando precisar e mantenha o cartão bloqueado após o uso.</p>
+                        </div>
+                        <a class="button button--secondary" href="cartoes.html">← Voltar aos cartões</a>
+                    </section>
+                    <section class="page-grid">
+                        <article class="card">
+                            <div class="bank-card">
+                                <div class="bank-card__top">
+                                    <span class="bank-card__chip">
+                                    </span>
+                                    <strong>VIRTUAL · NG</strong>
+                                </div>
+                                <p class="bank-card__number" data-virtual-number>•••• &nbsp;•••• &nbsp;•••• &nbsp;7742</p>
+                                <div class="bank-card__bottom">
+                                    <span data-user-name>EDUARDO GOMES</span>
+                                    <span>
+                                        CVV
+                                        <b data-virtual-cvv>•••</b>
+                                    </span>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="card">
+                            <div class="card__header">
+                                <div>
+                                    <h3>Dados protegidos</h3>
+                                    <p>Evite compartilhar ou salvar capturas da tela.</p>
+                                </div>
+                            </div>
+                            <div class="notice">
+                                <strong>!</strong>
+                                <span>Os dados completos ficam ocultos por padrão. Confira o ambiente ao seu redor antes de revelar.</span>
+                            </div>
+                            <div class="space-top-20">
+                                <button class="button button--primary button--full" type="button" data-reveal-card aria-pressed="false">Mostrar dados</button>
+                            </div>
+                        </article>
+                        <article class="card card--wide">
+                            <div class="card__header">
+                                <div>
+                                    <h3>Controle do cartão virtual</h3>
+                                    <p>As preferências são salvas neste dispositivo.</p>
+                                </div>
+                            </div>
+                            <div class="switch-row">
+                                <span class="switch-row__text">
+                                    <strong>Compras online</strong>
+                                    <small>Ative somente quando for usar.</small>
+                                </span>
+                                <label class="switch">
+                                    <input type="checkbox" data-card-setting="online">
+                                    <span>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="switch-row">
+                                <span class="switch-row__text">
+                                    <strong>Compras internacionais</strong>
+                                    <small>Permitir cobranças em moeda estrangeira.</small>
+                                </span>
+                                <label class="switch">
+                                    <input type="checkbox" data-card-setting="international">
+                                    <span>
+                                    </span>
+                                </label>
+                            </div>
+                        </article>
+                    </section>
+                </main>
+                <footer class="app-footer">
+                    <p>NewGenBank © 2026 · Ambiente protegido</p>
+                    <nav>
+                        <a href="ajuda.html">Como usar?</a>
+                    </nav>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

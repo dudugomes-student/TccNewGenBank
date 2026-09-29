@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Supervisão | NewGenBank</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <script src="../js/theme.js"></script>
+        <link rel="stylesheet" href="../css/style.css">
+        <script src="../js/main.js" defer>
+        </script>
+    </head>
+    <body class="app-page">
+        <div class="app-shell">
+            <aside class="sidebar">
+                <header class="sidebar__header">
+                    <a class="brand" href="dashboard.html">
+                        <span class="brand__symbol">NG</span>
+                        <span class="brand__name">NewGenBank</span>
+                    </a>
+                    <button type="button" class="sidebar__close" data-menu-close aria-label="Fechar menu">×</button>
+                </header>
+                <nav class="sidebar__navigation">
+                    <p class="sidebar__section-label">CONTA</p>
+                    <ul class="sidebar__menu">
+                        <li>
+                            <a class="sidebar__link" href="dashboard.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/casa preta.png" alt="">
+                                </span>
+                                Visão geral
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="pix.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/pix-preto.png" alt="">
+                                </span>
+                                Pix
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="cartoes.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/cardblack.png" alt="">
+                                </span>
+                                Cartões
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="extrato.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/receipt.png" alt="">
+                                </span>
+                                Extrato
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="supervisao.html" aria-current="page">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/shield.png" alt="">
+                                </span>
+                                Supervisão
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="perfil.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/user.png" alt="">
+                                </span>
+                                Perfil
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="configuracoes.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/configurações-preta.png" alt="">
+                                </span>
+                                Configurações
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="ajuda.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/help-web-button.png" alt="">
+                                </span>
+                                Ajuda
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <footer class="sidebar__footer">
+                    <div class="sidebar__profile">
+                        <span class="sidebar__avatar" data-user-initials>EG</span>
+                        <span class="sidebar__profile-info">
+                            <strong data-user-name>Eduardo Gomes</strong>
+                            <span>Conta pessoal</span>
+                        </span>
+                    </div>
+                    <a class="sidebar__logout" href="../index.html" data-logout>Sair da conta</a>
+                </footer>
+            </aside>
+            <div class="sidebar-overlay" data-menu-overlay>
+            </div>
+            <div class="app-content">
+                <header class="topbar">
+                    <div class="topbar__left">
+                        <button type="button" class="topbar__menu-button" data-menu-open aria-label="Abrir menu">
+                            <span>
+                            </span>
+                            <span>
+                            </span>
+                            <span>
+                            </span>
+                        </button>
+                        <div class="topbar__greeting">
+                            <p>Autonomia responsável</p>
+                            <h1>Supervisão</h1>
+                        </div>
+                    </div>
+                    <div class="topbar__actions">
+                        <a class="icon-button" href="notificacoes.html" aria-label="Notificações">
+                            <img class="ui-icon" src="../assets/icons/sino-preto.png" alt="">
+                            <span class="icon-button__dot" data-notification-dot>
+                            </span>
+                        </a>
+                        <a class="topbar__profile" href="perfil.html">
+                            <span class="topbar__avatar" data-user-initials>EG</span>
+                            <span class="topbar__profile-info">
+                                <strong data-user-first-name>Eduardo</strong>
+                                <small>Conta pessoal</small>
+                            </span>
+                        </a>
+                    </div>
+                </header>
+                <main class="app-main">
+                    <section class="page-hero page-hero--content-only">
+                        <div class="page-hero__content">
+                            <p class="eyebrow">Supervisão parental</p>
+                            <h2>Autonomia com segurança.</h2>
+                            <p>Limites transparentes e permissões claras para construir uma relação saudável com o dinheiro.</p>
+                        </div>
+                    </section>
+                    <section class="page-grid">
+                        <article class="card card--third">
+                            <span class="stat-label">Limite diário de gastos</span>
+                            <strong class="stat-value" data-limit-spending>R$ 250,00</strong>
+                            <span class="stat-meta">Renovado todos os dias</span>
+                            <button class="button button--secondary button--small space-top-16" type="button" data-modal-open="#limit-modal">Editar limites</button>
+                        </article>
+                        <article class="card card--third">
+                            <span class="stat-label">Limite Pix diário</span>
+                            <strong class="stat-value" data-limit-pix>R$ 500,00</strong>
+                            <span class="stat-meta">Definido pelo responsável</span>
+                        </article>
+                        <article class="card card--third">
+                            <span class="stat-label">Responsável vinculado</span>
+                            <strong class="stat-value stat-value--compact">Mariana Gomes</strong>
+                            <span class="status">Vínculo ativo</span>
+                        </article>
+                        <article class="card card--wide">
+                            <div class="card__header">
+                                <div>
+                                    <h3>Permissões da conta</h3>
+                                    <p>Alterações simuladas são salvas automaticamente.</p>
+                                </div>
+                            </div>
+                            <div class="switch-row">
+                                <span class="switch-row__text">
+                                    <strong>Compras online</strong>
+                                    <small>Compras em lojas virtuais e aplicativos.</small>
+                                </span>
+                                <label class="switch">
+                                    <input type="checkbox" data-setting="transactionAlerts" checked>
+                                    <span>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="switch-row">
+                                <span class="switch-row__text">
+                                    <strong>Saques em caixas eletrônicos</strong>
+                                    <small>Limite de R$ 100,00 por dia.</small>
+                                </span>
+                                <label class="switch">
+                                    <input type="checkbox" data-setting="biometrics" checked>
+                                    <span>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="switch-row">
+                                <span class="switch-row__text">
+                                    <strong>Notificações para o responsável</strong>
+                                    <small>Avisos de Pix, compras e alteração de limites.</small>
+                                </span>
+                                <label class="switch">
+                                    <input type="checkbox" data-setting="twoFactor" checked>
+                                    <span>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="switch-row">
+                                <span class="switch-row__text">
+                                    <strong>Compras internacionais</strong>
+                                    <small>Transações realizadas fora do Brasil.</small>
+                                </span>
+                                <label class="switch">
+                                    <input type="checkbox" data-setting="news">
+                                    <span>
+                                    </span>
+                                </label>
+                            </div>
+                        </article>
+                    </section>
+                    <section class="section">
+                        <div class="notice">
+                            <strong>Transparência</strong>
+                            <span>As configurações de supervisão equilibram proteção e independência. No produto real, mudanças críticas exigiriam confirmação do responsável.</span>
+                        </div>
+                    </section>
+                </main>
+                <footer class="app-footer">
+                    <p>NewGenBank © 2026 · Autonomia com responsabilidade</p>
+                    <nav>
+                        <a href="ajuda.html">Entenda a supervisão</a>
+                    </nav>
+                </footer>
+            </div>
+        </div>
+        <div class="modal" id="limit-modal" role="dialog" aria-modal="true" aria-hidden="true">
+            <div class="modal__dialog">
+                <header class="modal__header">
+                    <div>
+                        <h2>Editar limites</h2>
+                        <p>Defina valores diários para a conta.</p>
+                    </div>
+                    <button type="button" class="modal__close" data-modal-close aria-label="Fechar">×</button>
+                </header>
+                <form class="auth-form" data-limit-form>
+                    <div class="field">
+                        <label for="spending-limit">Limite diário de gastos (R$)</label>
+                        <input id="spending-limit" name="spending" type="number" min="10" max="10000" step="10" required>
+                        <small class="field__error">
+                        </small>
+                    </div>
+                    <div class="field">
+                        <label for="pix-limit">Limite Pix diário (R$)</label>
+                        <input id="pix-limit" name="pix" type="number" min="10" max="10000" step="10" required>
+                        <small class="field__error">
+                        </small>
+                    </div>
+                    <div class="modal__actions">
+                        <button class="button button--secondary" type="button" data-modal-close>Cancelar</button>
+                        <button class="button button--primary" type="submit">Salvar limites</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

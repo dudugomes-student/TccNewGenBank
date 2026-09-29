@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Recuperar senha | NewGenBank</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <script src="../js/theme.js"></script>
+        <link rel="stylesheet" href="../css/style.css">
+        <script src="../js/main.js" defer>
+        </script>
+    </head>
+    <body class="auth-page">
+        <header class="auth-header">
+            <a class="brand" href="../index.html">
+                <span class="brand__symbol">NG</span>
+                <span class="brand__name">NewGenBank</span>
+            </a>
+            <a class="auth-header__link" href="../index.html">Voltar ao login</a>
+        </header>
+        <main class="auth-main">
+            <div class="auth-layout--single">
+                <section class="auth-card" aria-labelledby="recovery-title">
+                    <header class="auth-card__header">
+                        <p class="eyebrow">Recuperação segura</p>
+                        <h2 id="recovery-title">Esqueceu a senha?</h2>
+                        <p>Informe o e-mail cadastrado. Simularemos o envio das instruções de recuperação.</p>
+                    </header>
+                    <form class="auth-form" data-recovery-form novalidate>
+                        <div class="field">
+                            <label for="recovery-email">E-mail cadastrado</label>
+                            <input id="recovery-email" name="email" type="email" autocomplete="email" placeholder="voce@exemplo.com" required>
+                            <small class="field__error">
+                            </small>
+                        </div>
+                        <button class="button button--primary button--full" type="submit">Enviar instruções</button>
+                        <a class="button button--secondary button--full" href="../index.html">Cancelar</a>
+                    </form>
+                    <div class="empty-state" data-recovery-success hidden>
+                        <div>
+                            <span class="empty-state__icon">
+                                <img class="ui-icon" src="../assets/icons/check preto.png" alt="">
+                            </span>
+                            <h3>Confira seu e-mail</h3>
+                            <p>Se existir uma conta vinculada, as instruções de recuperação serão enviadas. Nesta demonstração, nenhuma mensagem real é disparada.</p>
+                            <a class="button button--primary" href="../index.html">Voltar ao login</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+        <footer class="auth-footer">
+            <span>NewGenBank © 2026</span>
+            <span>Segurança em cada etapa.</span>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Perfil | NewGenBank</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <script src="../js/theme.js"></script>
+        <link rel="stylesheet" href="../css/style.css">
+        <script src="../js/main.js" defer>
+        </script>
+    </head>
+    <body class="app-page">
+        <div class="app-shell">
+            <aside class="sidebar">
+                <header class="sidebar__header">
+                    <a class="brand" href="dashboard.html">
+                        <span class="brand__symbol">NG</span>
+                        <span class="brand__name">NewGenBank</span>
+                    </a>
+                    <button type="button" class="sidebar__close" data-menu-close aria-label="Fechar menu">×</button>
+                </header>
+                <nav class="sidebar__navigation">
+                    <p class="sidebar__section-label">CONTA</p>
+                    <ul class="sidebar__menu">
+                        <li>
+                            <a class="sidebar__link" href="dashboard.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/casa preta.png" alt="">
+                                </span>
+                                Visão geral
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="pix.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/pix-preto.png" alt="">
+                                </span>
+                                Pix
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="cartoes.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/cardblack.png" alt="">
+                                </span>
+                                Cartões
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="extrato.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/receipt.png" alt="">
+                                </span>
+                                Extrato
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="supervisao.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/shield.png" alt="">
+                                </span>
+                                Supervisão
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="perfil.html" aria-current="page">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/user.png" alt="">
+                                </span>
+                                Perfil
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="configuracoes.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/configurações-preta.png" alt="">
+                                </span>
+                                Configurações
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="ajuda.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/help-web-button.png" alt="">
+                                </span>
+                                Ajuda
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <footer class="sidebar__footer">
+                    <div class="sidebar__profile">
+                        <span class="sidebar__avatar" data-user-initials>EG</span>
+                        <span class="sidebar__profile-info">
+                            <strong data-user-name>Eduardo Gomes</strong>
+                            <span>Conta pessoal</span>
+                        </span>
+                    </div>
+                    <a class="sidebar__logout" href="../index.html" data-logout>Sair da conta</a>
+                </footer>
+            </aside>
+            <div class="sidebar-overlay" data-menu-overlay>
+            </div>
+            <div class="app-content">
+                <header class="topbar">
+                    <div class="topbar__left">
+                        <button type="button" class="topbar__menu-button" data-menu-open aria-label="Abrir menu">
+                            <span>
+                            </span>
+                            <span>
+                            </span>
+                            <span>
+                            </span>
+                        </button>
+                        <div class="topbar__greeting">
+                            <p>Dados da conta</p>
+                            <h1>Perfil</h1>
+                        </div>
+                    </div>
+                    <div class="topbar__actions">
+                        <a class="icon-button" href="notificacoes.html" aria-label="Notificações">
+                            <img class="ui-icon" src="../assets/icons/sino-preto.png" alt="">
+                            <span class="icon-button__dot" data-notification-dot>
+                            </span>
+                        </a>
+                        <a class="topbar__profile" href="perfil.html">
+                            <span class="topbar__avatar" data-user-initials>EG</span>
+                            <span class="topbar__profile-info">
+                                <strong data-user-first-name>Eduardo</strong>
+                                <small>Conta pessoal</small>
+                            </span>
+                        </a>
+                    </div>
+                </header>
+                <main class="app-main">
+                    <section class="page-hero profile-hero">
+                        <div class="profile-identity">
+                            <span class="profile-avatar" data-user-initials>EG</span>
+                            <div>
+                                <p class="eyebrow">Conta pessoal</p>
+                                <h2 data-user-name>Eduardo Gomes</h2>
+                                <p data-user-email>eduardo@ngb.com</p>
+                            </div>
+                        </div>
+                        <span class="status">Cadastro verificado</span>
+                    </section>
+                    <section class="page-grid">
+                        <article class="card card--wide">
+                            <div class="card__header">
+                                <div>
+                                    <h3>Dados pessoais</h3>
+                                    <p>Atualize os dados de contato usados nesta demonstração.</p>
+                                </div>
+                            </div>
+                            <form class="auth-form" data-profile-form novalidate>
+                                <div class="form-row">
+                                    <div class="field">
+                                        <label for="profile-name">Nome completo</label>
+                                        <input id="profile-name" name="name" autocomplete="name" required>
+                                        <small class="field__error">
+                                        </small>
+                                    </div>
+                                    <div class="field">
+                                        <label for="profile-email">E-mail</label>
+                                        <input id="profile-email" name="email" type="email" autocomplete="email" required>
+                                        <small class="field__error">
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="field">
+                                        <label for="profile-phone">Celular</label>
+                                        <input id="profile-phone" name="phone" data-mask="phone" autocomplete="tel">
+                                        <small class="field__error">
+                                        </small>
+                                    </div>
+                                    <div class="field">
+                                        <label for="profile-cpf">CPF</label>
+                                        <input id="profile-cpf" name="cpf" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="field">
+                                        <label for="profile-birth">Data de nascimento</label>
+                                        <input id="profile-birth" name="birth" type="date" disabled>
+                                    </div>
+                                    <div class="field">
+                                        <label for="profile-guardian">Responsável vinculado</label>
+                                        <input id="profile-guardian" name="guardian" disabled>
+                                    </div>
+                                </div>
+                                <div class="step-actions">
+                                    <button class="button button--primary" type="submit">Salvar alterações</button>
+                                </div>
+                            </form>
+                        </article>
+                        <article class="card">
+                            <div class="card__header">
+                                <div>
+                                    <h3>Dados bancários</h3>
+                                    <p>Informações da sua conta NewGenBank.</p>
+                                </div>
+                            </div>
+                            <div class="data-grid">
+                                <div class="data-box">
+                                    <span>Banco</span>
+                                    <strong>748</strong>
+                                </div>
+                                <div class="data-box">
+                                    <span>Agência</span>
+                                    <strong>0001</strong>
+                                </div>
+                                <div class="data-box">
+                                    <span>Conta</span>
+                                    <strong>284615-8</strong>
+                                </div>
+                            </div>
+                            <button class="button button--secondary button--full space-top-16" type="button" data-copy="NewGenBank | Banco 748 | Agência 0001 | Conta 284615-8">Copiar dados da conta</button>
+                        </article>
+                        <article class="card">
+                            <div class="card__header">
+                                <div>
+                                    <h3>Segurança</h3>
+                                    <p>Status de proteção da conta.</p>
+                                </div>
+                            </div>
+                            <div class="list">
+                                <div class="list-item">
+                                    <div class="list-item__main">
+                                        <span class="list-item__icon">
+                                            <img class="ui-icon" src="../assets/icons/check preto.png" alt="">
+                                        </span>
+                                        <span class="list-item__text">
+                                            <strong>Identidade verificada</strong>
+                                            <small>Documentos aprovados</small>
+                                        </span>
+                                    </div>
+                                    <span class="status">Ativa</span>
+                                </div>
+                                <div class="list-item">
+                                    <div class="list-item__main">
+                                        <span class="list-item__icon">
+                                            <img class="ui-icon" src="../assets/icons/celular preto.png" alt="">
+                                        </span>
+                                        <span class="list-item__text">
+                                            <strong>Senha de acesso</strong>
+                                            <small>Proteção principal</small>
+                                        </span>
+                                    </div>
+                                    <a class="button button--secondary button--small" href="recuperar-senha.html">Alterar</a>
+                                </div>
+                            </div>
+                        </article>
+                    </section>
+                </main>
+                <footer class="app-footer">
+                    <p>NewGenBank © 2026 · Perfil protegido</p>
+                    <nav>
+                        <a href="configuracoes.html">Privacidade</a>
+                        <a href="ajuda.html">Ajuda</a>
+                    </nav>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

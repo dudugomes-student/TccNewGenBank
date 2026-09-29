@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Pix | NewGenBank</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <script src="../js/theme.js"></script>
+        <link rel="stylesheet" href="../css/style.css">
+        <script src="../js/main.js" defer>
+        </script>
+    </head>
+    <body class="app-page">
+        <div class="app-shell">
+            <aside class="sidebar">
+                <header class="sidebar__header">
+                    <a class="brand" href="dashboard.html">
+                        <span class="brand__symbol">NG</span>
+                        <span class="brand__name">NewGenBank</span>
+                    </a>
+                    <button class="sidebar__close" type="button" data-menu-close aria-label="Fechar menu">×</button>
+                </header>
+                <nav class="sidebar__navigation">
+                    <p class="sidebar__section-label">CONTA</p>
+                    <ul class="sidebar__menu">
+                        <li>
+                            <a class="sidebar__link" href="dashboard.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/casa preta.png" alt="">
+                                </span>
+                                Visão geral
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="pix.html" aria-current="page">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/pix-preto.png" alt="">
+                                </span>
+                                Pix
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="cartoes.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/cardblack.png" alt="">
+                                </span>
+                                Cartões
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="extrato.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/receipt.png" alt="">
+                                </span>
+                                Extrato
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="supervisao.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/shield.png" alt="">
+                                </span>
+                                Supervisão
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="perfil.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/user.png" alt="">
+                                </span>
+                                Perfil
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="configuracoes.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/configurações-preta.png" alt="">
+                                </span>
+                                Configurações
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="ajuda.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/help-web-button.png" alt="">
+                                </span>
+                                Ajuda
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <footer class="sidebar__footer">
+                    <div class="sidebar__profile">
+                        <span class="sidebar__avatar" data-user-initials>EG</span>
+                        <span class="sidebar__profile-info">
+                            <strong data-user-name>Eduardo Gomes</strong>
+                            <span>Conta pessoal</span>
+                        </span>
+                    </div>
+                    <a class="sidebar__logout" href="../index.html" data-logout>Sair da conta</a>
+                </footer>
+            </aside>
+            <div class="sidebar-overlay" data-menu-overlay>
+            </div>
+            <div class="app-content">
+                <header class="topbar">
+                    <div class="topbar__left">
+                        <button class="topbar__menu-button" type="button" data-menu-open aria-label="Abrir menu" aria-expanded="false">
+                            <span>
+                            </span>
+                            <span>
+                            </span>
+                            <span>
+                            </span>
+                        </button>
+                        <div class="topbar__greeting">
+                            <p>Transferências instantâneas</p>
+                            <h1>Pix</h1>
+                        </div>
+                    </div>
+                    <div class="topbar__actions">
+                        <a class="icon-button" href="notificacoes.html" aria-label="Notificações">
+                            <img class="ui-icon" src="../assets/icons/sino-preto.png" alt="">
+                            <span class="icon-button__dot" data-notification-dot>
+                            </span>
+                        </a>
+                        <a class="topbar__profile" href="perfil.html">
+                            <span class="topbar__avatar" data-user-initials>EG</span>
+                            <span class="topbar__profile-info">
+                                <strong data-user-first-name>Eduardo</strong>
+                                <small>Conta pessoal</small>
+                            </span>
+                        </a>
+                    </div>
+                </header>
+                <main class="app-main">
+                    <section class="page-hero page-hero--content-only">
+                        <div class="page-hero__content">
+                            <p class="eyebrow">Área Pix</p>
+                            <h2>Envie e receba em segundos.</h2>
+                            <p>Transferências rápidas, informações claras e confirmação antes de cada envio.</p>
+                        </div>
+                    </section>
+                    <section class="page-grid">
+                        <article class="card card--accent">
+                            <span class="stat-label">Saldo disponível para Pix</span>
+                            <strong class="stat-value" data-balance-value>R$ 12.480,50</strong>
+                            <span class="stat-meta">Limite por transação: <span data-limit-pix>R$ 500,00</span></span>
+                            <div class="progress-line progress-line--pix">
+                                <span>
+                                </span>
+                            </div>
+                        </article>
+                        <article class="card">
+                            <div class="card__header">
+                                <div>
+                                    <h3>Minhas chaves</h3>
+                                    <p>Dados vinculados à sua conta</p>
+                                </div>
+                            </div>
+                            <div class="list">
+                                <div class="list-item">
+                                    <div class="list-item__main">
+                                        <span class="list-item__icon">
+                                            <img class="ui-icon" src="../assets/icons/key.png" alt="">
+                                        </span>
+                                        <span class="list-item__text">
+                                            <strong>E-mail</strong>
+                                            <small data-user-email>eduardo@ngb.com</small>
+                                        </span>
+                                    </div>
+                                    <button class="button button--secondary button--small" type="button" data-copy="eduardo@ngb.com">Copiar</button>
+                                </div>
+                                <div class="list-item">
+                                    <div class="list-item__main">
+                                        <span class="list-item__icon">
+                                            <img class="ui-icon" src="../assets/icons/celular preto.png" alt="">
+                                        </span>
+                                        <span class="list-item__text">
+                                            <strong>Celular</strong>
+                                            <small data-user-phone>(11) 99999-9999</small>
+                                        </span>
+                                    </div>
+                                    <button class="button button--secondary button--small" type="button" data-copy="11999999999">Copiar</button>
+                                </div>
+                            </div>
+                        </article>
+                    </section>
+                    <section class="section">
+                        <div class="section-heading">
+                            <div>
+                                <p class="eyebrow">Serviços</p>
+                                <h2>Ações Pix</h2>
+                            </div>
+                        </div>
+                        <div class="quick-grid">
+                            <button class="quick-action" type="button" data-modal-open="#pix-send">
+                                <span class="quick-action__icon">
+                                    <img class="ui-icon" src="../assets/icons/send.png" alt="">
+                                </span>
+                                <span class="quick-action__text">
+                                    <strong>Enviar Pix</strong>
+                                    <small>Transfira usando uma chave</small>
+                                </span>
+                            </button>
+                            <button class="quick-action" type="button" data-modal-open="#pix-receive">
+                                <span class="quick-action__icon">
+                                    <img class="ui-icon" src="../assets/icons/receive-money.png" alt="">
+                                </span>
+                                <span class="quick-action__text">
+                                    <strong>Receber Pix</strong>
+                                    <small>Compartilhe sua chave</small>
+                                </span>
+                            </button>
+                            <a class="quick-action" href="extrato.html">
+                                <span class="quick-action__icon">
+                                    <img class="ui-icon" src="../assets/icons/receipt.png" alt="">
+                                </span>
+                                <span class="quick-action__text">
+                                    <strong>Comprovantes</strong>
+                                    <small>Veja suas movimentações</small>
+                                </span>
+                            </a>
+                            <button class="quick-action" type="button" data-copy="eduardo@ngb.com">
+                                <span class="quick-action__icon">
+                                    <img class="ui-icon" src="../assets/icons/copy.png" alt="">
+                                </span>
+                                <span class="quick-action__text">
+                                    <strong>Copiar chave</strong>
+                                    <small>Use seu e-mail cadastrado</small>
+                                </span>
+                            </button>
+                        </div>
+                    </section>
+                </main>
+                <footer class="app-footer">
+                    <p>NewGenBank © 2026 · Pix protegido</p>
+                    <nav>
+                        <a href="configuracoes.html">Segurança</a>
+                        <a href="ajuda.html">Precisa de ajuda?</a>
+                    </nav>
+                </footer>
+            </div>
+        </div>
+        <div class="modal" id="pix-send" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pix-send-title">
+            <div class="modal__dialog">
+                <header class="modal__header">
+                    <div>
+                        <h2 id="pix-send-title">Enviar Pix</h2>
+                        <p>Revise os dados antes de confirmar.</p>
+                    </div>
+                    <button class="modal__close" type="button" data-modal-close aria-label="Fechar">×</button>
+                </header>
+                <form class="auth-form" data-pix-form novalidate>
+                    <div class="field">
+                        <label for="pix-key">Chave Pix</label>
+                        <input id="pix-key" name="key" placeholder="CPF, e-mail, celular ou chave aleatória" required>
+                        <small class="field__error">
+                        </small>
+                    </div>
+                    <div class="field">
+                        <label for="pix-recipient">Nome do favorecido</label>
+                        <input id="pix-recipient" name="recipient" placeholder="Nome de quem vai receber" required>
+                        <small class="field__error">
+                        </small>
+                    </div>
+                    <div class="field">
+                        <label for="pix-amount">Valor</label>
+                        <input id="pix-amount" name="amount" inputmode="numeric" placeholder="R$ 0,00" required>
+                        <small class="field__error">
+                        </small>
+                    </div>
+                    <div class="field">
+                        <label for="pix-description">
+                            Descrição
+                            <span class="muted">(opcional)</span>
+                        </label>
+                        <input id="pix-description" name="description" maxlength="80" placeholder="Ex.: almoço">
+                    </div>
+                    <div class="modal__actions">
+                        <button class="button button--secondary" type="button" data-modal-close>Cancelar</button>
+                        <button class="button button--primary" type="submit">Confirmar envio</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal" id="pix-receive" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pix-receive-title">
+            <div class="modal__dialog">
+                <header class="modal__header">
+                    <div>
+                        <h2 id="pix-receive-title">Receber Pix</h2>
+                        <p>Compartilhe sua chave principal.</p>
+                    </div>
+                    <button class="modal__close" type="button" data-modal-close aria-label="Fechar">×</button>
+                </header>
+                <div class="empty-state">
+                    <div>
+                        <span class="empty-state__icon">
+                            <img class="ui-icon" src="../assets/icons/key.png" alt="">
+                        </span>
+                        <h3 data-user-email>eduardo@ngb.com</h3>
+                        <p>Esta é a chave Pix vinculada ao seu e-mail. Compartilhe apenas com pessoas de confiança.</p>
+                        <button class="button button--primary" type="button" data-copy="eduardo@ngb.com">Copiar chave</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="pix-receipt" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="receipt-title">
+            <div class="modal__dialog receipt" data-pix-receipt>
+                <span class="receipt__check">
+                    <img class="ui-icon" src="../assets/icons/check preto.png" alt="">
+                </span>
+                <h2 id="receipt-title">Pix enviado!</h2>
+                <p class="muted">A transferência foi concluída com sucesso.</p>
+                <div class="receipt__amount" data-receipt-amount>R$ 0,00</div>
+                <div class="receipt__data">
+                    <div class="receipt__row">
+                        <span>Para</span>
+                        <strong data-receipt-recipient>Favorecido</strong>
+                    </div>
+                    <div class="receipt__row">
+                        <span>Chave</span>
+                        <strong data-receipt-key>—</strong>
+                    </div>
+                    <div class="receipt__row">
+                        <span>Status</span>
+                        <strong class="positive">Concluído</strong>
+                    </div>
+                </div>
+                <div class="modal__actions">
+                    <button class="button button--primary button--full" type="button" data-modal-close>Concluir</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

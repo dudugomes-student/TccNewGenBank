@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Ajuda | NewGenBank</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <script src="../js/theme.js"></script>
+        <link rel="stylesheet" href="../css/style.css">
+        <script src="../js/main.js" defer>
+        </script>
+    </head>
+    <body class="app-page">
+        <div class="app-shell">
+            <aside class="sidebar">
+                <header class="sidebar__header">
+                    <a class="brand" href="dashboard.html">
+                        <span class="brand__symbol">NG</span>
+                        <span class="brand__name">NewGenBank</span>
+                    </a>
+                    <button type="button" class="sidebar__close" data-menu-close aria-label="Fechar menu">×</button>
+                </header>
+                <nav class="sidebar__navigation">
+                    <p class="sidebar__section-label">CONTA</p>
+                    <ul class="sidebar__menu">
+                        <li>
+                            <a class="sidebar__link" href="dashboard.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/casa preta.png" alt="">
+                                </span>
+                                Visão geral
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="pix.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/pix-preto.png" alt="">
+                                </span>
+                                Pix
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="cartoes.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/cardblack.png" alt="">
+                                </span>
+                                Cartões
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="extrato.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/receipt.png" alt="">
+                                </span>
+                                Extrato
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="supervisao.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/shield.png" alt="">
+                                </span>
+                                Supervisão
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="perfil.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/user.png" alt="">
+                                </span>
+                                Perfil
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="configuracoes.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/configurações-preta.png" alt="">
+                                </span>
+                                Configurações
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="ajuda.html" aria-current="page">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/help-web-button.png" alt="">
+                                </span>
+                                Ajuda
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <footer class="sidebar__footer">
+                    <div class="sidebar__profile">
+                        <span class="sidebar__avatar" data-user-initials>EG</span>
+                        <span class="sidebar__profile-info">
+                            <strong data-user-name>Eduardo Gomes</strong>
+                            <span>Conta pessoal</span>
+                        </span>
+                    </div>
+                    <a class="sidebar__logout" href="../index.html" data-logout>Sair da conta</a>
+                </footer>
+            </aside>
+            <div class="sidebar-overlay" data-menu-overlay>
+            </div>
+            <div class="app-content">
+                <header class="topbar">
+                    <div class="topbar__left">
+                        <button type="button" class="topbar__menu-button" data-menu-open aria-label="Abrir menu">
+                            <span>
+                            </span>
+                            <span>
+                            </span>
+                            <span>
+                            </span>
+                        </button>
+                        <div class="topbar__greeting">
+                            <p>Conte com a gente</p>
+                            <h1>Central de ajuda</h1>
+                        </div>
+                    </div>
+                    <div class="topbar__actions">
+                        <a class="icon-button" href="notificacoes.html">
+                            <img class="ui-icon" src="../assets/icons/sino-preto.png" alt="">
+                            <span class="icon-button__dot" data-notification-dot>
+                            </span>
+                        </a>
+                        <a class="topbar__profile" href="perfil.html">
+                            <span class="topbar__avatar" data-user-initials>EG</span>
+                            <span class="topbar__profile-info">
+                                <strong data-user-first-name>Eduardo</strong>
+                                <small>Conta pessoal</small>
+                            </span>
+                        </a>
+                    </div>
+                </header>
+                <main class="app-main">
+                    <section class="page-hero">
+                        <div class="page-hero__content">
+                            <p class="eyebrow">Suporte NewGenBank</p>
+                            <h2>Como podemos ajudar?</h2>
+                            <p>Encontre respostas rápidas ou envie uma mensagem para nossa equipe demonstrativa.</p>
+                        </div>
+                        <button type="button" class="button button--primary" data-modal-open="#contact-modal">Falar com suporte →</button>
+                    </section>
+                    <section class="page-grid">
+                        <article class="card card--wide">
+                            <div class="field">
+                                <label for="help-search">Buscar uma dúvida</label>
+                                <input id="help-search" type="search" data-help-search placeholder="Ex.: como fazer um Pix?">
+                            </div>
+                            <div class="space-top-20">
+                                <details class="faq">
+                                    <summary>Como faço uma transferência Pix?</summary>
+                                    <p>Acesse Pix no menu, escolha “Enviar Pix”, informe a chave, o favorecido e o valor. Revise os dados antes de confirmar a simulação.</p>
+                                </details>
+                                <details class="faq">
+                                    <summary>Como bloquear meu cartão?</summary>
+                                    <p>Na página Cartões, ative a opção “Bloquear cartão físico”. O estado fica salvo no navegador e pode ser revertido quando desejar.</p>
+                                </details>
+                                <details class="faq">
+                                    <summary>Onde consulto meu extrato?</summary>
+                                    <p>A página Extrato reúne as movimentações simuladas. Você pode pesquisar, filtrar entradas e saídas e exportar os dados em CSV.</p>
+                                </details>
+                                <details class="faq">
+                                    <summary>Como funciona a supervisão parental?</summary>
+                                    <p>O responsável pode definir limites diários e permissões. No protótipo, as alterações são locais; em um produto real, exigiriam autenticação própria.</p>
+                                </details>
+                                <details class="faq">
+                                    <summary>Meus dados estão seguros?</summary>
+                                    <p>Este é um protótipo acadêmico sem servidor. Os dados inseridos permanecem no armazenamento local do navegador e podem ser apagados nas Configurações.</p>
+                                </details>
+                            </div>
+                        </article>
+                        <article class="card card--third">
+                            <span class="quick-action__icon">
+                                <img class="ui-icon" src="../assets/icons/help-web-button.png" alt="">
+                            </span>
+                            <h3 class="info-card-title">Dúvidas gerais</h3>
+                            <p class="muted info-card-copy">Entenda recursos, cadastro e navegação.</p>
+                        </article>
+                        <article class="card card--third">
+                            <span class="quick-action__icon">
+                                <img class="ui-icon" src="../assets/icons/cardblack.png" alt="">
+                            </span>
+                            <h3 class="info-card-title">Cartão e segurança</h3>
+                            <p class="muted info-card-copy">Saiba como proteger e controlar seu cartão.</p>
+                        </article>
+                        <article class="card card--third">
+                            <span class="quick-action__icon">
+                                <img class="ui-icon" src="../assets/icons/send.png" alt="">
+                            </span>
+                            <h3 class="info-card-title">Pix e pagamentos</h3>
+                            <p class="muted info-card-copy">Tire dúvidas sobre transferências e limites.</p>
+                        </article>
+                    </section>
+                </main>
+                <footer class="app-footer">
+                    <p>NewGenBank © 2026 · Estamos aqui para ajudar</p>
+                    <nav>
+                        <a href="configuracoes.html">Segurança</a>
+                    </nav>
+                </footer>
+            </div>
+        </div>
+        <div class="modal" id="contact-modal" role="dialog" aria-modal="true" aria-hidden="true">
+            <div class="modal__dialog">
+                <header class="modal__header">
+                    <div>
+                        <h2>Fale com o suporte</h2>
+                        <p>Descreva sua dúvida com o máximo de detalhes.</p>
+                    </div>
+                    <button type="button" class="modal__close" data-modal-close aria-label="Fechar">×</button>
+                </header>
+                <form class="auth-form" data-contact-form>
+                    <div class="field">
+                        <label for="contact-subject">Assunto</label>
+                        <select id="contact-subject" required>
+                            <option value="">Selecione</option>
+                            <option>Pix e transferências</option>
+                            <option>Cartões</option>
+                            <option>Acesso e segurança</option>
+                            <option>Outro assunto</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="contact-message">Mensagem</label>
+                        <textarea id="contact-message" placeholder="Conte o que aconteceu" required>
+                        </textarea>
+                    </div>
+                    <div class="modal__actions">
+                        <button class="button button--secondary" type="button" data-modal-close>Cancelar</button>
+                        <button class="button button--primary" type="submit">Enviar mensagem</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Configurações | NewGenBank</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <script src="../js/theme.js"></script>
+        <link rel="stylesheet" href="../css/style.css">
+        <script src="../js/main.js" defer>
+        </script>
+    </head>
+    <body class="app-page">
+        <div class="app-shell">
+            <aside class="sidebar">
+                <header class="sidebar__header">
+                    <a class="brand" href="dashboard.html">
+                        <span class="brand__symbol">NG</span>
+                        <span class="brand__name">NewGenBank</span>
+                    </a>
+                    <button type="button" class="sidebar__close" data-menu-close aria-label="Fechar menu">×</button>
+                </header>
+                <nav class="sidebar__navigation">
+                    <p class="sidebar__section-label">CONTA</p>
+                    <ul class="sidebar__menu">
+                        <li>
+                            <a class="sidebar__link" href="dashboard.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/casa preta.png" alt="">
+                                </span>
+                                Visão geral
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="pix.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/pix-preto.png" alt="">
+                                </span>
+                                Pix
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="cartoes.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/cardblack.png" alt="">
+                                </span>
+                                Cartões
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="extrato.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/receipt.png" alt="">
+                                </span>
+                                Extrato
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="supervisao.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/shield.png" alt="">
+                                </span>
+                                Supervisão
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="perfil.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/user.png" alt="">
+                                </span>
+                                Perfil
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="configuracoes.html" aria-current="page">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/configurações-preta.png" alt="">
+                                </span>
+                                Configurações
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar__link" href="ajuda.html">
+                                <span class="sidebar__icon">
+                                    <img class="ui-icon" src="../assets/icons/help-web-button.png" alt="">
+                                </span>
+                                Ajuda
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <footer class="sidebar__footer">
+                    <div class="sidebar__profile">
+                        <span class="sidebar__avatar" data-user-initials>EG</span>
+                        <span class="sidebar__profile-info">
+                            <strong data-user-name>Eduardo Gomes</strong>
+                            <span>Conta pessoal</span>
+                        </span>
+                    </div>
+                    <a class="sidebar__logout" href="../index.html" data-logout>Sair da conta</a>
+                </footer>
+            </aside>
+            <div class="sidebar-overlay" data-menu-overlay>
+            </div>
+            <div class="app-content">
+                <header class="topbar">
+                    <div class="topbar__left">
+                        <button type="button" class="topbar__menu-button" data-menu-open aria-label="Abrir menu">
+                            <span>
+                            </span>
+                            <span>
+                            </span>
+                            <span>
+                            </span>
+                        </button>
+                        <div class="topbar__greeting">
+                            <p>Preferências da conta</p>
+                            <h1>Configurações</h1>
+                        </div>
+                    </div>
+                    <div class="topbar__actions">
+                        <a class="icon-button" href="notificacoes.html" aria-label="Notificações">
+                            <img class="ui-icon" src="../assets/icons/sino-preto.png" alt="">
+                            <span class="icon-button__dot" data-notification-dot>
+                            </span>
+                        </a>
+                        <a class="topbar__profile" href="perfil.html">
+                            <span class="topbar__avatar" data-user-initials>EG</span>
+                            <span class="topbar__profile-info">
+                                <strong data-user-first-name>Eduardo</strong>
+                                <small>Conta pessoal</small>
+                            </span>
+                        </a>
+                    </div>
+                </header>
+                <main class="app-main">
+                    <section class="page-hero">
+                        <div class="page-hero__content">
+                            <p class="eyebrow">Configurações</p>
+                            <h2>Deixe tudo do seu jeito.</h2>
+                            <p>Ajuste segurança, notificações e privacidade em um único lugar.</p>
+                        </div>
+                    </section>
+                    <section class="page-grid">
+                        <article class="card card--wide">
+                            <div class="card__header">
+                                <div>
+                                    <h3>Aparência</h3>
+                                    <p>Escolha como o NewGenBank deve aparecer neste dispositivo.</p>
+                                </div>
+                            </div>
+                            <fieldset class="theme-options">
+                                <legend class="sr-only">Tema da interface</legend>
+                                <label class="theme-option">
+                                    <input type="radio" name="theme" value="dark" data-theme-option>
+                                    <span class="theme-option__content">
+                                        <span class="theme-option__preview theme-option__preview--dark" aria-hidden="true">
+                                            <span></span>
+                                            <span></span>
+                                        </span>
+                                        <strong>Escuro</strong>
+                                        <small>A aparência original do NewGenBank.</small>
+                                    </span>
+                                </label>
+                                <label class="theme-option">
+                                    <input type="radio" name="theme" value="light" data-theme-option>
+                                    <span class="theme-option__content">
+                                        <span class="theme-option__preview theme-option__preview--light" aria-hidden="true">
+                                            <span></span>
+                                            <span></span>
+                                        </span>
+                                        <strong>Claro</strong>
+                                        <small>Mais luminosidade e contraste suave.</small>
+                                    </span>
+                                </label>
+                                <label class="theme-option">
+                                    <input type="radio" name="theme" value="auto" data-theme-option>
+                                    <span class="theme-option__content">
+                                        <span class="theme-option__preview theme-option__preview--auto" aria-hidden="true">
+                                            <span></span>
+                                            <span></span>
+                                        </span>
+                                        <strong>Automático</strong>
+                                        <small>Acompanha a preferência do sistema.</small>
+                                    </span>
+                                </label>
+                            </fieldset>
+                        </article>
+                        <article class="card">
+                            <div class="card__header">
+                                <div>
+                                    <h3>Segurança</h3>
+                                    <p>Camadas extras de proteção.</p>
+                                </div>
+                                <span class="status">Protegida</span>
+                            </div>
+                            <div class="switch-row">
+                                <span class="switch-row__text">
+                                    <strong>Autenticação em duas etapas</strong>
+                                    <small>Exige uma confirmação adicional ao entrar.</small>
+                                </span>
+                                <label class="switch">
+                                    <input type="checkbox" data-setting="twoFactor">
+                                    <span>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="switch-row">
+                                <span class="switch-row__text">
+                                    <strong>Biometria</strong>
+                                    <small>Permite acesso com impressão digital ou rosto.</small>
+                                </span>
+                                <label class="switch">
+                                    <input type="checkbox" data-setting="biometrics">
+                                    <span>
+                                    </span>
+                                </label>
+                            </div>
+                        </article>
+                        <article class="card">
+                            <div class="card__header">
+                                <div>
+                                    <h3>Notificações</h3>
+                                    <p>Escolha o que deseja acompanhar.</p>
+                                </div>
+                            </div>
+                            <div class="switch-row">
+                                <span class="switch-row__text">
+                                    <strong>Compras e Pix</strong>
+                                    <small>Avisos sobre movimentações financeiras.</small>
+                                </span>
+                                <label class="switch">
+                                    <input type="checkbox" data-setting="transactionAlerts">
+                                    <span>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="switch-row">
+                                <span class="switch-row__text">
+                                    <strong>Novidades NewGenBank</strong>
+                                    <small>Recursos, dicas e comunicados.</small>
+                                </span>
+                                <label class="switch">
+                                    <input type="checkbox" data-setting="news">
+                                    <span>
+                                    </span>
+                                </label>
+                            </div>
+                        </article>
+                        <article class="card card--wide">
+                            <div class="card__header">
+                                <div>
+                                    <h3>Privacidade e dados</h3>
+                                    <p>Controle as informações deste protótipo.</p>
+                                </div>
+                            </div>
+                            <div class="notice">
+                                <strong>Privacidade</strong>
+                                <span>Este projeto é demonstrativo. Dados de cadastro, configurações e transações simuladas ficam armazenados somente no navegador deste dispositivo.</span>
+                            </div>
+                            <div class="action-row">
+                                <button class="button button--secondary" type="button" data-modal-open="#privacy-modal">Revisar política</button>
+                                <button class="button button--danger" type="button" data-modal-open="#clear-modal">Limpar dados locais</button>
+                            </div>
+                        </article>
+                    </section>
+                </main>
+                <footer class="app-footer">
+                    <p>NewGenBank © 2026 · Suas escolhas, seus controles</p>
+                    <nav>
+                        <a href="ajuda.html">Ajuda</a>
+                    </nav>
+                </footer>
+            </div>
+        </div>
+        <div class="modal" id="privacy-modal" role="dialog" aria-modal="true" aria-hidden="true">
+            <div class="modal__dialog">
+                <header class="modal__header">
+                    <div>
+                        <h2>Privacidade no protótipo</h2>
+                        <p>Como os dados são usados nesta demonstração.</p>
+                    </div>
+                    <button type="button" class="modal__close" data-modal-close aria-label="Fechar">×</button>
+                </header>
+                <div class="notice">
+                    <strong>Local</strong>
+                    <span>Nenhum dado é enviado para servidores. O navegador mantém apenas as informações necessárias para demonstrar os fluxos do produto.</span>
+                </div>
+                <div class="modal__actions">
+                    <button type="button" class="button button--primary" data-modal-close>Entendi</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="clear-modal" role="dialog" aria-modal="true" aria-hidden="true">
+            <div class="modal__dialog">
+                <header class="modal__header">
+                    <div>
+                        <h2>Limpar dados locais?</h2>
+                        <p>Cadastro, preferências e movimentações simuladas voltarão ao padrão.</p>
+                    </div>
+                    <button type="button" class="modal__close" data-modal-close aria-label="Fechar">×</button>
+                </header>
+                <div class="modal__actions">
+                    <button type="button" class="button button--secondary" data-modal-close>Cancelar</button>
+                    <button class="button button--danger" type="button" data-clear-storage>Limpar e sair</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
