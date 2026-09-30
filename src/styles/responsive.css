@@ -1,0 +1,157 @@
+@media (max-width: 1050px) {
+  .entry-main { grid-template-columns: minmax(0, 1fr) minmax(21rem, .8fr); gap: 3rem; }
+  .app-header { grid-template-columns: 1fr auto; }
+  .app-nav { display: none; }
+  .capital-section { grid-template-columns: 6rem 1fr; }
+  .capital-note { grid-column: 2; }
+  .motion-section { grid-template-columns: 6rem 1fr; }
+  .motion-data { grid-column: 2; }
+  .instrument-section { grid-template-columns: 5rem 1fr; }
+  .instrument-copy { grid-column: 2; }
+}
+
+@media (max-width: 760px) {
+  :root { --page-inline: 1rem; }
+  body { padding-block-end: 5rem; }
+  .public-header { min-height: 4.8rem; }
+  .public-header .brand__wordmark { display: none; }
+  .public-footer { display: none; }
+  .entry-main { display: flex; flex-direction: column; align-items: stretch; min-height: auto; padding-block: 3rem 2rem; }
+  .entry-statement h1 { margin-block: 1rem 1.4rem; font-size: clamp(3.25rem, 16vw, 5.2rem); line-height: .87; }
+  .entry-statement__copy { max-width: 26rem; margin-block-end: 1.6rem; font-size: .92rem; }
+  .entry-instrument { padding: 3.5rem 1rem 1.5rem; }
+  .entry-instrument .newgen-card { margin-inline: auto; transform: perspective(900px) rotateX(3deg) rotateY(-5deg); }
+  .login-main { display: block; min-height: auto; }
+  .login-context { padding: 3rem 0 2rem; border-inline-end: 0; border-block-end: 1px solid var(--divider); }
+  .login-context .back-link { margin-block-end: 4rem; }
+  .login-context h1 { font-size: clamp(3rem, 14vw, 5rem); }
+  .login-context__rule { margin-block-start: 3rem; }
+  .login-panel { padding: 3rem 0 5rem; }
+  .login-panel > header { margin-block-end: 2rem; }
+  .login-form { max-width: none; }
+  .app-header { min-height: 4.8rem; }
+  .app-header .brand__wordmark, .icon-action--desktop { display: none; }
+  .dashboard-intro { display: block; padding-block: 2.5rem 3.5rem; }
+  .dashboard-intro h1 { font-size: clamp(2.8rem, 12vw, 4.5rem); }
+  .dashboard-intro > p { margin-block-start: 1.4rem; font-size: .85rem; }
+  .capital-section { display: block; padding-block: 1.3rem 3rem; }
+  .capital-section .section-marker { margin-block-end: 2.8rem; }
+  .balance-line { align-items: flex-end; justify-content: space-between; gap: .5rem; }
+  .balance-line strong { min-width: 0; font-size: clamp(3.15rem, 15vw, 5rem); }
+  .capital-context { flex-direction: column; gap: .45rem; }
+  .capital-note { margin-block-start: 2.5rem; }
+  .action-strip { display: block; padding-block: 2.4rem 4rem; }
+  .action-strip > header { margin-block-end: 2rem; }
+  .action-strip h2 { max-width: none; font-size: 2.6rem; }
+  .action-strip__list button, .action-strip__action { grid-template-columns: 2rem 2.7rem 1fr auto; gap: .65rem; }
+  .motion-section { display: block; padding-block: 4rem; }
+  .motion-section .section-marker { margin-block-end: 2.8rem; }
+  .motion-copy h2 { font-size: 3rem; }
+  .motion-data { margin-block-start: 2.5rem; }
+  .flow { min-height: 7rem; }
+  .motion-data dl { margin-block-start: 2rem; }
+  .instrument-section { display: flex; flex-direction: column; align-items: stretch; gap: 2.5rem; margin-inline: calc(-1 * var(--page-inline)); margin-block: 0 4.5rem; padding: 2rem var(--page-inline) 3.5rem; }
+  .instrument-section .section-marker { order: 0; }
+  .instrument-card { order: 1; padding-inline: .5rem; }
+  .instrument-copy { order: 2; }
+  .instrument-copy h2 { font-size: 3.2rem; }
+  .ledger-section { padding-block-end: 3.5rem; }
+  .ledger-section > header { align-items: flex-start; }
+  .ledger-section > header button { white-space: nowrap; }
+  .ledger-section h2 { font-size: 2.8rem; }
+  .ledger-list li > a { grid-template-columns: 2.5rem minmax(0, 1fr) auto; gap: .65rem; min-height: 4.7rem; }
+  .ledger-list time { display: none; }
+  .ledger-list > li > strong { font-size: .75rem; }
+  .ledger-direction { width: 2.15rem; height: 2.15rem; }
+  .app-footer { display: none; }
+  .mobile-nav { position: fixed; z-index: 40; inset-inline: .7rem; inset-block-end: max(.7rem, env(safe-area-inset-bottom)); display: grid; grid-template-columns: repeat(4, 1fr); padding: .45rem; border: 1px solid var(--divider); background: var(--ledger-raised); box-shadow: 0 14px 35px rgb(20 22 18 / .16); }
+  .mobile-nav a, .mobile-nav button { display: grid; place-items: center; gap: .2rem; min-height: 3.4rem; padding: .25rem; border: 0; background: transparent; color: var(--text-secondary); font-size: .58rem; text-decoration: none; }
+  .mobile-nav a[aria-current='page'] { color: var(--text-primary); }
+  .mobile-nav button { background: var(--control); color: var(--canvas); }
+  .mobile-nav svg { width: 1.1rem; height: 1.1rem; }
+  .status-toast { inset-inline: 1rem; inset-block-end: 5.4rem; max-width: none; }
+  .pix-header { display: block; min-height: auto; padding-block: 1.5rem 2rem; }
+  .pix-header > div { margin-block: 2.5rem 2rem; }
+  .pix-header h1 { font-size: 3.6rem; }
+  .pix-flow { margin-block-start: 1.5rem; }
+  .pix-stage { display: block; min-height: auto; padding-block: 3rem 6rem; }
+  .pix-stage__context h2 { font-size: 3.5rem; }
+  .pix-stage__context { margin-block-end: 3rem; }
+  .amount-input input { font-size: clamp(3.4rem, 17vw, 5rem); }
+  .choice-split { grid-template-columns: 1fr 1fr; }
+  .choice-split div:last-child { grid-column: 1 / -1; border-inline-start: 0; border-block-start: 1px solid var(--divider); }
+  .pix-review__actions { position: sticky; inset-block-end: 5.3rem; z-index: 5; grid-template-columns: 1fr; padding-block: .7rem; background: var(--canvas); }
+  .pix-review__actions > button:first-child { order: 2; min-height: 2.5rem; }
+  .balance-reaction { grid-template-columns: 1fr; align-content: center; min-height: calc(100svh - 12rem); text-align: center; }
+  .balance-reaction__transfer > span { inset-inline: 20%; inset-block: -2rem; width: 1px; height: auto; margin-inline: auto; }
+  .receipt-stage, .transaction-shell { padding-block: 2.5rem 6rem; }
+  .receipt__amount { font-size: 4.4rem; }
+  .receipt__details div { grid-template-columns: 7rem 1fr; }
+  .card-header { display: block; padding-block: 2rem 3rem; }
+  .card-header .back-link { margin-block-end: 3rem; }
+  .card-header h1 { font-size: clamp(3rem, 14vw, 5rem); }
+  .card-header > p { margin-block-start: 1.5rem; }
+  .card-stage { display: block; min-height: auto; margin-inline: calc(-1 * var(--page-inline)); padding: 3rem var(--page-inline); }
+  .card-stage__object { margin-block-end: 3.5rem; }
+  .card-object-control { max-width: 31rem; }
+  .card-object-actions { max-width: 31rem; }
+  .card-capacity, .card-settings, .virtual-card { display: block; padding-block: 4.5rem; }
+  .card-capacity > header, .card-settings > header, .virtual-card > header { margin-block-end: 2.5rem; }
+  .capacity-boundary dl { grid-template-columns: 1fr 1fr; }
+  .capacity-boundary dl div:first-child { grid-column: 1 / -1; border-block-end: 1px solid var(--divider); }
+  .capacity-boundary dd { font-size: 2rem; }
+  .limit-control { margin-block-start: 2rem; }
+  .limit-control > div { display: grid; }
+  .settings-ledger > div { grid-template-columns: 2.7rem minmax(0, 1fr) auto; gap: .7rem; padding-block: .6rem; }
+  .quality-tier { grid-column: 2 / -1; justify-self: start; margin-block-end: .5rem; }
+  .virtual-card__data { grid-template-columns: 1fr 1fr; }
+  .virtual-card__data > div:first-child { grid-column: 1 / -1; }
+  .invoice-section { padding-block: 4.5rem 7rem; }
+  .invoice-section > header { display: block; }
+  .invoice-section > header dl { grid-template-columns: 1fr 1fr; margin-block-start: 2rem; }
+  .invoice-section li a { grid-template-columns: 1fr auto; padding-block: .8rem; }
+  .invoice-section time { display: none; }
+  .card-status-message { inset-inline: 1rem; inset-block-end: 5.4rem; justify-content: center; padding: .5rem; background: var(--ledger-raised); }
+}
+
+@media (max-width: 390px) {
+  .theme-control__option { width: 1.8rem; height: 1.8rem; }
+  .entry-instrument { padding-inline: 0; }
+  .entry-instrument__baseline { font-size: .48rem; }
+  .balance-line strong { font-size: 3rem; }
+  .action-strip__list button, .action-strip__action { grid-template-columns: 1.6rem 2.5rem 1fr; }
+  .action-strip__arrow { display: none; }
+  .ledger-section > header { display: block; }
+  .ledger-section > header button { margin-block-start: 1rem; }
+  .pix-header h1 { font-size: 3rem; }
+  .pix-stage__context h2 { font-size: 3rem; }
+  .receipt__details div { grid-template-columns: 1fr; gap: .35rem; }
+  .receipt__amount { font-size: 3.7rem; }
+  .card-object-actions span { display: none; }
+  .card-stage__state h2, .card-capacity h2, .card-settings h2, .virtual-card h2 { font-size: 2.7rem; }
+  .newgen-card__sensitive strong { font-size: .62rem; }
+  .newgen-card__back-meta { gap: 1rem; }
+  .capacity-boundary dl { display: block; }
+  .capacity-boundary dl div { border-block-end: 1px solid var(--divider); }
+  .settings-ledger > div { grid-template-columns: 2.5rem minmax(0, 1fr); }
+  .settings-ledger [role='switch'] { grid-column: 2; justify-self: start; margin-block-end: .6rem; }
+  .quality-tier { grid-column: 2; }
+  .virtual-card__data { display: block; }
+  .virtual-card__data > div { min-height: 6rem; }
+  .invoice-section > header dl { display: block; }
+  .invoice-section li a { grid-template-columns: minmax(0, 1fr) auto; }
+}
+
+@media (max-height: 650px) and (min-width: 761px) {
+  .entry-main { padding-block: 2rem; }
+  .entry-statement h1 { font-size: clamp(3.5rem, 10vh, 5rem); }
+  .login-context, .login-panel { padding-block: 2rem; }
+  .login-context h1 { font-size: clamp(3rem, 9vh, 4.5rem); }
+  .card-header { padding-block: 2rem; }
+  .card-stage { min-height: auto; padding-block: 2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .newgen-card__plane { transition: none; }
+  .capacity-boundary__used { transition: none; }
+}
