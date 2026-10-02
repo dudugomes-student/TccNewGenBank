@@ -1,7 +1,7 @@
 export type MoneyDirection = 'in' | 'out';
 export type TransactionStatus = 'completed' | 'scheduled' | 'processing';
-export type TransactionType = 'pix' | 'purchase' | 'income' | 'service';
-export type PixKeyType = 'cpf' | 'phone' | 'email' | 'random';
+export type TransactionType = 'pix' | 'purchase' | 'income' | 'service' | 'payment' | 'receipt';
+export type PixKeyType = 'cpf' | 'cnpj' | 'phone' | 'email' | 'random';
 
 export interface Account {
   id: string;
@@ -36,9 +36,11 @@ export interface Transaction {
   maskedKey?: string;
   origin?: string;
   cardId?: string;
+  billingId?: string;
+  dueDate?: string;
+  reference?: string;
+  chargeId?: string;
 }
-
-export type CardQualityTier = 'lite' | 'essential';
 
 export interface BankCard {
   id: string;
@@ -57,15 +59,29 @@ export interface BankCard {
   contactlessEnabled: boolean;
   onlinePurchasesEnabled: boolean;
   virtualCardEnabled: boolean;
-  qualityTier: CardQualityTier;
 }
+
+export type NotificationType = 'pix' | 'payment' | 'receipt' | 'card' | 'account';
 
 export interface Notification {
   id: string;
+  type: NotificationType;
   title: string;
   body: string;
   createdAt: string;
   read: boolean;
+  transactionId?: string;
+  targetPath?: string;
+}
+
+export interface DemoCharge {
+  id: string;
+  code: string;
+  amount?: number;
+  description?: string;
+  createdAt: string;
+  status: 'created' | 'shared' | 'received';
+  receivedAt?: string;
   transactionId?: string;
 }
 
@@ -78,12 +94,13 @@ export interface Preferences {
 }
 
 export interface FinancialSnapshot {
-  schemaVersion: 3;
+  schemaVersion: 5;
   account: Account;
   balance: Balance;
   transactions: Transaction[];
   cards: BankCard[];
   notifications: Notification[];
+  charges: DemoCharge[];
   preferences: Preferences;
 }
 

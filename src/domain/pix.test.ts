@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { demoFinancialSnapshot } from '../data/demoData';
-import { demoPixRecipients } from '../data/pixRecipients';
+import { demoPixRecipients, pixRecipientExamples } from '../data/pixRecipients';
 import { localFinancialRepository, migrateFinancialSnapshot } from '../persistence/localFinancialRepository';
 import type { FinancialSnapshot } from './models';
-import { executePix, findPixRecipient, validatePixAmount } from './pix';
+import { detectPixKeyType, executePix, findPixRecipient, normalizePixKey, validatePixAmount } from './pix';
 
 const recipient = demoPixRecipients[0];
 const unavailableRecipient = demoPixRecipients.find((item) => !item.available)!;
@@ -28,6 +28,28 @@ describe('Pix financial transaction', () => {
     expect(findPixRecipient(' GABRIEL@DEMO.NGB ', demoPixRecipients)).toEqual(recipient);
     const result = executePix(freshSnapshot(), command());
     expect(result.ok).toBe(true);
+  });
+
+  it('preserva pontos no e-mail oferecido pela interface', () => {
+    expect(detectPixKeyType(pixRecipientExamples.email)).toBe('email');
+    expect(normalizePixKey(pixRecipientExamples.email)).toBe('gabriel@demo.ngb');
+    expect(findPixRecipient(pixRecipientExamples.email, demoPixRecipients)).toEqual(recipient);
+  });
+
+  it('reconhece todos os exemplos reais oferecidos pela interface', () => {
+    expect(detectPixKeyType(pixRecipientExamples.cpf)).toBe('cpf');
+    expect(detectPixKeyType(pixRecipientExamples.phone)).toBe('phone');
+    expect(detectPixKeyType(pixRecipientExamples.random)).toBe('random');
+    Object.values(pixRecipientExamples).forEach((key) => {
+      expect(findPixRecipient(key, demoPixRecipients)).not.toBeNull();
+    });
+  });
+
+  it('normaliza CNPJ sem afetar e-mail ou chave aleatória', () => {
+    const cnpj = '12.345.678/0001-95';
+    expect(detectPixKeyType(cnpj)).toBe('cnpj');
+    expect(normalizePixKey(cnpj)).toBe('12345678000195');
+    expect(normalizePixKey(pixRecipientExamples.random)).toBe(pixRecipientExamples.random);
   });
 
   it('reduz o saldo exatamente uma vez', () => {
@@ -92,7 +114,7 @@ describe('Pix financial transaction', () => {
     const legacy = freshSnapshot();
     const legacyTransaction = { ...legacy.transactions[0], type: undefined, description: undefined };
     const migrated = migrateFinancialSnapshot({ ...legacy, schemaVersion: undefined, transactions: [legacyTransaction] } as unknown as Partial<FinancialSnapshot>);
-    expect(migrated.schemaVersion).toBe(3);
+    expect(migrated.schemaVersion).toBe(5);
     expect(migrated.transactions[0]).toMatchObject({ type: 'income', description: legacyTransaction.title });
   });
 });

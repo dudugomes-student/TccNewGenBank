@@ -22,15 +22,14 @@ export type CardCommand =
   | { type: 'set-status'; cardId: string; status: BankCard['status']; createdAt: string }
   | { type: 'set-contactless'; cardId: string; enabled: boolean; createdAt: string }
   | { type: 'set-online-purchases'; cardId: string; enabled: boolean; createdAt: string }
-  | { type: 'set-limit-allocation'; cardId: string; amount: number; createdAt: string }
-  | { type: 'set-quality-tier'; cardId: string; tier: BankCard['qualityTier']; createdAt: string };
+  | { type: 'set-limit-allocation'; cardId: string; amount: number; createdAt: string };
 
 export type CardCommandResult =
   | { ok: true; snapshot: FinancialSnapshot; card: BankCard; message: string }
   | { ok: false; code: 'card-not-found' | 'invalid-limit' | 'limit-below-used' | 'card-locked'; message: string };
 
 const notificationFor = (command: CardCommand, card: BankCard): Notification | null => {
-  const base = { id: `notification_${crypto.randomUUID()}`, createdAt: command.createdAt, read: false };
+  const base = { id: `notification_${crypto.randomUUID()}`, type: 'card' as const, createdAt: command.createdAt, read: false, targetPath: '/cartao' };
   if (command.type === 'set-status') return { ...base, title: command.status === 'locked' ? 'Cartão bloqueado' : 'Cartão desbloqueado', body: `${card.label} final ${card.lastFour} foi ${command.status === 'locked' ? 'bloqueado' : 'desbloqueado'}.` };
   if (command.type === 'set-contactless') return { ...base, title: 'Aproximação alterada', body: `Compras por aproximação foram ${command.enabled ? 'ativadas' : 'desativadas'}.` };
   if (command.type === 'set-online-purchases') return { ...base, title: 'Compras online alteradas', body: `Compras online foram ${command.enabled ? 'ativadas' : 'desativadas'}.` };
@@ -56,13 +55,11 @@ export const executeCardCommand = (snapshot: FinancialSnapshot, command: CardCom
     if (command.amount < cardLimitUsed(snapshot, current.id)) return { ok: false, code: 'limit-below-used', message: 'O limite organizado não pode ficar abaixo do valor já utilizado.' };
     nextCard = { ...current, limitAllocated: Math.round(command.amount * 100) / 100 };
   }
-  if (command.type === 'set-quality-tier') nextCard = { ...current, qualityTier: command.tier };
-
   const notification = notificationFor(command, nextCard);
   return {
     ok: true,
     card: nextCard,
-    message: command.type === 'set-limit-allocation' ? 'Limite organizado.' : command.type === 'set-quality-tier' ? 'Representação do cartão atualizada.' : 'Configuração atualizada.',
+    message: command.type === 'set-limit-allocation' ? 'Limite organizado.' : 'Configuração atualizada.',
     snapshot: {
       ...snapshot,
       cards: snapshot.cards.map((card) => card.id === nextCard.id ? nextCard : card),

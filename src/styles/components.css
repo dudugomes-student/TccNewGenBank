@@ -10,6 +10,17 @@
 .theme-control__option input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .theme-control__option:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 3px; }
 
+/* Foundation controls: compact variants built from the approved Login action. */
+.ngb-button { display: inline-flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3rem; padding-inline: 1rem; border: 1px solid var(--border-subtle); border-radius: .85rem; font-weight: 800; transition: transform var(--duration-micro) var(--ease-out), box-shadow var(--duration-micro) var(--ease-out), background-color var(--duration-micro) var(--ease-out); }
+.ngb-button--primary { border-color: transparent; background: var(--accent); color: var(--accent-on); box-shadow: 0 6px 0 color-mix(in srgb, var(--accent), #000 48%), 0 15px 30px var(--accent-shadow), inset 0 1px 0 rgb(255 255 255 / .34); }
+.ngb-button--secondary { background: var(--surface-raised); color: var(--text-primary); box-shadow: 0 4px 0 color-mix(in srgb, var(--surface-raised), #000 22%); }
+.ngb-button--danger { border-color: transparent; background: var(--danger); color: #fff; box-shadow: 0 4px 0 color-mix(in srgb, var(--danger), #000 38%); }
+.ngb-button--compact { min-height: 2.55rem; padding-inline: .8rem; border-radius: .7rem; font-size: .72rem; }
+.ngb-button--icon { justify-content: center; width: 2.75rem; padding: 0; border-radius: 50%; }
+.ngb-button:hover { transform: translateY(-1px); }
+.ngb-button:active { transform: translateY(4px) scale(.994); box-shadow: 0 2px 0 color-mix(in srgb, currentColor, #000 55%); }
+.ngb-button:disabled { cursor: wait; opacity: .68; }
+
 .public-header, .app-header, .public-footer, .app-footer { width: min(var(--page-max), calc(100% - 2 * var(--page-inline))); margin-inline: auto; }
 .public-header { display: flex; align-items: center; justify-content: space-between; min-height: 6.5rem; border-block-end: 1px solid var(--divider); }
 .public-footer, .app-footer { display: flex; justify-content: space-between; padding-block: 1.25rem; border-block-start: 1px solid var(--divider); color: var(--text-secondary); font-size: .62rem; font-weight: 700; letter-spacing: .12em; }
@@ -48,14 +59,26 @@
 .status-toast { position: fixed; z-index: 50; inset-inline-end: var(--page-inline); inset-block-end: 1.5rem; max-width: 25rem; padding: .95rem 1.1rem; border-inline-start: 3px solid var(--text-primary); background: var(--text-primary); color: var(--canvas); box-shadow: var(--shadow-object); font-size: .8rem; line-height: 1.5; opacity: 0; pointer-events: none; transform: translateY(.7rem); transition: opacity var(--duration-reveal), transform var(--duration-reveal); }
 .status-toast--visible { opacity: 1; transform: none; }
 
-/* Spatial Instrument: a materialidade responde a estado e interação, sem trabalho contínuo. */
-.newgen-card { --card-rotate-x: 0deg; --card-rotate-y: 0deg; display: block; padding: 0; overflow: visible; background: transparent; box-shadow: none; transform: none; perspective: 1100px; }
-.newgen-card__plane { position: relative; width: 100%; height: 100%; min-height: 100%; transform-style: preserve-3d; transform: rotateX(var(--card-rotate-x)) rotateY(var(--card-rotate-y)); transition: transform var(--duration-settle) var(--ease-out); }
-.newgen-card__plane::before { content: ''; position: absolute; inset: 2px; border-radius: var(--radius-object); background: var(--card-material-edge); transform: translateZ(-4px); }
-.newgen-card__face { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(1.25rem, 3vw, 2.25rem); overflow: hidden; border: 1px solid color-mix(in srgb, var(--text-on-object), transparent 78%); border-radius: var(--radius-object); backface-visibility: hidden; background: var(--object); color: var(--text-on-object); box-shadow: var(--shadow-object); transform: translateZ(1px); }
-.newgen-card__face::after { content: ''; position: absolute; z-index: 0; inset: 0; background: radial-gradient(circle at var(--card-light-x) var(--card-light-y), color-mix(in srgb, var(--text-on-object), transparent 78%), transparent 48%); opacity: .7; pointer-events: none; }
+/* Spatial Instrument: shell com duas faces, núcleo e quatro laterais reais em CSS 3D. */
+.newgen-card { --card-rotate-x: 0deg; --card-rotate-y: 0deg; --card-thickness: clamp(10px, 2.4vw, 14px); --card-half-thickness: calc(var(--card-thickness) / 2); --card-edge-light: 48%; --card-edge-opacity: .62; --card-light-strength: .78; --card-sheen-angle: 112deg; --card-sheen-opacity: .56; --card-shadow-depth: .72; position: relative; isolation: isolate; display: block; padding: 0; overflow: visible; background: transparent; box-shadow: none; transform: none; perspective: 1380px; perspective-origin: 50% 50%; }
+.newgen-card::before { content: none; }
+.newgen-card__ground-shadow { position: absolute; z-index: 0; inset: 14% 6% -9%; border-radius: 50%; background: rgb(7 12 10 / .28); filter: blur(29px); opacity: .7; pointer-events: none; transform: translate3d(var(--card-shadow-x), var(--card-shadow-y), 0) scale(var(--card-shadow-scale), var(--card-shadow-depth)); transform-origin: center; transition: transform 90ms linear, filter 160ms var(--ease-out), opacity 160ms var(--ease-out); }
+.newgen-card__ground-shadow::after { content: ''; position: absolute; inset: 20% 9%; border-radius: inherit; background: rgb(7 12 10 / .26); filter: blur(10px); opacity: .72; transition: opacity 160ms var(--ease-out), transform 160ms var(--ease-out); }
+.newgen-card__lift { position: absolute; z-index: 1; inset: 0; transform: translateZ(0) scale(1); transform-style: preserve-3d; transition: transform 180ms var(--ease-financial); }
+.newgen-card__plane { position: absolute; inset: 0; transform: rotateX(var(--card-rotate-x)) rotateY(var(--card-rotate-y)); transform-style: preserve-3d; transform-origin: center; transition: none; }
+.newgen-card__plane::before { content: ''; position: absolute; inset: 2px; border-radius: calc(var(--radius-object) - 1px); background: var(--card-material-edge); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text-on-object), transparent 84%); transform: translateZ(0); }
+.newgen-card__face { position: absolute; z-index: 2; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(1.25rem, 3vw, 2.25rem); overflow: hidden; border: 1px solid color-mix(in srgb, var(--text-on-object), transparent 76%); border-radius: var(--radius-object); -webkit-backface-visibility: hidden; backface-visibility: hidden; background: var(--object); color: var(--text-on-object); box-shadow: inset 0 1px 0 color-mix(in srgb, var(--text-on-object), transparent 78%), inset 0 -1px 0 rgb(0 0 0 / .14); transform: translateZ(var(--card-half-thickness)); }
+.newgen-card__face::before { content: ''; position: absolute; z-index: 0; inset: -20%; background: linear-gradient(var(--card-sheen-angle), transparent 28%, color-mix(in srgb, var(--text-on-object), transparent 88%) 46%, transparent 66%); opacity: var(--card-sheen-opacity); pointer-events: none; }
+.newgen-card__face::after { content: ''; position: absolute; z-index: 0; inset: -12%; background: radial-gradient(circle at var(--card-light-x) var(--card-light-y), color-mix(in srgb, var(--text-on-object), transparent 68%) 0, color-mix(in srgb, var(--text-on-object), transparent 91%) 25%, transparent 56%); opacity: var(--card-light-strength); pointer-events: none; }
 .newgen-card__face > * { position: relative; z-index: 1; }
-.newgen-card__back { transform: rotateY(180deg) translateZ(1px); }
+.newgen-card__back { transform: rotateY(180deg) translateZ(var(--card-half-thickness)); }
+.newgen-card__edge { position: absolute; z-index: 1; display: block; border-radius: 999px; backface-visibility: visible; background: linear-gradient(90deg, color-mix(in srgb, var(--card-material-edge), #000 30%), color-mix(in srgb, var(--card-material-edge), #fff var(--card-edge-light)), color-mix(in srgb, var(--card-material-edge), #000 22%)); box-shadow: inset 0 0 0 1px rgb(0 0 0 / .16); opacity: var(--card-edge-opacity); transform-style: preserve-3d; }
+.newgen-card__edge--top, .newgen-card__edge--bottom { inset-inline: calc(var(--radius-object) / 2); height: var(--card-thickness); }
+.newgen-card__edge--top { inset-block-start: calc(var(--card-half-thickness) * -1); transform: rotateX(90deg); }
+.newgen-card__edge--bottom { inset-block-end: calc(var(--card-half-thickness) * -1); transform: rotateX(90deg); }
+.newgen-card__edge--left, .newgen-card__edge--right { inset-block: calc(var(--radius-object) / 2); width: var(--card-thickness); background: linear-gradient(180deg, color-mix(in srgb, var(--card-material-edge), #000 28%), color-mix(in srgb, var(--card-material-edge), #fff var(--card-edge-light)), color-mix(in srgb, var(--card-material-edge), #000 20%)); }
+.newgen-card__edge--left { inset-inline-start: calc(var(--card-half-thickness) * -1); transform: rotateY(90deg); }
+.newgen-card__edge--right { inset-inline-end: calc(var(--card-half-thickness) * -1); transform: rotateY(90deg); }
 .newgen-card__state { position: absolute; z-index: 3; inset-block-start: 1.1rem; inset-inline-end: 4rem; padding: .35rem .55rem; border: 1px solid currentColor; font-size: .52rem; font-weight: 850; letter-spacing: .12em; }
 .newgen-card__stripe { height: 2.5rem; margin-inline: calc(-1 * clamp(1.25rem, 3vw, 2.25rem)); background: color-mix(in srgb, var(--text-on-object), transparent 84%); }
 .newgen-card__sensitive { display: grid; gap: .45rem; }
@@ -64,13 +87,24 @@
 .newgen-card__back-meta { display: flex; gap: 2rem; }
 .newgen-card__back-meta span { display: grid; gap: .3rem; }
 .newgen-card__back > p { margin: 0; font-size: .55rem; font-weight: 800; letter-spacing: .11em; }
-.newgen-card--locked .newgen-card__face { border-radius: .55rem; background: color-mix(in srgb, var(--object), var(--canvas) 34%); box-shadow: 0 7px 18px rgb(0 0 0 / .1); filter: saturate(.25); }
+.newgen-card--locked .newgen-card__face { border-radius: .55rem; background: color-mix(in srgb, var(--object), var(--canvas) 34%); box-shadow: inset 0 1px 0 rgb(255 255 255 / .12); filter: saturate(.25); }
 .newgen-card--locked .newgen-card__flow { opacity: .25; }
-.newgen-card--essential .newgen-card__face { box-shadow: 0 4px 12px rgb(0 0 0 / .1); }
 .newgen-card--manipulable { cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
-.newgen-card--grabbed { cursor: grabbing; }
-.newgen-card--grabbed .newgen-card__plane { transition: none; will-change: transform; }
-.newgen-card--grabbed .newgen-card__face { box-shadow: 0 18px 38px rgb(16 21 18 / .2); }
-.newgen-card--inertia .newgen-card__plane { transition: transform 70ms linear; will-change: transform; }
-.newgen-card--settling .newgen-card__plane { transition: transform 280ms cubic-bezier(.2, .75, .25, 1); will-change: transform; }
+.newgen-card--captured, .newgen-card--grabbed { cursor: grabbing; }
+.newgen-card--captured .newgen-card__plane, .newgen-card--grabbed .newgen-card__plane, .newgen-card--inertia .newgen-card__plane, .newgen-card--settling .newgen-card__plane { will-change: transform; }
+.newgen-card--captured .newgen-card__lift, .newgen-card--grabbed .newgen-card__lift, .newgen-card--inertia .newgen-card__lift, .newgen-card--settling .newgen-card__lift { will-change: transform; }
 @media (hover: hover) and (pointer: fine) { .newgen-card--manipulable:not(.newgen-card--grabbed) .newgen-card__face::after { opacity: .82; } }
+
+/* NewGen Card — physical WebGL object. The scene renders only while the object moves. */
+.newgen-card-3d { position: relative; isolation: isolate; width: 100%; height: 100%; min-height: 15rem; overflow: visible; border-radius: var(--radius-object); cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.newgen-card-3d canvas { position: absolute; inset-block-start: 50%; inset-inline-start: 50%; display: block; width: calc(var(--card-render-overscan, 2.25) * 100%); height: calc(var(--card-render-overscan, 2.25) * 100%); max-width: none; border-radius: inherit; outline: none; pointer-events: none; transform: translate(-50%, -50%); transition: filter 90ms var(--ease-out); }
+.newgen-card-3d[data-grabbed] { cursor: grabbing; }
+.newgen-card-3d[data-grabbed] canvas { filter: drop-shadow(0 24px 24px rgb(0 0 0 / .2)); }
+.newgen-card-3d[data-inertia] canvas { cursor: grab; }
+.newgen-card-3d--locked { cursor: not-allowed; }
+.newgen-card-3d--failed { display: grid; place-items: center; padding: 2rem; border: 1px solid var(--divider); background: var(--object); color: var(--text-on-object); font-size: .75rem; }
+.newgen-card-3d--loading { background: linear-gradient(145deg, #151918, #080a0a 58%, #171b19); box-shadow: var(--shadow-object); }
+
+@media (prefers-reduced-motion: reduce) {
+  .newgen-card-3d canvas { transition: none; }
+}

@@ -1,18 +1,28 @@
 import type { FinancialSnapshot, PixKeyType, PixRecipient, Transaction } from './models';
 
-export const normalizePixKey = (value: string) => value.trim().toLowerCase().replace(/[().\s-]/g, '');
+const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const digitsOnly = (value: string) => value.replace(/\D/g, '');
 
 export const detectPixKeyType = (value: string): PixKeyType | null => {
-  const clean = normalizePixKey(value);
-  if (/^\S+@\S+\.\S+$/.test(clean)) return 'email';
-  if (/^\d{11}$/.test(clean)) return value.includes('(') ? 'phone' : 'cpf';
-  if (/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value.trim())) return 'random';
+  const clean = value.trim().toLowerCase();
+  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean)) return 'email';
+  if (uuidPattern.test(clean)) return 'random';
+  const digits = digitsOnly(clean);
+  if ((clean.includes('(') || clean.startsWith('+')) && /^\d{10,13}$/.test(digits)) return 'phone';
+  if (/^\d{11}$/.test(digits)) return 'cpf';
+  if (/^\d{14}$/.test(digits)) return 'cnpj';
   return null;
 };
 
+export const normalizePixKey = (value: string, type = detectPixKeyType(value)) => {
+  const clean = value.trim().toLowerCase();
+  return type === 'cpf' || type === 'cnpj' || type === 'phone' ? digitsOnly(clean) : clean;
+};
+
 export const findPixRecipient = (value: string, recipients: PixRecipient[]) => {
-  const clean = normalizePixKey(value);
-  return recipients.find((recipient) => normalizePixKey(recipient.key) === clean) ?? null;
+  return recipients.find((recipient) =>
+    normalizePixKey(recipient.key, recipient.keyType) === normalizePixKey(value, recipient.keyType),
+  ) ?? null;
 };
 
 export type PixValidationCode = 'invalid-key' | 'recipient-not-found' | 'invalid-amount' | 'insufficient-balance' | 'limit-exceeded' | 'recipient-unavailable' | 'duplicate';
@@ -59,15 +69,17 @@ export const executePix = (snapshot: FinancialSnapshot, command: PixCommand): Pi
     institution: command.recipient.institution,
     maskedKey: command.recipient.maskedKey,
     origin: `${snapshot.account.institution} · Ag. ${snapshot.account.branch} · Conta ${snapshot.account.number}`,
-    category: 'Transferência',
+    category: 'Transferências',
   };
   const notification = {
     id: createId('notification'),
+    type: 'pix' as const,
     title: 'Pix enviado',
     body: `${command.amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} para ${command.recipient.name}.`,
     createdAt: command.createdAt,
     read: false,
     transactionId: transaction.id,
+    targetPath: `/movimentos/${transaction.id}`,
   };
   return {
     ok: true,

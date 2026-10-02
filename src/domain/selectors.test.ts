@@ -5,8 +5,9 @@ import { recentTransactions, sumTransactions } from './selectors';
 
 describe('financial domain', () => {
   it('calcula entradas e saídas a partir da mesma fonte de dados', () => {
-    expect(sumTransactions(demoFinancialSnapshot.transactions, 'in')).toBe(750);
-    expect(sumTransactions(demoFinancialSnapshot.transactions, 'out')).toBeCloseTo(736.3);
+    const recentDemo = demoFinancialSnapshot.transactions.slice(0, 5);
+    expect(sumTransactions(recentDemo, 'in')).toBe(750);
+    expect(sumTransactions(recentDemo, 'out')).toBeCloseTo(736.3);
   });
 
   it('ordena o ledger do evento mais recente ao mais antigo', () => {

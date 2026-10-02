@@ -18,6 +18,7 @@ export function CardRoute() {
   const [pendingStatus, setPendingStatus] = useState<typeof card.status | null>(null);
   const [limitDraft, setLimitDraft] = useState(card.limitAllocated);
   const confirmationRef = useRef<HTMLDivElement>(null);
+  const statusActionRef = useRef<HTMLButtonElement>(null);
   const purchases = useMemo(() => cardPurchases(snapshot.transactions, card.id), [snapshot.transactions, card.id]);
   const invoice = cardInvoiceAmount(snapshot, card.id);
   const used = cardLimitUsed(snapshot, card.id);
@@ -45,6 +46,11 @@ export function CardRoute() {
     if (!pendingStatus) return;
     execute({ type: 'set-status', cardId: card.id, status: pendingStatus, createdAt: new Date().toISOString() });
     setPendingStatus(null);
+    requestAnimationFrame(() => statusActionRef.current?.focus());
+  };
+  const cancelStatus = () => {
+    setPendingStatus(null);
+    requestAnimationFrame(() => statusActionRef.current?.focus());
   };
   const toggleSetting = (type: 'set-contactless' | 'set-online-purchases', enabled: boolean) =>
     execute({ type, cardId: card.id, enabled, createdAt: new Date().toISOString() });
@@ -61,38 +67,40 @@ export function CardRoute() {
   };
 
   return (
-    <div className="card-page route-stage">
+    <div className="card-page secondary-page vertical-slice mineral-scene route-stage">
+      <div className="mineral-backdrop" aria-hidden="true" />
+      <div className="mineral-atmosphere" aria-hidden="true" />
       <a className="skip-link" href="#card-content">Pular para o cartão</a>
-      <AppHeader unreadCount={unread} />
+      <AppHeader unreadCount={unread} showAccent />
       <main className="card-shell" id="card-content">
         <header className="card-header">
-          <Link className="back-link" to="/dashboard"><ArrowLeft aria-hidden="true" /> Dashboard</Link>
+          <Link className="back-link" to="/dashboard" viewTransition><ArrowLeft aria-hidden="true" /> Dashboard</Link>
           <div><p className="kicker">INSTRUMENT / CARD SYSTEM</p><h1 tabIndex={-1} data-route-title>Seu cartão.<br />Sob seu controle.</h1></div>
           <p>Estado, capacidade e segurança respondem ao mesmo instrumento que você vê no Dashboard.</p>
         </header>
 
         <section className="card-stage" aria-labelledby="card-state-title">
           <div className="card-stage__object">
-            <button className="card-object-control" type="button" onClick={() => setFlipped((value) => !value)} aria-pressed={flipped} aria-label={flipped ? 'Mostrar frente do cartão' : 'Virar cartão e mostrar área virtual'}>
+            <div className="card-object-control">
               <NewGenCard card={card} spatial flipped={flipped} revealSensitive={revealed} onFaceChange={setFlipped} />
-            </button>
+            </div>
             <div className="card-object-actions">
               <button type="button" onClick={() => setFlipped((value) => !value)}><RotateCcw aria-hidden="true" /> {flipped ? 'Ver frente' : 'Ver verso'}</button>
-              <span>{card.qualityTier === 'lite' ? 'ARRASTE PARA MANIPULAR · NO TOQUE, SEGURE PARA INCLINAR' : 'ESSENTIAL / PLANO'}</span>
+              <span>CLIQUE OU TOQUE E ARRASTE PARA MANIPULAR EM 3D</span>
             </div>
           </div>
           <div className="card-stage__state">
             <p className="section-index">ESTADO OPERACIONAL</p>
             <h2 id="card-state-title">{card.status === 'active' ? 'Ativo e disponível.' : 'Bloqueado e protegido.'}</h2>
             <p>{card.status === 'active' ? 'Compras seguem as permissões configuradas abaixo.' : 'Compras, aproximação e dados virtuais permanecem indisponíveis.'}</p>
-            <button className={`card-status-action card-status-action--${card.status}`} type="button" onClick={() => setPendingStatus(card.status === 'active' ? 'locked' : 'active')}>
+            <button ref={statusActionRef} className={`card-status-action card-status-action--${card.status}`} type="button" onClick={() => setPendingStatus(card.status === 'active' ? 'locked' : 'active')}>
               {card.status === 'active' ? <Lock aria-hidden="true" /> : <Unlock aria-hidden="true" />}
               {card.status === 'active' ? 'Bloquear cartão' : 'Desbloquear cartão'}
             </button>
-            {pendingStatus && <div className="card-confirmation" ref={confirmationRef} tabIndex={-1} role="alertdialog" aria-labelledby="card-confirmation-title">
+            {pendingStatus && <div className="card-confirmation" ref={confirmationRef} tabIndex={-1} role="group" aria-live="polite" aria-labelledby="card-confirmation-title">
               <strong id="card-confirmation-title">{pendingStatus === 'locked' ? 'Bloquear este cartão?' : 'Restaurar o uso deste cartão?'}</strong>
               <p>{pendingStatus === 'locked' ? 'Novas compras e o cartão virtual ficarão indisponíveis.' : 'As permissões configuradas voltarão a operar.'}</p>
-              <div><button type="button" onClick={() => setPendingStatus(null)}>Cancelar</button><button type="button" onClick={confirmStatus}>Confirmar</button></div>
+              <div><button type="button" onClick={cancelStatus}>Cancelar</button><button type="button" onClick={confirmStatus}>Confirmar</button></div>
             </div>}
           </div>
         </section>
@@ -116,7 +124,6 @@ export function CardRoute() {
           <div className="settings-ledger">
             <div><span className="settings-ledger__icon"><Wifi aria-hidden="true" /></span><span><strong>Aproximação</strong><small>{card.contactlessEnabled ? 'Disponível em terminais compatíveis.' : 'Compras por aproximação estão indisponíveis.'}</small></span><button type="button" role="switch" aria-checked={card.contactlessEnabled} disabled={card.status === 'locked'} onClick={() => toggleSetting('set-contactless', !card.contactlessEnabled)}><span /></button></div>
             <div><span className="settings-ledger__icon">WWW</span><span><strong>Compras online</strong><small>{card.onlinePurchasesEnabled ? 'O cartão virtual pode operar.' : 'O cartão virtual não pode ser usado em compras.'}</small></span><button type="button" role="switch" aria-checked={card.onlinePurchasesEnabled} disabled={card.status === 'locked'} onClick={() => toggleSetting('set-online-purchases', !card.onlinePurchasesEnabled)}><span /></button></div>
-            <div><span className="settings-ledger__icon">FX</span><span><strong>Representação</strong><small>A função permanece idêntica nos dois níveis.</small></span><div className="quality-tier" aria-label="Representação visual do cartão"><button type="button" aria-pressed={card.qualityTier === 'lite'} onClick={() => execute({ type: 'set-quality-tier', cardId: card.id, tier: 'lite', createdAt: new Date().toISOString() })}>LITE</button><button type="button" aria-pressed={card.qualityTier === 'essential'} onClick={() => execute({ type: 'set-quality-tier', cardId: card.id, tier: 'essential', createdAt: new Date().toISOString() })}>ESSENTIAL</button></div></div>
           </div>
         </section>
 
@@ -132,7 +139,7 @@ export function CardRoute() {
 
         <section className="invoice-section" aria-labelledby="invoice-title">
           <header><div><p className="section-index">FATURA ATUAL</p><h2 id="invoice-title">{formatMoney(invoice)}</h2></div><dl><div><dt>Período</dt><dd>04–29 SET</dd></div><div><dt>Fecha</dt><dd>Dia {card.invoiceClosingDay}</dd></div><div><dt>Vence</dt><dd>Dia {card.invoiceDueDay}</dd></div><div><dt>Status</dt><dd>Aberta</dd></div></dl></header>
-          <ol>{purchases.map((purchase) => <li key={purchase.id}><Link to={`/movimentos/${purchase.id}`}><span><strong>{purchase.title}</strong><small>{purchase.description}</small></span><time dateTime={purchase.occurredAt}>{formatShortDate(purchase.occurredAt)}</time><strong>{formatMoney(purchase.amount)}</strong></Link></li>)}</ol>
+          <ol>{purchases.map((purchase) => <li key={purchase.id}><Link to={`/movimentos/${purchase.id}`} state={{ from: '/cartao', label: 'Fatura do cartão' }}><span><strong>{purchase.title}</strong><small>{purchase.description}</small></span><time dateTime={purchase.occurredAt}>{formatShortDate(purchase.occurredAt)}</time><strong>{formatMoney(purchase.amount)}</strong></Link></li>)}</ol>
         </section>
         <p className="card-status-message" role="status" aria-live="polite">{statusMessage && <><Check aria-hidden="true" /> {statusMessage}</>}</p>
       </main>

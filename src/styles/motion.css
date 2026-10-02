@@ -1,0 +1,340 @@
+/* Fase 8 — calmo quando parado, vivo quando tocado. */
+
+/* AnimatePresence owns route exit/entry. Native snapshots would cover its live frames. */
+::view-transition { display: none; }
+html:has(.route-transition-frame) { overflow-x: clip; }
+
+@keyframes route-settle { from { clip-path: inset(0 0 0 2.5%); transform: translateX(9px); } }
+@keyframes view-enter { from { clip-path: inset(0 0 0 3%); transform: translateX(1.4%); } }
+@keyframes view-leave { to { clip-path: inset(0 3% 0 0); transform: translateX(-1.1%); } }
+@keyframes route-return-enter { from { clip-path: inset(0 3% 0 0); transform: translateX(-1.4%); } }
+@keyframes route-return-leave { to { clip-path: inset(0 0 0 3%); transform: translateX(1.1%); } }
+@keyframes card-context-leave { to { filter: brightness(.74); transform: scale(.965); } }
+@keyframes card-context-enter { from { clip-path: inset(4% 3% round 1.8rem); transform: scale(1.018); } }
+@keyframes movement-context-leave { to { clip-path: inset(0 0 42% 0); transform: translateY(-1.2%); } }
+@keyframes movement-context-enter { from { clip-path: inset(34% 0 0 0); transform: translateY(1.5%); } }
+@keyframes pix-route-enter { from { clip-path: inset(0 0 0 6%); transform: translateX(2.4%); } }
+@keyframes payment-route-enter { from { clip-path: inset(0 0 7% 0); transform: translateY(-1.6%); } }
+@keyframes receive-route-enter { from { clip-path: inset(7% 0 0 0); transform: translateY(1.8%); } }
+
+::view-transition-old(root) { animation: view-leave 720ms var(--ease-exit) both; }
+::view-transition-new(root) { animation: view-enter 780ms var(--ease-enter) both; }
+html[data-route-direction='back']::view-transition-old(root) { animation-name: route-return-leave; }
+html[data-route-direction='back']::view-transition-new(root) { animation-name: route-return-enter; }
+html[data-route-motion='card']::view-transition-old(root) { animation: card-context-leave 900ms var(--ease-exit) both; }
+html[data-route-motion='card']::view-transition-new(root) { animation: card-context-enter 980ms var(--ease-enter) both; }
+html[data-route-motion='movement']::view-transition-old(root) { animation: movement-context-leave 760ms var(--ease-exit) both; }
+html[data-route-motion='movement']::view-transition-new(root) { animation: movement-context-enter 860ms var(--ease-enter) both; }
+html[data-route-motion='pix']::view-transition-new(root) { animation: pix-route-enter 760ms var(--ease-enter) both; }
+html[data-route-motion='payment']::view-transition-new(root) { animation: payment-route-enter 740ms var(--ease-enter) both; }
+html[data-route-motion='receive']::view-transition-new(root) { animation: receive-route-enter 820ms var(--ease-enter) both; }
+::view-transition-group(newgen-instrument) { animation-duration: 1180ms; animation-timing-function: var(--ease-move); }
+::view-transition-group(financial-summary) { animation-duration: 920ms; animation-timing-function: var(--ease-financial); }
+::view-transition-old(newgen-instrument), ::view-transition-new(newgen-instrument),
+::view-transition-old(financial-summary), ::view-transition-new(financial-summary) { height: 100%; mix-blend-mode: normal; object-fit: contain; }
+.app-header { view-transition-name: newgen-header; }
+.mobile-nav { view-transition-name: newgen-mobile-nav; }
+.dashboard-card-stage > .newgen-card,
+.dashboard-card-stage > .newgen-card-3d,
+.card-object-control > .newgen-card,
+.card-object-control > .newgen-card-3d { view-transition-name: newgen-instrument; }
+.dashboard .balance-object, .movement-hero__balance { view-transition-name: financial-summary; }
+
+.app-nav__active { position: absolute; inset-inline: 0; inset-block-end: .6rem; height: 1px; background: var(--accent); pointer-events: none; }
+.mobile-nav a { position: relative; }
+.mobile-nav__active { position: absolute; inset-inline: 24%; inset-block-end: .18rem; height: 2px; border-radius: 99rem; background: var(--accent); box-shadow: 0 0 10px var(--accent-shadow); pointer-events: none; }
+.theme-lighting-transition { position: fixed; z-index: 90; inset: 0; background: radial-gradient(circle at 78% 4%, var(--accent-faint), transparent 44%); mix-blend-mode: soft-light; pointer-events: none; }
+
+button, a, input, select { transition-timing-function: var(--ease-out); }
+button:active, .receipt-next a:active, .notification-list__actions a:active { transform: translateY(1px) scale(.985); }
+
+/* Dashboard — CAPITAL estabelece, MOTION atravessa e INSTRUMENT ganha corpo. */
+.dashboard:not([data-returning]) [data-motion-group='capital'] { animation: capital-establish 360ms var(--ease-enter) both 45ms; }
+.dashboard:not([data-returning]) [data-motion-group='actions'] { animation: actions-ready 280ms var(--ease-enter) both 145ms; }
+.dashboard:not([data-returning]) [data-motion-group='motion'] .motion-copy { animation: motion-context-in 360ms var(--ease-move) both 225ms; }
+.dashboard:not([data-returning]) [data-motion-group='motion'] .motion-data { animation: motion-data-in 400ms var(--ease-move) both 270ms; }
+.dashboard:not([data-returning]) [data-motion-group='instrument'] { animation: instrument-reveal 440ms var(--ease-enter) both 390ms; }
+.dashboard:not([data-returning]) [data-motion-group='instrument'] .newgen-card__plane { animation: instrument-place 480ms var(--ease-financial) both 430ms; }
+.dashboard:not([data-returning]) [data-motion-group='ledger'] { animation: ledger-ready 280ms var(--ease-enter) both 490ms; }
+.dashboard[data-returning] .flow__axis, .dashboard[data-returning] .flow__point, .dashboard[data-returning] .balance-line__value > strong { animation: none; }
+.dashboard[data-returning][data-return-consequence='capital'] .capital-main { animation: capital-consequence 420ms var(--ease-financial) both; }
+.dashboard[data-returning][data-return-consequence='capital'] .ledger-list li:first-child { animation: ledger-consequence 420ms var(--ease-financial) both 90ms; }
+@keyframes capital-establish { from { opacity: .45; clip-path: inset(0 0 70% 0); } }
+@keyframes actions-ready { from { opacity: .5; transform: translateY(8px); } }
+@keyframes motion-context-in { from { opacity: .45; transform: translateX(-18px); } }
+@keyframes motion-data-in { from { opacity: .35; clip-path: inset(0 100% 0 0); } }
+@keyframes instrument-reveal { from { clip-path: inset(0 100% 0 0); } }
+@keyframes instrument-place { from { opacity: .35; transform: rotateX(7deg) rotateY(-13deg) translateZ(18px); } }
+@keyframes ledger-ready { from { opacity: .4; transform: translateY(10px); } }
+@keyframes capital-consequence { 0% { background: color-mix(in srgb, var(--money-in), transparent 90%); } 100% { background: transparent; } }
+@keyframes ledger-consequence { from { background: color-mix(in srgb, var(--money-in), transparent 86%); transform: translateX(8px); } }
+
+.balance-line__value { position: relative; display: grid; min-width: 0; overflow: hidden; }
+.balance-line__value > strong { grid-area: 1 / 1; position: relative; z-index: 1; animation: balance-value-in 440ms var(--ease-financial) both 80ms; }
+.balance-line__trace { grid-area: 1 / 1; align-self: center; color: var(--text-tertiary); font-family: var(--font-display); font-size: clamp(3.8rem, 8vw, 8.5rem); line-height: .92; letter-spacing: -.055em; opacity: 0; font-variant-numeric: tabular-nums; animation: balance-trace-out 390ms var(--ease-financial) both; }
+.balance-line__value--in > strong { --balance-entry: 10px; }
+.balance-line__value--out > strong { --balance-entry: -10px; }
+@keyframes balance-value-in { from { opacity: .42; transform: translateY(var(--balance-entry, 6px)); } }
+@keyframes balance-trace-out { 0% { opacity: .42; transform: none; } 100% { opacity: 0; transform: translateY(-10px); } }
+
+.flow__axis { transform: scaleX(0); transform-origin: left; animation: flow-axis-in 420ms var(--ease-financial) both 80ms; }
+.flow__point { animation: flow-point-in 260ms var(--ease-financial) both; animation-delay: calc(120ms + var(--flow-index) * 48ms); }
+@keyframes flow-axis-in { to { transform: scaleX(1); } }
+@keyframes flow-point-in { from { opacity: .45; transform: translateX(-7px) scale(.86); } }
+
+@media (hover: hover) and (pointer: fine) {
+  .action-strip__action:hover .action-strip__icon,
+  .ledger-list li > a:hover .ledger-direction,
+  .movement-day li a:hover .movement-row__direction { transform: translateX(3px); border-color: currentColor; }
+  .action-strip__icon, .ledger-direction, .movement-row__direction { transition: transform var(--duration-feedback) var(--ease-out), border-color var(--duration-feedback); }
+  .instrument-card:hover .newgen-card__plane { transform: rotateX(2deg) rotateY(-4deg) translateZ(7px); }
+}
+
+/* Pix — o contexto escolhido permanece no espaço enquanto a decisão avança. */
+.pix-flow::after { content: ''; position: absolute; z-index: 0; inset-inline-start: 1rem; inset-block-start: .8rem; width: var(--pix-progress); max-width: calc(100% - 2rem); height: 1px; background: var(--money-in); transition: width var(--duration-settle) var(--ease-financial); }
+.pix-flow__mark { transition: background var(--duration-feedback), color var(--duration-feedback), border-color var(--duration-feedback), transform var(--duration-feedback) var(--ease-out); }
+.pix-flow li.is-active .pix-flow__mark { transform: scale(1.08); }
+.pix-continuity { display: grid; grid-template-columns: minmax(9rem, 1fr) minmax(2rem, .35fr) minmax(9rem, 1fr) minmax(2rem, .35fr) minmax(9rem, 1fr); gap: 1rem; align-items: center; padding-block: 1.1rem; border-block-end: 1px solid var(--divider); animation: continuity-enter var(--duration-reveal) var(--ease-financial) both; }
+.pix-continuity > span { display: grid; gap: .3rem; min-width: 0; }
+.pix-continuity small { color: var(--text-tertiary); font-size: .52rem; font-weight: 850; letter-spacing: .12em; }
+.pix-continuity strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .74rem; }
+.pix-continuity > i { position: relative; height: 1px; background: var(--divider-strong); }
+.pix-continuity > i::after { content: ''; position: absolute; inset-block-start: -2px; inset-inline-end: 0; width: 5px; height: 5px; border-block-start: 1px solid currentColor; border-inline-end: 1px solid currentColor; transform: rotate(45deg); }
+.pix-continuity__amount { text-align: end; }
+.pix-page[data-flow-step='review'] .pix-continuity__amount strong,
+.pix-page[data-flow-step='reaction'] .pix-continuity__amount strong { font-family: var(--font-display); font-size: 1.25rem; }
+.pix-page .pix-stage, .operation-page .operation-stage, .operation-page .charge-stage, .operation-page .payment-identify, .operation-page .payment-review, .receipt-stage { animation: stage-consequence 260ms var(--ease-financial) both; }
+.pix-page .recipient-result { animation: recipient-recognized 360ms var(--ease-financial) both; transform-origin: left center; }
+@keyframes continuity-enter { from { opacity: .35; transform: translateY(-8px); } }
+@keyframes stage-consequence { from { opacity: .45; transform: translateX(14px); } }
+@keyframes recipient-recognized {
+  0% { transform: translateY(8px) scale(.985); box-shadow: 0 0 0 0 transparent; }
+  58% { transform: translateY(-2px) scale(1.004); box-shadow: 0 0 0 5px var(--accent-faint); }
+  100% { transform: none; box-shadow: 0 0 0 0 transparent; }
+}
+
+/* Reação financeira — origem, valor em trânsito e consequência. */
+.balance-reaction { isolation: isolate; }
+.balance-reaction::before { content: ''; position: absolute; z-index: -1; inset: 18% 0; background: var(--canvas-subtle); transform: scaleX(0); transform-origin: left; animation: reaction-surface var(--duration-financial) var(--ease-financial) both; }
+.balance-reaction__source { opacity: .32; animation: financial-source var(--duration-financial) var(--ease-financial) both; }
+.balance-reaction__transfer { animation: financial-transfer var(--duration-financial) var(--ease-financial) both; }
+.balance-reaction__transfer .balance-reaction__path { overflow: visible; }
+.balance-reaction__path i { position: absolute; inset-block-start: -3px; inset-inline-start: 0; width: 7px; height: 7px; border-radius: 50%; background: currentColor; animation: money-trace var(--duration-financial) var(--ease-financial) both; }
+.balance-reaction__result { animation: financial-result var(--duration-financial) var(--ease-financial) both; }
+.balance-reaction--incoming .balance-reaction__path i { background: var(--money-in); }
+.balance-reaction--outgoing .balance-reaction__path i { background: var(--money-out); }
+@keyframes reaction-surface { 0%, 32% { transform: scaleX(0); } 100% { transform: scaleX(1); } }
+@keyframes financial-source { from { opacity: 1; transform: translateX(0); } to { opacity: .32; transform: translateX(-12px); } }
+@keyframes financial-transfer { 0% { opacity: .15; transform: translateX(-24px) scale(.96); } 28%, 68% { opacity: 1; transform: scale(1); } 100% { opacity: .48; transform: translateX(24px) scale(.96); } }
+@keyframes money-trace { from { transform: translateX(0) scale(.5); opacity: .8; } to { transform: translateX(calc(100vw / 3)) scale(1.2); opacity: 0; } }
+@keyframes financial-result { 0%, 38% { opacity: .2; transform: translateX(-14px); } 100% { opacity: 1; transform: none; } }
+
+/* Pix signature: commit, detach, travel and settle in one 1.18 s consequence. */
+.pix-page .balance-reaction::before { animation: pix-reaction-surface 1180ms var(--ease-financial) both; }
+.pix-page .balance-reaction__source { animation: pix-source-release 1180ms var(--ease-financial) both; }
+.pix-page .balance-reaction__transfer { animation: pix-value-depart 1180ms var(--ease-financial) both; }
+.pix-page .balance-reaction__commit { animation: pix-commit-register 1180ms var(--ease-financial) both; }
+.pix-page .balance-reaction__path i { animation: pix-money-trace 1180ms var(--ease-financial) both; }
+.pix-page .balance-reaction__result { animation: pix-balance-settle 1180ms var(--ease-financial) both; }
+@keyframes pix-commit-register {
+  0%, 8% { opacity: 0; transform: translateY(5px); }
+  18%, 46% { opacity: 1; transform: none; }
+  72%, 100% { opacity: .7; transform: translateY(-3px); }
+}
+@keyframes pix-reaction-surface {
+  0%, 24% { opacity: .2; transform: scaleX(.06); }
+  64%, 100% { opacity: 1; transform: scaleX(1); }
+}
+@keyframes pix-source-release {
+  0%, 18% { opacity: 1; transform: none; }
+  68%, 100% { opacity: .34; transform: translateX(-14px); }
+}
+@keyframes pix-value-depart {
+  0%, 16% { opacity: .35; transform: translateX(-20px) scale(.96); }
+  30%, 55% { opacity: 1; transform: translateX(0) scale(1.045); }
+  82%, 100% { opacity: .38; transform: translateX(34px) scale(.96); }
+}
+@keyframes pix-money-trace {
+  0%, 28% { opacity: 0; transform: translateX(0) scale(.45); }
+  38% { opacity: 1; }
+  88%, 100% { opacity: 0; transform: translateX(calc(100vw / 3)) scale(1.25); }
+}
+@keyframes pix-balance-settle {
+  0%, 52% { opacity: .16; transform: translateX(-18px); }
+  78% { opacity: 1; transform: translateX(3px); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* Receber e Pagar — uma linha contínua, não quatro formulários desconectados. */
+.operation-flow { --operation-progress: 0%; position: relative; display: grid; grid-template-columns: repeat(4, 1fr); max-width: 52rem; margin: 0 auto; padding: 1.15rem 0; list-style: none; }
+.operation-flow::before, .operation-flow::after { content: ''; position: absolute; inset-inline: 1.1rem; inset-block-start: 1.95rem; height: 1px; background: var(--divider); }
+.operation-flow::after { inset-inline-end: auto; width: var(--operation-progress); max-width: calc(100% - 2.2rem); background: var(--money-in); transition: width var(--duration-settle) var(--ease-financial); }
+.operation-flow li { position: relative; z-index: 1; display: grid; justify-items: center; gap: .5rem; color: var(--text-tertiary); font-size: .52rem; font-weight: 850; letter-spacing: .09em; }
+.operation-flow li > span { display: grid; place-items: center; width: 1.65rem; height: 1.65rem; border: 1px solid var(--divider); border-radius: 50%; background: var(--canvas); transition: transform var(--duration-feedback), background var(--duration-feedback), color var(--duration-feedback); }
+.operation-flow svg { width: .75rem; }
+.operation-flow .is-complete { color: var(--money-in); }
+.operation-flow .is-active { color: var(--text-primary); }
+.operation-flow .is-active > span { background: var(--text-primary); color: var(--canvas); transform: scale(1.08); }
+.charge-object { animation: charge-object-form 360ms var(--ease-financial) both; transform-origin: center; }
+.charge-content .sr-status:not(:empty), .card-status-message:not(:empty) { animation: feedback-arrive var(--duration-reveal) var(--ease-out) both; }
+.payment-slip { animation: slip-arrive 300ms var(--ease-financial) both; }
+@keyframes charge-object-form { from { opacity: .55; transform: translateX(-12px) rotateY(-5deg); box-shadow: 0 8px 18px rgb(0 0 0 / .08); } }
+@keyframes slip-arrive { from { opacity: .55; transform: translateX(14px); } }
+@keyframes feedback-arrive { from { opacity: .35; transform: translateY(4px); } }
+
+/* Pagar resolves an obligation; Receber materializes a request and later draws value inward. */
+.payment-page .payment-identify { animation: operation-workspace-enter 320ms var(--ease-financial) both; }
+.payment-page .payment-review { animation: payment-review-resolve 380ms var(--ease-financial) both; }
+.receive-page .operation-stage { animation: operation-workspace-enter 320ms var(--ease-financial) both; }
+.receive-page[data-operation-step='charge'] .charge-object { animation: receive-charge-materialize 560ms var(--ease-financial) both; }
+.receive-page[data-operation-step='charge'] .charge-content { animation: receive-charge-content 420ms var(--ease-financial) both 90ms; }
+@keyframes operation-workspace-enter { from { opacity: .58; transform: translateY(10px); } }
+@keyframes payment-review-resolve { from { opacity: .52; transform: translateY(10px) scale(.992); } }
+@keyframes receive-charge-materialize {
+  0% { opacity: .3; clip-path: inset(18% 14% 18% 14% round 2rem); transform: translateY(14px) scale(.92); }
+  62% { opacity: 1; clip-path: inset(0 round 1.8rem); transform: translateY(-3px) scale(1.008); }
+  100% { clip-path: inset(0 round 1.8rem); transform: none; }
+}
+@keyframes receive-charge-content { from { opacity: .38; transform: translateX(12px); } }
+
+.payment-page .balance-reaction::before { animation: payment-surface-resolve 1120ms var(--ease-financial) both; }
+.payment-page .balance-reaction__source { animation: payment-source-commit 1120ms var(--ease-financial) both; }
+.payment-page .balance-reaction__transfer { animation: payment-obligation-release 1120ms var(--ease-financial) both; }
+.payment-page .balance-reaction__commit { animation: payment-commit-label 1120ms var(--ease-financial) both; }
+.payment-page .balance-reaction__path i { animation: payment-trace-out 1120ms var(--ease-financial) both; }
+.payment-page .balance-reaction__result { animation: payment-balance-settle 1120ms var(--ease-financial) both; }
+@keyframes payment-surface-resolve { 0%, 18% { opacity: .25; transform: scaleY(.08); } 68%, 100% { opacity: 1; transform: scaleY(1); } }
+@keyframes payment-source-commit { 0%, 22% { opacity: 1; transform: none; } 76%, 100% { opacity: .34; transform: translateY(8px); } }
+@keyframes payment-obligation-release {
+  0%, 18% { opacity: .28; transform: translateY(-12px) scale(.96); }
+  34%, 58% { opacity: 1; transform: none; }
+  84%, 100% { opacity: .38; transform: translate(30px, 10px) scale(.94); }
+}
+@keyframes payment-commit-label { 0%, 12% { opacity: 0; transform: translateY(5px); } 24%, 70% { opacity: 1; transform: none; } 100% { opacity: .72; transform: translateY(-2px); } }
+@keyframes payment-trace-out { 0%, 34% { opacity: 0; transform: translateX(0) scale(.5); } 44% { opacity: 1; } 92%, 100% { opacity: 0; transform: translateX(calc(100vw / 3)) scale(1.1); } }
+@keyframes payment-balance-settle { 0%, 52% { opacity: .18; transform: translateY(-10px); } 82% { opacity: 1; transform: translateY(2px); } 100% { opacity: 1; transform: none; } }
+
+.receive-page .balance-reaction::before { animation: receive-surface-open 1080ms var(--ease-financial) both; transform-origin: right; }
+.receive-page .balance-reaction__source { animation: receive-source-hold 1080ms var(--ease-financial) both; }
+.receive-page .balance-reaction__transfer { animation: receive-value-arrive 1080ms var(--ease-financial) both; }
+.receive-page .balance-reaction__commit { animation: receive-commit-label 1080ms var(--ease-financial) both; }
+.receive-page .balance-reaction__path i { animation: receive-trace-in 1080ms var(--ease-financial) both; }
+.receive-page .balance-reaction__result { animation: receive-balance-integrate 1080ms var(--ease-financial) both; }
+@keyframes receive-surface-open { 0%, 20% { opacity: .2; transform: scaleX(.08); } 70%, 100% { opacity: 1; transform: scaleX(1); } }
+@keyframes receive-source-hold { 0%, 45% { opacity: .34; transform: translateX(-8px); } 100% { opacity: .42; transform: none; } }
+@keyframes receive-value-arrive {
+  0%, 18% { opacity: .18; transform: translateX(-34px) scale(.94); }
+  42%, 72% { opacity: 1; transform: none; }
+  100% { opacity: .62; transform: translateX(20px) scale(.98); }
+}
+@keyframes receive-commit-label { 0%, 28% { opacity: 0; transform: translateY(5px); } 48%, 100% { opacity: .82; transform: none; } }
+@keyframes receive-trace-in { 0%, 18% { opacity: 0; transform: translateX(-28vw) scale(.45); } 32% { opacity: 1; } 90%, 100% { opacity: 0; transform: translateX(calc(100vw / 3)) scale(1.22); } }
+@keyframes receive-balance-integrate { 0%, 52% { opacity: .18; transform: translateX(-18px) scale(.98); } 78% { opacity: 1; transform: translateX(3px) scale(1.012); color: var(--accent-strong); } 100% { opacity: 1; transform: none; } }
+
+/* Cartão — captura, elevação, inércia e assentamento do mesmo shell físico. */
+.newgen-card__plane { transition: none; }
+.newgen-card__face, .newgen-card__edge { transition: background var(--duration-settle), border-radius var(--duration-settle) var(--ease-out), filter var(--duration-settle); }
+.newgen-card--captured .newgen-card__lift { transform: translateZ(5px) scale(.996); transition-duration: 72ms; transition-timing-function: var(--ease-exit); }
+.newgen-card--captured .newgen-card__ground-shadow { opacity: .78; filter: blur(23px); }
+.newgen-card--captured .newgen-card__ground-shadow::after { opacity: .58; transform: scale(.92); }
+.newgen-card--grabbed .newgen-card__lift { transform: translateZ(22px) scale(1.012); }
+.newgen-card--grabbed .newgen-card__ground-shadow { opacity: .5; filter: blur(39px); }
+.newgen-card--grabbed .newgen-card__ground-shadow::after { opacity: .2; transform: scale(.78); }
+.newgen-card--inertia .newgen-card__lift { transform: translateZ(14px) scale(1.008); transition-duration: 150ms; }
+.newgen-card--inertia .newgen-card__ground-shadow { opacity: .55; filter: blur(36px); }
+.newgen-card--inertia .newgen-card__ground-shadow::after { opacity: .28; transform: scale(.82); }
+.newgen-card--settling .newgen-card__lift { transform: translateZ(0) scale(1); transition-duration: 360ms; }
+.newgen-card--settling .newgen-card__ground-shadow { transition: transform 90ms linear, filter 360ms var(--ease-financial), opacity 360ms var(--ease-financial); }
+.newgen-card--settling .newgen-card__ground-shadow::after { transition-duration: 360ms; }
+.newgen-card--locked .newgen-card__plane::before { background: color-mix(in srgb, var(--card-material-edge), var(--canvas) 30%); }
+.newgen-card--locked .newgen-card__state { background: var(--canvas); color: var(--text-primary); }
+.card-confirmation { animation: confirmation-weight var(--duration-reveal) var(--ease-financial) both; }
+@keyframes confirmation-weight { from { opacity: .6; transform: translateY(-7px); } }
+
+/* Manipulação temporal e ledger vivo. */
+.month-scrub__rail { position: relative; }
+.month-scrub__rail::before { content: ''; position: absolute; inset-block-start: calc(1rem - 1px); inset-inline-start: 0; width: var(--scrub-progress); height: 3px; background: currentColor; pointer-events: none; transition: width var(--duration-reveal) var(--ease-financial); }
+.month-scrub__control[data-moving] .month-scrub__rail::before { transition-duration: 60ms; }
+.month-scrub__rail li { transition: opacity var(--duration-feedback), transform var(--duration-feedback) var(--ease-out); }
+.month-scrub__rail li.is-current { transform: translateY(3px); }
+.month-scrub__control[data-moving] input::-webkit-slider-thumb { transform: scale(1.18); }
+.month-scrub__control[data-moving] input::-moz-range-thumb { transform: scale(1.18); }
+.month-reading--forward { --month-direction: 18px; --month-wipe-origin: left; }
+.month-reading--backward { --month-direction: -18px; --month-wipe-origin: right; }
+.month-reading { position: relative; }
+.month-reading::before { content: ''; position: absolute; z-index: 2; inset: 0 0 auto; height: 2px; background: var(--accent); pointer-events: none; transform-origin: var(--month-wipe-origin); animation: month-time-marker 560ms var(--ease-move) both; }
+.month-reading .month-result__main { animation: month-context-shift 560ms var(--ease-move) both; }
+.month-reading .month-result > dl { animation: month-metrics-shift 520ms var(--ease-financial) both 70ms; }
+.month-reading .month-result__trajectory { animation: month-trajectory-settle 620ms var(--ease-financial) both 120ms; }
+.month-reading .month-category-bar > span { animation: category-grow 620ms var(--ease-financial) both 150ms; transform-origin: left; }
+@keyframes month-context-shift { from { opacity: .76; transform: translateX(var(--month-direction)); } }
+@keyframes month-metrics-shift { from { opacity: .78; transform: translateY(8px); } }
+@keyframes month-trajectory-settle { from { opacity: .8; transform: translateX(calc(var(--month-direction) * .55)); } }
+@keyframes month-time-marker { from { transform: scaleX(.08); opacity: .5; } to { transform: scaleX(1); opacity: 0; } }
+@keyframes category-grow { from { transform: scaleX(.18); opacity: .62; } }
+
+.movement-results { animation: ledger-reconcile var(--duration-reveal) var(--ease-financial) both; }
+.movement-results .movement-day li { animation: ledger-row-in var(--duration-reveal) var(--ease-financial) both; }
+.movement-results .movement-day li:nth-child(2) { animation-delay: 25ms; }
+.movement-results .movement-day li:nth-child(3) { animation-delay: 50ms; }
+.movement-results .movement-day li:nth-child(4) { animation-delay: 75ms; }
+.movement-results .movement-day li:nth-child(5) { animation-delay: 100ms; }
+@keyframes ledger-reconcile { from { opacity: .55; transform: translateY(3px); } }
+@keyframes ledger-row-in { from { opacity: .45; transform: translateY(7px); } }
+.balance-trajectory__line { stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: trajectory-draw 580ms var(--ease-financial) forwards; }
+.balance-trajectory__point { opacity: 0; animation: trajectory-point var(--duration-reveal) var(--ease-enter) forwards 380ms; }
+@keyframes trajectory-draw { to { stroke-dashoffset: 0; } }
+@keyframes trajectory-point { to { opacity: 1; } }
+
+/* Consequência, leitura e controles. */
+.receipt { animation: receipt-register 300ms var(--ease-financial) both; }
+.receipt__details > div { animation: receipt-line var(--duration-reveal) var(--ease-out) both; }
+.receipt__details > div:nth-child(2) { animation-delay: 30ms; }
+.receipt__details > div:nth-child(3) { animation-delay: 60ms; }
+.receipt__details > div:nth-child(4) { animation-delay: 90ms; }
+@keyframes receipt-register { from { opacity: .42; transform: translateY(12px); } }
+@keyframes receipt-line { from { opacity: .5; transform: translateX(8px); } }
+.notification-list > li { transition: padding var(--duration-reveal) var(--ease-out), background var(--duration-reveal), box-shadow var(--duration-reveal); }
+.notification-list > li:not(.is-unread) { background: color-mix(in srgb, var(--canvas-subtle), transparent 55%); }
+.theme-options label, .preference-row, .settings-ledger > div { transition: background var(--duration-feedback), padding var(--duration-feedback) var(--ease-out); }
+.theme-options label:active, .preference-row:has([role='switch']:active), .settings-ledger > div:has([role='switch']:active) { background: var(--canvas-subtle); }
+
+@media (max-width: 760px) {
+  .dashboard [data-motion-group] { animation-delay: 0ms; }
+  .pix-continuity { grid-template-columns: 1fr auto 1fr; gap: .65rem; }
+  .pix-continuity > i:nth-of-type(2), .pix-continuity__amount { display: none; }
+  .pix-continuity > span:nth-of-type(2) { text-align: end; }
+  .operation-flow { margin-inline: 0; }
+  .balance-reaction::before { inset: 8% 12%; transform-origin: top; animation-name: reaction-surface-mobile; }
+  .balance-reaction__source, .balance-reaction__result { justify-items: center; }
+  .balance-reaction__path i { animation-name: money-trace-mobile; }
+  .newgen-card { perspective: 1100px; }
+  .newgen-card--grabbed .newgen-card__lift { transform: translateZ(14px) scale(1.007); }
+  @keyframes reaction-surface-mobile { 0%, 38% { transform: scaleY(0); } 100% { transform: scaleY(1); } }
+  @keyframes money-trace-mobile { from { transform: translateY(0) scale(.5); opacity: .8; } to { transform: translateY(28vh) scale(1.2); opacity: 0; } }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root),
+  ::view-transition-group(newgen-instrument), ::view-transition-group(financial-summary) { animation: none; }
+  .theme-lighting-transition { display: none; }
+  .dashboard [data-motion-group], .dashboard [data-motion-group] *, .balance-line__value > strong, .balance-line__trace,
+  .flow__axis, .flow__point, .pix-continuity, .pix-page .pix-stage, .pix-page .recipient-result,
+  .operation-page .operation-stage, .operation-page .charge-stage,
+  .operation-page .payment-identify, .operation-page .payment-review,
+  .receipt-stage, .balance-reaction::before, .balance-reaction__source, .balance-reaction__commit,
+  .balance-reaction__transfer, .balance-reaction__path i, .balance-reaction__result,
+  .charge-object, .charge-content, .payment-slip, .month-reading,
+  .month-reading .month-result__main, .month-reading .month-result > dl,
+  .month-reading .month-result__trajectory, .month-reading .month-category-bar > span,
+  .movement-results, .movement-results .movement-day li, .balance-trajectory__line,
+  .balance-trajectory__point, .receipt, .receipt__details > div, .card-confirmation,
+  .month-reading::before {
+    animation: none !important;
+  }
+  .flow__axis { transform: none; }
+  .balance-line__trace { display: none; }
+  .balance-trajectory__line { stroke-dashoffset: 0; }
+  .balance-trajectory__point { opacity: 1; }
+  .newgen-card__ground-shadow, .newgen-card__ground-shadow::after, .newgen-card__lift { transition: none; }
+}

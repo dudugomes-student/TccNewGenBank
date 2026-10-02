@@ -1,16 +1,21 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import type { ThemePreference } from '../domain/models';
-import { applyTheme, getThemePreference } from './theme';
+import { applyAccent, applyTheme, getAccentPreference, getThemePreference, type AccentPreference } from './theme';
 
 interface ThemeContextValue {
   preference: ThemePreference;
   setPreference: (preference: ThemePreference) => void;
+  accent: AccentPreference;
+  setAccent: (accent: AccentPreference) => void;
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [preference, setPreferenceState] = useState<ThemePreference>(getThemePreference);
+  const [accent, setAccentState] = useState<AccentPreference>(getAccentPreference);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     applyTheme(preference);
@@ -20,8 +25,25 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     return () => media.removeEventListener('change', syncSystemTheme);
   }, [preference]);
 
-  const value = useMemo(() => ({ preference, setPreference: setPreferenceState }), [preference]);
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+  useEffect(() => {
+    applyAccent(accent);
+  }, [accent]);
+
+  const value = useMemo(() => ({ preference, setPreference: setPreferenceState, accent, setAccent: setAccentState }), [accent, preference]);
+  return <ThemeContext.Provider value={value}>
+    {children}
+    <AnimatePresence initial={false}>
+      <motion.div
+        key={`${preference}-${accent}`}
+        className="theme-lighting-transition"
+        aria-hidden="true"
+        initial={{ opacity: reduceMotion ? 0 : .18 }}
+        animate={{ opacity: 0 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: reduceMotion ? 0 : .9, ease: [.2, .72, .18, 1] }}
+      />
+    </AnimatePresence>
+  </ThemeContext.Provider>;
 }
 
 export function useTheme() {

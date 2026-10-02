@@ -1,101 +1,137 @@
-import { ArrowDownLeft, ArrowRight, ArrowUpRight, CreditCard, Eye, EyeOff, Plus, ReceiptText, Send } from 'lucide-react';
-import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { calculatePercentageChange, formatMoney, formatShortDate, formatSignedMoney } from '../domain/formatters';
-import { recentTransactions, sumTransactions } from '../domain/selectors';
+import { ArrowDownLeft, ArrowRight, Ellipsis, Eye, EyeOff, Plus, ReceiptText, Send } from 'lucide-react';
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { formatMoney, formatShortDate, formatSignedMoney, formatTime } from '../domain/formatters';
+import { recentTransactions } from '../domain/selectors';
 import { useRouteFocus } from '../motion/useRouteFocus';
+import { getRememberedTransaction, rememberTransactionSource, transactionTransitionName } from '../motion/RouteMotionController';
 import { useFinancialStore } from '../state/financialStore';
 import { AppHeader } from '../ui/AppHeader';
 import { MobileNav } from '../ui/MobileNav';
 import { NewGenCard } from '../ui/NewGenCard';
-import { NewGenFlow } from '../ui/NewGenFlow';
 
 const actions = [
-  { label: 'Fazer Pix', detail: 'Enviar agora', Icon: ArrowUpRight, href: '/pix' },
-  { label: 'Receber', detail: 'Indisponível', Icon: ArrowDownLeft, disabled: true },
-  { label: 'Pagar', detail: 'Indisponível', Icon: ReceiptText, disabled: true },
-  { label: 'Cartão', detail: 'Gerenciar instrumento', Icon: CreditCard, href: '/cartao' },
+  { label: 'Pix', detail: 'Transferir', Icon: Send, href: '/pix' },
+  { label: 'Pagar', detail: 'Contas e boletos', Icon: ReceiptText, href: '/pagar' },
+  { label: 'Receber', detail: 'Criar cobrança', Icon: ArrowDownLeft, href: '/receber' },
+  { label: 'Mais', detail: 'Outras opções', Icon: Ellipsis, href: '/movimento' },
 ];
 
 export function DashboardRoute() {
-  useRouteFocus();
+  const hasVisited = useRef(typeof window !== 'undefined' && window.sessionStorage.getItem('newgen-dashboard-visited') === 'true');
+  const location = useLocation();
+  const dashboardState = location.state as { dashboardFocus?: 'capital' | 'ledger'; fromLogin?: boolean } | null;
   const snapshot = useFinancialStore();
   const transactions = useMemo(() => recentTransactions(snapshot.transactions), [snapshot.transactions]);
-  const incoming = useMemo(() => sumTransactions(snapshot.transactions, 'in'), [snapshot.transactions]);
-  const outgoing = useMemo(() => sumTransactions(snapshot.transactions, 'out'), [snapshot.transactions]);
-  const change = calculatePercentageChange(snapshot.balance.available, snapshot.balance.previousMonth);
   const card = snapshot.cards[0];
-  const cardPurchases = snapshot.transactions.filter((transaction) => transaction.cardId === card.id && transaction.type === 'purchase');
-  const cardInvoice = cardPurchases.reduce((total, transaction) => total + transaction.amount, 0);
   const unread = snapshot.notifications.filter((item) => !item.read).length;
+  const returningTransactionId = getRememberedTransaction();
+
+  useLayoutEffect(() => {
+    if (!returningTransactionId) return;
+    const savedScroll = Number(window.sessionStorage.getItem('newgen-motion-scroll'));
+    if (Number.isFinite(savedScroll)) window.scrollTo(0, savedScroll);
+    const clear = window.setTimeout(() => {
+      window.sessionStorage.removeItem('newgen-motion-transaction');
+      window.sessionStorage.removeItem('newgen-motion-scroll');
+    }, 1250);
+    return () => window.clearTimeout(clear);
+  }, [returningTransactionId]);
+
+  useRouteFocus();
+
+  useEffect(() => {
+    window.sessionStorage.setItem('newgen-dashboard-visited', 'true');
+  }, []);
+
+  /* Clean up the entrance attribute after animations complete */
+  useEffect(() => {
+    if (!dashboardState?.fromLogin) return;
+    const timer = window.setTimeout(() => {
+      const page = document.querySelector('.dashboard-page[data-entering]');
+      if (page) page.removeAttribute('data-entering');
+      /* Clear fromLogin from history to avoid replay on back-nav */
+      window.history.replaceState({}, '');
+    }, 1800);
+    return () => window.clearTimeout(timer);
+  }, [dashboardState?.fromLogin]);
 
   return (
-    <div className="dashboard-page route-stage">
+    <div className="dashboard-page vertical-slice mineral-scene route-stage" data-entering={dashboardState?.fromLogin || undefined}>
+      <div className="mineral-backdrop" aria-hidden="true" />
+      <div className="mineral-atmosphere" aria-hidden="true" />
       <a className="skip-link" href="#main-content">Pular para o conteúdo</a>
-      <AppHeader unreadCount={unread} />
-      <main className="dashboard" id="main-content">
-        <header className="dashboard-intro">
-          <div><p className="kicker">CONTA PESSOAL / {snapshot.account.number}</p><h1 tabIndex={-1} data-route-title>Bom dia, {snapshot.account.firstName}.</h1></div>
-          <p>Seu dinheiro está em movimento.<br />Veja o que mudou antes de escolher o próximo passo.</p>
+      <AppHeader unreadCount={unread} showAccent />
+      <main
+        className="dashboard dashboard--mineral"
+        id="main-content"
+        data-returning={hasVisited.current && !dashboardState?.fromLogin || undefined}
+      >
+        <header className="dashboard-intro dashboard-intro--mineral" data-slice-enter="greeting">
+          <div>
+            <p>Conta {snapshot.account.number}</p>
+            <h1 tabIndex={-1} data-route-title>Bom dia, {snapshot.account.firstName}.</h1>
+          </div>
+          <p>Seu dinheiro está pronto para o próximo movimento.</p>
         </header>
 
-        <section className="capital-section" id="capital" aria-labelledby="capital-title">
-          <div className="section-marker"><span>01</span><p>CAPITAL</p></div>
-          <div className="capital-main">
-            <p id="capital-title">Saldo disponível</p>
-            <div className="balance-line">
+        <section className="dashboard-core" aria-label="Resumo da conta">
+          <article className="balance-object" data-slice-enter="balance">
+            <header>
+              <span>Saldo disponível</span>
+              <span>Atualizado às {formatTime(snapshot.balance.updatedAt)}</span>
+            </header>
+            <div className="balance-object__value">
               <strong aria-live="polite">{snapshot.preferences.concealBalance ? 'R$ ••••••' : formatMoney(snapshot.balance.available)}</strong>
               <button type="button" onClick={() => snapshot.setBalanceVisibility(!snapshot.preferences.concealBalance)} aria-pressed={snapshot.preferences.concealBalance} aria-label={snapshot.preferences.concealBalance ? 'Mostrar saldo' : 'Ocultar saldo'}>
                 {snapshot.preferences.concealBalance ? <Eye aria-hidden="true" /> : <EyeOff aria-hidden="true" />}
               </button>
             </div>
-            <div className="capital-context"><span className="positive">↑ {change.toFixed(1).replace('.', ',')}% no mês</span><span>Atualizado hoje, 09:42</span></div>
-          </div>
-          <div className="capital-note"><span>DISPONIBILIDADE</span><p>Use, receba ou reserve. Cada ação atualiza este capital.</p></div>
+            <div className="quick-actions" aria-label="Ações rápidas">
+              {actions.map(({ label, detail, Icon, href }) => (
+                <Link key={label} to={href} viewTransition>
+                  <span><Icon aria-hidden="true" /></span>
+                  <strong>{label}</strong>
+                  <small>{detail}</small>
+                </Link>
+              ))}
+            </div>
+          </article>
+
+          <Link to="/cartao" className="dashboard-card-stage slice-card" viewTransition aria-label={`Abrir cartão final ${card.lastFour}`} data-slice-enter="card">
+            <NewGenCard card={card} compact spatial visualScale={1.55} renderOverscan={2.5} />
+            <span className="dashboard-card-stage__meta">NewGen Black <ArrowRight aria-hidden="true" /></span>
+          </Link>
         </section>
 
-        <section className="action-strip" aria-labelledby="actions-title">
-          <header><p className="section-index">AGORA</p><h2 id="actions-title">O que você quer fazer?</h2></header>
-          <div className="action-strip__list">
-            {actions.map(({ label, detail, Icon, href, disabled }, index) => {
-              const content = <><span className="action-strip__number">0{index + 1}</span><span className="action-strip__icon"><Icon aria-hidden="true" /></span><span className="action-strip__text"><strong>{label}</strong><small>{detail}</small></span><ArrowRight className="action-strip__arrow" aria-hidden="true" /></>;
-              return href ? <Link key={label} to={href} className="action-strip__action">{content}</Link> : <button type="button" key={label} disabled={disabled} aria-disabled="true">
-                {content}
-              </button>
-            })}
-          </div>
-        </section>
-
-        <section className="motion-section" id="movimento" aria-labelledby="motion-title">
-          <div className="section-marker"><span>02</span><p>MOTION</p></div>
-          <div className="motion-copy"><p className="section-index">SEU MÊS</p><h2 id="motion-title">O dinheiro muda.<br />O contexto fica.</h2><p>As cinco movimentações recentes formam este fluxo. Cada ponto corresponde a um valor real da demonstração.</p></div>
-          <div className="motion-data">
-            <NewGenFlow transactions={transactions} />
-            <dl><div><dt>Entrou</dt><dd className="positive">{formatMoney(incoming)}</dd></div><div><dt>Saiu</dt><dd>{formatMoney(outgoing)}</dd></div></dl>
-          </div>
-        </section>
-
-        <section className="instrument-section" id="instrumento" aria-labelledby="instrument-title">
-          <div className="section-marker section-marker--light"><span>03</span><p>INSTRUMENT</p></div>
-          <Link to="/cartao" className="instrument-card" aria-label={`Gerenciar cartão ${card.status === 'active' ? 'ativo' : 'bloqueado'}, final ${card.lastFour}`}><NewGenCard card={card} compact /></Link>
-          <div className="instrument-copy"><p className="section-index">CARTÃO NEWGEN</p><h2 id="instrument-title">Seu dinheiro<br />ganha forma.</h2><dl><div><dt>Fatura atual</dt><dd>{formatMoney(cardInvoice)}</dd></div><div><dt>Limite disponível</dt><dd>{formatMoney(Math.max(0, card.limitAllocated - cardInvoice))}</dd></div></dl><p className="instrument-copy__status">Cartão {card.status === 'active' ? 'ativo' : 'bloqueado'} · final {card.lastFour}</p><Link className="instrument-copy__link" to="/cartao">Gerenciar cartão <ArrowRight aria-hidden="true" /></Link></div>
-        </section>
-
-        <section className="ledger-section" aria-labelledby="ledger-title">
-          <header><div><p className="section-index">LEDGER / ÚLTIMOS MOVIMENTOS</p><h2 id="ledger-title">Movimento recente</h2></div></header>
-          <ol className="ledger-list">
-            {transactions.map((transaction) => (
-              <li key={transaction.id}><Link to={`/movimentos/${transaction.id}`} aria-label={`Ver detalhes de ${transaction.title}`}>
-                <span className={`ledger-direction ledger-direction--${transaction.direction}`} aria-hidden="true">{transaction.direction === 'in' ? <Plus /> : <Send />}</span>
-                <span className="ledger-title"><strong>{transaction.title}</strong><small>{transaction.category}</small></span>
-                <time dateTime={transaction.occurredAt}>{formatShortDate(transaction.occurredAt)}</time>
-                <strong className={transaction.direction === 'in' ? 'positive' : ''}>{formatSignedMoney(transaction.amount, transaction.direction)}</strong>
-              </Link></li>
+        <section className="movement-peek" id="movimentos" aria-labelledby="movement-peek-title" data-slice-enter="movement">
+          <header>
+            <div><span>Hoje</span><h2 id="movement-peek-title">Movimentações recentes</h2></div>
+            <Link to="/movimento" viewTransition>Ver todas <ArrowRight aria-hidden="true" /></Link>
+          </header>
+          <ol>
+            {transactions.slice(0, 3).map((transaction) => (
+              <li key={transaction.id}>
+                <Link
+                  to={`/movimentos/${transaction.id}`}
+                  viewTransition
+                  state={{ from: '/dashboard', label: 'Dashboard' }}
+                  style={{ viewTransitionName: returningTransactionId === transaction.id ? transactionTransitionName(transaction.id) : undefined }}
+                  onClick={(event) => {
+                    rememberTransactionSource(transaction.id);
+                    event.currentTarget.style.viewTransitionName = transactionTransitionName(transaction.id);
+                  }}
+                >
+                  <span className={`movement-peek__direction movement-peek__direction--${transaction.direction}`} aria-hidden="true">{transaction.direction === 'in' ? <Plus /> : <Send />}</span>
+                  <span className="movement-peek__title"><strong>{transaction.title}</strong><small>{transaction.category}</small></span>
+                  <time dateTime={transaction.occurredAt}>{formatShortDate(transaction.occurredAt)}</time>
+                  <strong className={transaction.direction === 'in' ? 'positive' : ''}>{formatSignedMoney(transaction.amount, transaction.direction)}</strong>
+                </Link>
+              </li>
             ))}
           </ol>
         </section>
       </main>
-      <footer className="app-footer"><span>NEWGENBANK © 2026</span><span>SEU DINHEIRO. SUAS ESCOLHAS.</span></footer>
       <MobileNav />
     </div>
   );

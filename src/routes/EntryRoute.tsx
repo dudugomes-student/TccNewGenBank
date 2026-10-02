@@ -24,7 +24,7 @@ export function EntryRoute() {
         </section>
         <div className="entry-instrument" aria-label="Seu cartão NewGen">
           <p className="entry-instrument__annotation"><span>01</span> Seu instrumento financeiro</p>
-          <NewGenCard card={card} />
+          <NewGenCard card={card} spatial visualScale={1.55} renderOverscan={2.5} />
           <div className="entry-instrument__baseline" aria-hidden="true"><span>CAPITAL</span><span>MOTION</span><span>INSTRUMENT</span></div>
         </div>
       </main>

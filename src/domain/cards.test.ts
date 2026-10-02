@@ -90,10 +90,11 @@ describe('card system', () => {
   it('migra schema anterior e preserva transações Pix', () => {
     const pix = executePix(fresh(), { operationId: 'pix-preserved', recipient: demoPixRecipients[0], amount: 250, createdAt });
     if (!pix.ok) throw new Error(pix.message);
-    const legacyCard = { id: cardId, label: 'NewGen essencial', lastFour: '2846', holderName: 'EDUARDO GOMES', expiresAt: '08/30', invoiceAmount: 1842.5, limitTotal: 6000, status: 'active' as const };
+    const legacyCard = { id: cardId, label: 'NewGen essencial', lastFour: '2846', holderName: 'EDUARDO GOMES', expiresAt: '08/30', invoiceAmount: 1842.5, limitTotal: 6000, status: 'active' as const, qualityTier: 'essential' };
     const migrated = migrateFinancialSnapshot({ ...pix.snapshot, schemaVersion: 2, cards: [legacyCard] } as unknown as Partial<FinancialSnapshot>);
-    expect(migrated.schemaVersion).toBe(3);
-    expect(migrated.cards[0]).toMatchObject({ contactlessEnabled: true, onlinePurchasesEnabled: true, qualityTier: 'lite' });
+    expect(migrated.schemaVersion).toBe(5);
+    expect(migrated.cards[0]).toMatchObject({ contactlessEnabled: true, onlinePurchasesEnabled: true });
+    expect(migrated.cards[0]).not.toHaveProperty('qualityTier');
     expect(migrated.transactions.some((item) => item.operationId === 'pix-preserved')).toBe(true);
   });
 });
