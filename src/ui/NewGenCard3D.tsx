@@ -65,6 +65,9 @@ interface CardScene {
 const CARD_WIDTH = 3.5;
 const CARD_HEIGHT = CARD_WIDTH / 1.586;
 const CARD_DEPTH = 0.19;
+const CARD_TEXTURE_WIDTH = 1200;
+const CARD_TEXTURE_HEIGHT = Math.round(CARD_TEXTURE_WIDTH / 1.586);
+const CARD_TEXTURE_SCALE = 1.5;
 const DEFAULT_RENDER_OVERSCAN = 2.25;
 const BASE_CAMERA_DISTANCE = 6.4;
 
@@ -99,9 +102,11 @@ const drawCardTexture = (texture: CanvasTexture, card: BankCard, side: 'front' |
   const canvas = texture.image as HTMLCanvasElement;
   const context = canvas.getContext('2d');
   if (!context) return;
-  const width = canvas.width;
-  const height = canvas.height;
+  const width = CARD_TEXTURE_WIDTH;
+  const height = CARD_TEXTURE_HEIGHT;
   const pad = 72;
+  context.save();
+  context.setTransform(canvas.width / width, 0, 0, canvas.height / height, 0, 0);
   context.clearRect(0, 0, width, height);
   roundedRect(context, 5, 5, width - 10, height - 10, 72);
   context.clip();
@@ -177,13 +182,14 @@ const drawCardTexture = (texture: CanvasTexture, card: BankCard, side: 'front' |
   context.letterSpacing = '3px';
   context.textAlign = 'right';
   context.fillText(card.status === 'active' ? 'ATIVO' : 'BLOQUEADO', width - pad, side === 'front' ? 145 : height - 72);
+  context.restore();
   texture.needsUpdate = true;
 };
 
 const createTexture = () => {
   const canvas = document.createElement('canvas');
-  canvas.width = 1200;
-  canvas.height = Math.round(1200 / 1.586);
+  canvas.width = CARD_TEXTURE_WIDTH * CARD_TEXTURE_SCALE;
+  canvas.height = Math.round(CARD_TEXTURE_HEIGHT * CARD_TEXTURE_SCALE);
   const texture = new CanvasTexture(canvas);
   texture.colorSpace = SRGBColorSpace;
   texture.anisotropy = 8;

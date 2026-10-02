@@ -36,10 +36,7 @@
 .password-field input { padding-inline-end: 3rem; }
 .password-field button { position: absolute; inset-block: 0; inset-inline-end: 0; display: grid; place-items: center; width: 2.75rem; padding: 0; border: 0; background: transparent; }
 .password-field svg { width: 1.1rem; }
-.submit-action { display: flex; align-items: center; justify-content: space-between; min-height: 3.75rem; margin-block-start: .5rem; padding: 0 1.25rem; border: 1px solid var(--control); border-radius: var(--radius-control); background: var(--control); color: var(--canvas); font-size: .75rem; font-weight: 850; letter-spacing: .1em; transition: transform var(--duration-press), background var(--duration-reveal); }
-.submit-action:hover { background: var(--control-hover); }
-.submit-action:active { transform: scale(.985); }
-.submit-action:disabled { cursor: wait; opacity: .7; }
+.submit-action { margin-block-start: .5rem; }
 .form-note { color: var(--text-tertiary); font-size: .68rem; line-height: 1.5; }
 
 .dashboard { width: min(var(--page-max), calc(100% - 2 * var(--page-inline))); margin-inline: auto; }
@@ -146,10 +143,7 @@
 .recipient-result svg { width: 1rem; }
 .recipient-result div { display: grid; gap: .25rem; }
 .recipient-result small { color: var(--text-secondary); }
-.pix-primary, .pix-confirm { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3.8rem; margin-block-start: 1rem; padding: 0 1.2rem; border: 1px solid var(--control); background: var(--control); color: var(--canvas); font-size: .72rem; font-weight: 850; letter-spacing: .08em; transition: transform var(--duration-press), background var(--duration-reveal); }
-.pix-primary:active, .pix-confirm:active { transform: scale(.985); }
-.pix-primary svg, .pix-confirm svg { width: 1.05rem; }
-.pix-confirm:disabled { cursor: wait; opacity: .7; }
+.pix-primary, .pix-confirm { margin-block-start: 1rem; }
 .recipient-inline { display: grid; gap: .35rem; margin-block-start: 2.5rem; padding-block: 1rem; border-block: 1px solid var(--divider); }
 .recipient-inline span { color: var(--text-secondary); font-size: .75rem; }
 .recipient-inline button { justify-self: start; display: inline-flex; gap: .4rem; align-items: center; margin-block-start: .3rem; padding: .3rem 0; border: 0; background: transparent; color: var(--text-secondary); font-size: .7rem; text-decoration: underline; }
@@ -201,8 +195,8 @@
 .receipt__details dd { margin: 0; font-size: .8rem; font-weight: 750; overflow-wrap: anywhere; }
 .receipt__id { font-family: ui-monospace, monospace; font-size: .68rem !important; }
 .receipt__actions, .receipt-next { display: flex; flex-wrap: wrap; gap: .8rem; margin-block-start: 1.5rem; }
-.receipt__actions button, .receipt-next a, .receipt-next button { display: inline-flex; align-items: center; gap: .55rem; min-height: 2.9rem; padding: 0 1rem; border: 1px solid var(--divider-strong); background: transparent; color: inherit; font-size: .7rem; font-weight: 750; text-decoration: none; }
-.receipt__actions svg, .receipt-next svg { width: 1rem; }
+.receipt__actions button, .receipt-next a:not(.ngb-button), .receipt-next button:not(.ngb-button) { display: inline-flex; align-items: center; gap: .55rem; min-height: 2.9rem; padding: 0 1rem; border: 1px solid var(--divider-strong); background: transparent; color: inherit; font-size: .7rem; font-weight: 750; text-decoration: none; }
+.receipt__actions svg, .receipt-next :not(.ngb-button) svg { width: 1rem; }
 .transaction-shell > .back-link { margin-block-end: 3rem; }
 .transaction-detail h1 { margin: 1rem 0; font-family: var(--font-display); font-size: clamp(3rem, 7vw, 6rem); font-weight: 400; letter-spacing: -.05em; }
 .transaction-detail > p:not(.section-index) { color: var(--text-secondary); }

@@ -1,6 +1,6 @@
 import { ArrowDownLeft, ArrowRight, Ellipsis, Eye, EyeOff, Plus, ReceiptText, Send } from 'lucide-react';
 import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { formatMoney, formatShortDate, formatSignedMoney, formatTime } from '../domain/formatters';
 import { recentTransactions } from '../domain/selectors';
 import { useRouteFocus } from '../motion/useRouteFocus';
@@ -20,6 +20,7 @@ const actions = [
 export function DashboardRoute() {
   const hasVisited = useRef(typeof window !== 'undefined' && window.sessionStorage.getItem('newgen-dashboard-visited') === 'true');
   const location = useLocation();
+  const navigate = useNavigate();
   const dashboardState = location.state as { dashboardFocus?: 'capital' | 'ledger'; fromLogin?: boolean } | null;
   const snapshot = useFinancialStore();
   const transactions = useMemo(() => recentTransactions(snapshot.transactions), [snapshot.transactions]);
@@ -50,11 +51,16 @@ export function DashboardRoute() {
     const timer = window.setTimeout(() => {
       const page = document.querySelector('.dashboard-page[data-entering]');
       if (page) page.removeAttribute('data-entering');
-      /* Clear fromLogin from history to avoid replay on back-nav */
-      window.history.replaceState({}, '');
+      /* Clear only fromLogin without changing the current URL. */
+      const nextState = { ...dashboardState };
+      delete nextState.fromLogin;
+      navigate({ pathname: location.pathname, search: location.search, hash: location.hash }, {
+        replace: true,
+        state: Object.keys(nextState).length ? nextState : null,
+      });
     }, 1800);
     return () => window.clearTimeout(timer);
-  }, [dashboardState?.fromLogin]);
+  }, [dashboardState?.fromLogin, location.pathname, location.search, location.hash, navigate]);
 
   return (
     <div className="dashboard-page vertical-slice mineral-scene route-stage" data-entering={dashboardState?.fromLogin || undefined}>

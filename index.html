@@ -5,7 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="NewGenBank — seu dinheiro, suas escolhas." />
     <meta name="theme-color" content="#f2efe7" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
     <title>NewGenBank</title>
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages restore script
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location));
+    </script>
     <script>
       (() => {
         try {
@@ -16,6 +30,12 @@
           document.documentElement.dataset.theme = resolved;
           document.documentElement.dataset.themePreference = saved;
         } catch {}
+        let accent = 'green';
+        try {
+          const savedAccent = localStorage.getItem('ngb2:accent');
+          if (['green', 'electric-blue', 'violet', 'crimson', 'amber-gold', 'ice-cyan'].includes(savedAccent)) accent = savedAccent;
+        } catch {}
+        document.documentElement.dataset.accent = accent;
       })();
     </script>
   </head>

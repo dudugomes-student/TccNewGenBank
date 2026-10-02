@@ -20,9 +20,28 @@ export const normalizePixKey = (value: string, type = detectPixKeyType(value)) =
 };
 
 export const findPixRecipient = (value: string, recipients: PixRecipient[]) => {
-  return recipients.find((recipient) =>
+  const found = recipients.find((recipient) =>
     normalizePixKey(recipient.key, recipient.keyType) === normalizePixKey(value, recipient.keyType),
-  ) ?? null;
+  );
+  if (found) return found;
+  /* Fallback: generate a demo recipient for any valid key format not in the base */
+  const type = detectPixKeyType(value);
+  if (!type) return null;
+  const normalized = normalizePixKey(value, type);
+  const masked = type === 'email' ? normalized.replace(/^(.{2}).+(@.+)$/, '$1•••••$2')
+    : type === 'cpf' ? `***.${normalized.slice(3, 6)}.${normalized.slice(6, 9)}-**`
+    : type === 'phone' ? `(${normalized.slice(0, 2)}) ${normalized.slice(2, 3)}••••-${normalized.slice(-4)}`
+    : `${normalized.slice(0, 4)}••••-••••-••••-••••-••••${normalized.slice(-8)}`;
+  return {
+    id: `recipient-demo-${normalized.slice(0, 8)}`,
+    name: 'Destinatário Demo',
+    key: normalized,
+    keyType: type,
+    maskedKey: masked,
+    institution: 'Banco Demo · 999',
+    taxIdSuffix: '•••.000.***-00',
+    available: true,
+  } satisfies PixRecipient;
 };
 
 export type PixValidationCode = 'invalid-key' | 'recipient-not-found' | 'invalid-amount' | 'insufficient-balance' | 'limit-exceeded' | 'recipient-unavailable' | 'duplicate';

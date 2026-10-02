@@ -25,8 +25,9 @@ export function LoginRoute() {
     const identifier = String(data.get('identifier') ?? '').trim();
     const password = String(data.get('password') ?? '');
     const digits = identifier.replace(/\D/g, '');
+    const cpfOnly = /^[\d.\-\s]+$/.test(identifier);
     const nextErrors: LoginErrors = {};
-    if (identifier.length < 3 || (digits.length > 0 && digits.length !== 11)) nextErrors.identifier = 'Informe seu usuário ou um CPF válido.';
+    if (identifier.length < 3 || (cpfOnly && digits.length !== 11)) nextErrors.identifier = 'Informe seu usuário ou um CPF válido.';
     if (password.length < 8) nextErrors.password = 'Use pelo menos 8 caracteres.';
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length) {

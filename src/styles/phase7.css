@@ -21,9 +21,7 @@
 .operation-money-input > span { color: var(--text-secondary); font-family: var(--font-display); font-size: 1.3rem; }
 .operation-money-input input { min-width: 0; width: 100%; padding: .35rem 0 .7rem; border: 0; background: transparent; color: var(--text-primary); font-family: var(--font-display); font-size: clamp(4rem, 8vw, 7rem); letter-spacing: -.055em; outline-offset: 2px; }
 .operation-line-input, .payment-reference-form > input, .profile-form > input { width: 100%; min-height: 3.5rem; padding: .5rem 0; border: 0; border-block-end: 1px solid var(--divider-strong); border-radius: 0; background: transparent; color: var(--text-primary); outline-offset: 2px; }
-.operation-primary { display: inline-flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3.6rem; margin-block-start: 1.3rem; padding: 0 1.2rem; border: 1px solid var(--control); border-radius: var(--radius-control); background: var(--control); color: var(--canvas); font-size: .72rem; font-weight: 850; letter-spacing: .07em; }
-.operation-primary svg { width: 1.05rem; }
-.operation-primary:active { transform: scale(.985); }
+.operation-primary { margin-block-start: 1.3rem; }
 .operation-text-action { min-height: 2.8rem; padding: 0; border: 0; background: transparent; color: var(--text-secondary); text-align: start; text-decoration: underline; }
 
 .charge-stage { display: grid; grid-template-columns: minmax(18rem, .7fr) 1fr; gap: clamp(3rem, 8vw, 9rem); align-items: center; min-height: calc(100svh - 16rem); padding-block: clamp(3rem, 7vw, 7rem); }
@@ -111,6 +109,7 @@
 .account-settings-link h2 { margin: .5rem 0; font-size: 2.8rem; }
 .account-settings-link p { margin: 0; color: var(--text-secondary); }
 .account-settings-link a { display: inline-flex; align-items: center; gap: .5rem; font-size: .72rem; font-weight: 800; }
+.account-mobile-logout { display: none; }
 .settings-header .back-link { margin-block-end: 4rem; }
 .theme-options { display: grid; margin: 0; padding: 0; border: 0; border-block-start: 1px solid var(--divider-strong); }
 .theme-options label { display: grid; grid-template-columns: 2rem 2.8rem 1fr; gap: .8rem; align-items: center; min-height: 5.5rem; border-block-end: 1px solid var(--divider); cursor: pointer; }
@@ -170,8 +169,10 @@
   .account-header, .settings-header { padding-block: 3rem 4rem; }
   .account-header h1, .settings-header h1 { font-size: clamp(3.4rem, 16vw, 5rem); }
   .account-section h2, .settings-section h2 { font-size: 3.1rem; }
-  .account-settings-link { grid-template-columns: 2.5rem 1fr; margin-block-end: 7rem; }
+  .account-settings-link { grid-template-columns: 2.5rem 1fr; margin-block-end: 1rem; }
   .account-settings-link a { grid-column: 2; min-height: 2.8rem; }
+  .account-mobile-logout { display: inline-flex; align-items: center; gap: .6rem; min-height: 2.8rem; margin-block-end: 7rem; padding: .5rem 0; border: 0; background: transparent; color: var(--text-primary); font: inherit; font-weight: 700; cursor: pointer; }
+  .account-mobile-logout svg { width: 1.1rem; height: 1.1rem; }
 }
 
 @media (max-width: 390px) {

@@ -15,6 +15,8 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [preference, setPreferenceState] = useState<ThemePreference>(getThemePreference);
   const [accent, setAccentState] = useState<AccentPreference>(getAccentPreference);
+  const setPreference = (next: ThemePreference) => { applyTheme(next); setPreferenceState(next); };
+  const setAccent = (next: AccentPreference) => { applyAccent(next); setAccentState(next); };
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -25,11 +27,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     return () => media.removeEventListener('change', syncSystemTheme);
   }, [preference]);
 
-  useEffect(() => {
-    applyAccent(accent);
-  }, [accent]);
-
-  const value = useMemo(() => ({ preference, setPreference: setPreferenceState, accent, setAccent: setAccentState }), [accent, preference]);
+  const value = useMemo(() => ({ preference, setPreference, accent, setAccent }), [accent, preference]);
   return <ThemeContext.Provider value={value}>
     {children}
     <AnimatePresence initial={false}>
