@@ -15,7 +15,7 @@ import './styles/vertical-slice.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <ThemeProvider>
         <App />
       </ThemeProvider>

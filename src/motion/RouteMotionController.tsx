@@ -39,9 +39,12 @@ export function RouteMotionController() {
       const anchor = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[href]');
       if (!anchor || anchor.target === '_blank' || anchor.hasAttribute('download')) return;
       const destination = new URL(anchor.href, window.location.href);
-      if (destination.origin !== window.location.origin || destination.pathname === pathname) return;
-      root.dataset.routeMotion = classifyRouteMotion(pathname, destination.pathname);
-      root.dataset.routeDirection = destination.pathname === '/dashboard' ? 'back' : 'forward';
+      const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+      if (destination.origin !== window.location.origin || !destination.pathname.startsWith(`${base}/`)) return;
+      const destinationPath = destination.pathname.slice(base.length);
+      if (destinationPath === pathname) return;
+      root.dataset.routeMotion = classifyRouteMotion(pathname, destinationPath);
+      root.dataset.routeDirection = destinationPath === '/dashboard' ? 'back' : 'forward';
     };
 
     document.addEventListener('pointerdown', captureIntent, true);

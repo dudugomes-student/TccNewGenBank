@@ -23,6 +23,7 @@ import {
 } from 'three';
 import type { BankCard } from '../domain/models';
 import { angularVelocityFromDelta, dampAngularVelocity, integrateAngularVelocity, pointerRotationDelta } from '../motion/cardPhysics';
+import { useTheme } from '../theme/ThemeProvider';
 
 interface NewGenCard3DProps {
   card: BankCard;
@@ -233,6 +234,7 @@ const createRoundedShape = () => {
 };
 
 export function NewGenCard3D({ card, visualScale = 1, renderOverscan = DEFAULT_RENDER_OVERSCAN, flipped, revealSensitive, onFaceChange }: NewGenCard3DProps) {
+  const { accent: accentPreference } = useTheme();
   const rootRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const runtimeRef = useRef<CardScene | null>(null);
@@ -411,6 +413,11 @@ export function NewGenCard3D({ card, visualScale = 1, renderOverscan = DEFAULT_R
         const materials = Array.isArray(object.material) ? object.material : [object.material];
         materials.forEach((material) => material.dispose());
       });
+      const gl = runtime.renderer.getContext();
+      if (!gl.isContextLost()) {
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+        gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+      }
       runtime.renderer.dispose();
       runtimeRef.current = null;
     };
@@ -429,7 +436,7 @@ export function NewGenCard3D({ card, visualScale = 1, renderOverscan = DEFAULT_R
     runtime.bodyMaterial.color.set(card.status === 'active' ? '#111513' : '#242725');
     runtime.accentLight.color.set(accent);
     render();
-  }, [card, revealSensitive]);
+  }, [card, revealSensitive, accentPreference]);
 
   useEffect(() => {
     if (reportedFaceRef.current) {
