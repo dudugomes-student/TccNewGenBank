@@ -15,6 +15,19 @@
 .accent-control__option--ice-cyan > span[aria-hidden] { background: #72dfee; }
 .accent-control__option:has(input:checked) > span[aria-hidden] { box-shadow: 0 0 0 4px color-mix(in srgb, currentColor, transparent 78%); transform: scale(1.08); }
 .accent-control__option:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
+.appearance-control .theme-control__option { position: relative; isolation: isolate; }
+.appearance-control .theme-control__option:has(input:checked) { background: transparent; }
+.appearance-control .liquid-selection,
+.appearance-control .liquid-selection__tail { position: absolute; z-index: -1; inset: 0; border-radius: 50%; pointer-events: none; }
+.appearance-control .liquid-selection--accent,
+.appearance-control .liquid-selection__tail--accent { inset: .12rem; border: 1px solid var(--accent); background: var(--accent-soft); }
+.appearance-control .liquid-selection--theme,
+.appearance-control .liquid-selection__tail--theme { background: var(--text-primary); }
+.vertical-slice .liquid-selection--theme,
+.vertical-slice .liquid-selection__tail--theme { background: var(--accent); }
+.appearance-control .accent-control__option > span[aria-hidden] { position: relative; z-index: 1; }
+.appearance-control .accent-control__option:has(input:checked) > span[aria-hidden] { box-shadow: none; transform: none; }
+.appearance-control .theme-control__option > svg { position: relative; z-index: 1; }
 
 .vertical-slice {
   --slice-text: #f0f3ef;
@@ -87,7 +100,7 @@
 .vertical-slice .icon-action { border-color: var(--slice-line); }
 .vertical-slice .theme-control__option,
 .vertical-slice .app-header__tools { color: var(--slice-muted); }
-.vertical-slice .theme-control__option:has(input:checked) { background: var(--accent); color: var(--accent-on); }
+.vertical-slice .theme-control__option:has(input:checked) { background: transparent; color: var(--accent-on); }
 .vertical-slice .icon-action:hover { background: var(--accent-soft); }
 
 /* Pix: the Foundation becomes an operational transfer surface, not a Dashboard copy. */

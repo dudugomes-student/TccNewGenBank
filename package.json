@@ -11,13 +11,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@types/three": "^0.186.0",
+    "@types/three": "0.162.0",
     "lucide-react": "latest",
     "motion": "^13.5.0",
     "react": "latest",
     "react-dom": "latest",
     "react-router-dom": "latest",
-    "three": "^0.186.1",
+    "three": "0.162.0",
     "zustand": "latest"
   },
   "devDependencies": {
