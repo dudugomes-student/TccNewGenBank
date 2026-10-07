@@ -63,7 +63,7 @@ export function DashboardRoute() {
   }, [dashboardState?.fromLogin, location.pathname, location.search, location.hash, navigate]);
 
   return (
-    <div className="dashboard-page vertical-slice mineral-scene route-stage" data-entering={dashboardState?.fromLogin || undefined}>
+    <div className="dashboard-page vertical-slice mineral-scene route-stage" data-entering={dashboardState?.fromLogin || !returningTransactionId || undefined}>
       <div className="mineral-backdrop" aria-hidden="true" />
       <div className="mineral-atmosphere" aria-hidden="true" />
       <a className="skip-link" href="#main-content">Pular para o conteúdo</a>
@@ -116,8 +116,8 @@ export function DashboardRoute() {
             <Link to="/movimento" viewTransition>Ver todas <ArrowRight aria-hidden="true" /></Link>
           </header>
           <ol>
-            {transactions.slice(0, 3).map((transaction) => (
-              <li key={transaction.id}>
+            {transactions.slice(0, 3).map((transaction, index) => (
+              <li key={transaction.id} style={{ animationDelay: (280 + Math.min(index, 5) * 45) + 'ms' }}>
                 <Link
                   to={`/movimentos/${transaction.id}`}
                   viewTransition

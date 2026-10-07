@@ -1,3 +1,4 @@
+import { useSiteReducedMotion } from './MotionProvider';
 import { useEffect, useRef, useState } from 'react';
 import type { MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent, RefObject } from 'react';
 import {
@@ -87,9 +88,7 @@ export function useCardManipulation({ face, status, onFaceChange }: CardManipula
   const dragged = useRef(false);
   const initialized = useRef(false);
   const onFaceChangeRef = useRef(onFaceChange);
-  const [reducedMotion, setReducedMotion] = useState(() =>
-    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-  );
+  const reducedMotion = useSiteReducedMotion();
   const enabled = canManipulateCard(status, reducedMotion);
   onFaceChangeRef.current = onFaceChange;
 
@@ -164,13 +163,6 @@ export function useCardManipulation({ face, status, onFaceChange }: CardManipula
 
     motionFrame.current = requestAnimationFrame(tick);
   };
-
-  useEffect(() => {
-    const query = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const update = () => setReducedMotion(query.matches);
-    query.addEventListener('change', update);
-    return () => query.removeEventListener('change', update);
-  }, []);
 
   useEffect(() => {
     const element = cardRef.current;

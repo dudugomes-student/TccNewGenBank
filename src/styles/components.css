@@ -106,6 +106,4 @@
 .newgen-card-3d--failed { display: grid; place-items: center; padding: 2rem; border: 1px solid var(--divider); background: var(--object); color: var(--text-on-object); font-size: .75rem; }
 .newgen-card-3d--loading { background: linear-gradient(145deg, #151918, #080a0a 58%, #171b19); box-shadow: var(--shadow-object); }
 
-@media (prefers-reduced-motion: reduce) {
-  .newgen-card-3d canvas { transition: none; }
-}
+html[data-reduced-motion='true'] .newgen-card-3d canvas { transition: none; }

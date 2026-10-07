@@ -150,7 +150,5 @@
   .card-stage { min-height: auto; padding-block: 2rem; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .newgen-card__plane { transition: none; }
-  .capacity-boundary__used { transition: none; }
-}
+html[data-reduced-motion='true'] .newgen-card__plane { transition: none; }
+html[data-reduced-motion='true'] .capacity-boundary__used { transition: none; }

@@ -1,3 +1,4 @@
+import { useSiteReducedMotion } from '../motion/MotionProvider';
 import { ArrowLeft, ArrowRight, FileSearch2 } from 'lucide-react';
 import { type FormEvent, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -13,6 +14,7 @@ import { Receipt } from '../ui/Receipt';
 type PaymentStep = 'identify' | 'review' | 'reaction' | 'receipt';
 
 export function PaymentRoute() {
+  const reducedMotion = useSiteReducedMotion();
   const snapshot = useFinancialStore();
   const [step, setStep] = useState<PaymentStep>('identify');
   const [reference, setReference] = useState('');
@@ -59,7 +61,7 @@ export function PaymentRoute() {
     setTransaction(result.transaction);
     setError('');
     setStep('reaction');
-    const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1120;
+    const duration = reducedMotion ? 0 : 1120;
     reactionTimer.current = window.setTimeout(() => { setStep('receipt'); reactionTimer.current = null; }, duration);
   };
 

@@ -1,5 +1,6 @@
+import { useSiteReducedMotion } from '../motion/MotionProvider';
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import type { ThemePreference } from '../domain/models';
 import { applyAccent, applyTheme, getAccentPreference, getThemePreference, type AccentPreference } from './theme';
 
@@ -17,7 +18,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [accent, setAccentState] = useState<AccentPreference>(getAccentPreference);
   const setPreference = (next: ThemePreference) => { applyTheme(next); setPreferenceState(next); };
   const setAccent = (next: AccentPreference) => { applyAccent(next); setAccentState(next); };
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useSiteReducedMotion();
 
   useEffect(() => {
     applyTheme(preference);

@@ -1,3 +1,4 @@
+import { useSiteReducedMotion } from '../motion/MotionProvider';
 import { ArrowDownLeft, ArrowLeft, ArrowUpRight, Search, X } from 'lucide-react';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -20,6 +21,7 @@ import { MobileNav } from '../ui/MobileNav';
 const statusLabels = { completed: 'Concluída', scheduled: 'Agendada', processing: 'Em processamento' } as const;
 
 export function MovementRoute() {
+  const reducedMotion = useSiteReducedMotion();
   useRouteFocus();
   const snapshot = useFinancialStore();
   const unread = snapshot.notifications.filter((item) => !item.read).length;
@@ -55,15 +57,25 @@ export function MovementRoute() {
     return () => window.clearTimeout(clear);
   }, [returningTransactionId]);
 
+
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    resultsRef.current?.querySelectorAll<HTMLElement>('.movement-day li').forEach((row, index) => {
-      row.animate(
-        [{ opacity: .68, transform: 'translateY(7px)' }, { opacity: 1, transform: 'translateY(0)' }],
-        { duration: 260, delay: Math.min(index, 5) * 24, easing: 'cubic-bezier(.2,.72,.18,1)' },
-      );
-    });
-  }, [filterKey]);
+    if (reducedMotion) return;
+    const rows = resultsRef.current?.querySelectorAll<HTMLElement>('.movement-day li');
+    if (!rows) return;
+    if (!('IntersectionObserver' in window)) {
+      rows.forEach((row) => { row.dataset.motionVisible = 'true'; });
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        (entry.target as HTMLElement).dataset.motionVisible = 'true';
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: .15 });
+    rows.forEach((row) => observer.observe(row));
+    return () => observer.disconnect();
+  }, [filterKey, reducedMotion]);
 
   const updateFilter = (key: string, value: string, defaultValue = 'all') => {
     setSearchParams((current) => {
@@ -123,7 +135,7 @@ export function MovementRoute() {
             {hasFilters && <button type="button" onClick={clearFilters}><X aria-hidden="true" /> Limpar filtros</button>}
           </form>
 
-          <div className="movement-results" ref={resultsRef} data-filter-state={filterKey}>
+          <div className="movement-results" key={filterKey} ref={resultsRef} data-filter-state={filterKey}>
           {groups.length === 0 ? (
             <div className="movement-empty">
               <p className="section-index">NENHUM RESULTADO</p>
@@ -131,12 +143,12 @@ export function MovementRoute() {
               <p>Revise a busca ou volte ao movimento completo.</p>
               <button type="button" onClick={clearFilters}>Ver todo o movimento</button>
             </div>
-          ) : groups.map((group) => (
+          ) : groups.map((group, groupIndex) => (
             <section className="movement-day" key={group.dateKey} aria-labelledby={`day-${group.dateKey}`}>
               <header><h3 id={`day-${group.dateKey}`}>{formatLedgerDate(group.dateKey)}</h3><span>{group.transactions.length} {group.transactions.length === 1 ? 'movimento' : 'movimentos'}</span></header>
               <ol>
-                {group.transactions.map((transaction) => (
-                  <li key={transaction.id}>
+                {group.transactions.map((transaction, index) => (
+                  <li key={transaction.id} style={{ animationDelay: (140 + Math.min(groupIndex + index, 5) * 45) + 'ms' }}>
                     <Link to={`/movimentos/${transaction.id}`} viewTransition state={{ from: '/movimento', label: 'Movimento' }} style={{ viewTransitionName: returningTransactionId === transaction.id ? transactionTransitionName(transaction.id) : undefined }} onClick={(event) => { rememberTransactionSource(transaction.id); event.currentTarget.style.viewTransitionName = transactionTransitionName(transaction.id); }} onMouseEnter={() => setFocusedMonth(transaction.occurredAt.slice(0, 7))} onMouseLeave={() => setFocusedMonth(null)} onFocus={() => setFocusedMonth(transaction.occurredAt.slice(0, 7))} onBlur={() => setFocusedMonth(null)}>
                       <span className={`movement-row__direction movement-row__direction--${transaction.direction}`} aria-hidden="true">{transaction.direction === 'in' ? <ArrowDownLeft /> : <ArrowUpRight />}</span>
                       <span className="movement-row__identity"><strong>{transaction.title}</strong><small>{transaction.description}</small></span>

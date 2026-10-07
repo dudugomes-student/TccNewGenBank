@@ -181,10 +181,9 @@
   .month-recurring li > strong { max-width: 8rem; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .month-reading { animation: none; }
-  .month-category-bar > span { transition: none; }
-}
+html[data-reduced-motion='true'] .month-reading { animation: none; }
+html[data-reduced-motion='true'] .month-category-bar > span { transition: none; }
+
 
 /* Dashboard Foundation for dense financial data routes. */
 .movement-page.vertical-slice,

@@ -191,6 +191,4 @@
   .preference-row [role='switch'] { grid-column: 2; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .preference-row [role='switch'] span { transition: none; }
-}
+html[data-reduced-motion='true'] .preference-row [role='switch'] span { transition: none; }

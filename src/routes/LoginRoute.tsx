@@ -1,3 +1,4 @@
+import { useSiteReducedMotion } from '../motion/MotionProvider';
 import { ArrowLeft, ArrowRight, Eye, EyeOff, LockKeyhole } from 'lucide-react';
 import { FormEvent, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -10,6 +11,7 @@ import { ThemeControl } from '../ui/ThemeControl';
 interface LoginErrors { identifier?: string; password?: string }
 
 export function LoginRoute() {
+  const reducedMotion = useSiteReducedMotion();
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<LoginErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -37,7 +39,6 @@ export function LoginRoute() {
 
     setIsSubmitting(true);
     signIn();
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const destination = (location.state as { from?: string } | null)?.from ?? '/dashboard';
     window.setTimeout(() => {
       document.documentElement.dataset.sliceTransition = 'active';

@@ -36,6 +36,16 @@
           if (['green', 'electric-blue', 'violet', 'crimson', 'amber-gold', 'ice-cyan'].includes(savedAccent)) accent = savedAccent;
         } catch {}
         document.documentElement.dataset.accent = accent;
+        let motionPreference = 'system';
+        try {
+          const savedMotion = localStorage.getItem('ngb2:motion');
+          if (savedMotion === 'reduced' || savedMotion === 'full') motionPreference = savedMotion;
+        } catch {}
+        document.documentElement.dataset.reducedMotion = String(
+          motionPreference === 'system'
+            ? matchMedia('(prefers-reduced-motion: reduce)').matches
+            : motionPreference === 'reduced'
+        );
       })();
     </script>
   </head>

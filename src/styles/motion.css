@@ -3,6 +3,9 @@
 /* AnimatePresence owns route exit/entry. Native snapshots would cover its live frames. */
 ::view-transition { display: none; }
 html:has(.route-transition-frame) { overflow-x: clip; }
+.route-transition-frame .route-stage { animation: none; }
+.route-transition-frame :is(.movement-hero, .month-hero, .account-header, .settings-header, .operation-header, .utility-header, .login-panel--mineral) { animation: stage-consequence 420ms var(--ease-financial) both 60ms; }
+.route-transition-frame .movement-filters { animation: stage-consequence 420ms var(--ease-financial) both 100ms; }
 
 @keyframes route-settle { from { clip-path: inset(0 0 0 2.5%); transform: translateX(9px); } }
 @keyframes view-enter { from { clip-path: inset(0 0 0 3%); transform: translateX(1.4%); } }
@@ -46,7 +49,7 @@ html[data-route-motion='receive']::view-transition-new(root) { animation: receiv
 .theme-lighting-transition { position: fixed; z-index: 90; inset: 0; background: radial-gradient(circle at 78% 4%, var(--accent-faint), transparent 44%); mix-blend-mode: soft-light; pointer-events: none; }
 
 button, a, input, select { transition-timing-function: var(--ease-out); }
-button:active, .receipt-next a:active, .notification-list__actions a:active { transform: translateY(1px) scale(.985); }
+button:not(.ngb-button):active, .receipt-next a:active, .notification-list__actions a:active { transform: translateY(1px) scale(.985); }
 
 /* Dashboard — CAPITAL estabelece, MOTION atravessa e INSTRUMENT ganha corpo. */
 .dashboard:not([data-returning]) [data-motion-group='capital'] { animation: capital-establish 360ms var(--ease-enter) both 45ms; }
@@ -103,10 +106,10 @@ button:active, .receipt-next a:active, .notification-list__actions a:active { tr
 .pix-continuity__amount { text-align: end; }
 .pix-page[data-flow-step='review'] .pix-continuity__amount strong,
 .pix-page[data-flow-step='reaction'] .pix-continuity__amount strong { font-family: var(--font-display); font-size: 1.25rem; }
-.pix-page .pix-stage, .operation-page .operation-stage, .operation-page .charge-stage, .operation-page .payment-identify, .operation-page .payment-review, .receipt-stage { animation: stage-consequence 260ms var(--ease-financial) both; }
+.pix-page .pix-stage, .operation-page .operation-stage, .operation-page .charge-stage, .operation-page .payment-identify, .operation-page .payment-review, .receipt-stage { animation: stage-consequence 420ms var(--ease-financial) both 100ms; }
 .pix-page .recipient-result { animation: recipient-recognized 360ms var(--ease-financial) both; transform-origin: left center; }
 @keyframes continuity-enter { from { opacity: .35; transform: translateY(-8px); } }
-@keyframes stage-consequence { from { opacity: .45; transform: translateX(14px); } }
+@keyframes stage-consequence { from { opacity: 0; transform: translateY(18px); } }
 @keyframes recipient-recognized {
   0% { transform: translateY(8px) scale(.985); box-shadow: 0 0 0 0 transparent; }
   58% { transform: translateY(-2px) scale(1.004); box-shadow: 0 0 0 5px var(--accent-faint); }
@@ -273,14 +276,15 @@ button:active, .receipt-next a:active, .notification-list__actions a:active { tr
 @keyframes month-time-marker { from { transform: scaleX(.08); opacity: .5; } to { transform: scaleX(1); opacity: 0; } }
 @keyframes category-grow { from { transform: scaleX(.18); opacity: .62; } }
 
-.movement-results { animation: ledger-reconcile var(--duration-reveal) var(--ease-financial) both; }
-.movement-results .movement-day li { animation: ledger-row-in var(--duration-reveal) var(--ease-financial) both; }
+.movement-results { animation: ledger-reconcile 360ms var(--ease-financial) both 80ms; }
+.movement-results .movement-day li, .movement-peek li { animation: ledger-row-in 420ms var(--ease-financial) both; }
+html[data-reduced-motion='false'] .movement-results .movement-day li:not([data-motion-visible]) { animation-play-state: paused; }
 .movement-results .movement-day li:nth-child(2) { animation-delay: 25ms; }
 .movement-results .movement-day li:nth-child(3) { animation-delay: 50ms; }
 .movement-results .movement-day li:nth-child(4) { animation-delay: 75ms; }
 .movement-results .movement-day li:nth-child(5) { animation-delay: 100ms; }
 @keyframes ledger-reconcile { from { opacity: .55; transform: translateY(3px); } }
-@keyframes ledger-row-in { from { opacity: .45; transform: translateY(7px); } }
+@keyframes ledger-row-in { from { opacity: 0; transform: translateY(14px); } }
 .balance-trajectory__line { stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: trajectory-draw 580ms var(--ease-financial) forwards; }
 .balance-trajectory__point { opacity: 0; animation: trajectory-point var(--duration-reveal) var(--ease-enter) forwards 380ms; }
 @keyframes trajectory-draw { to { stroke-dashoffset: 0; } }
@@ -314,27 +318,53 @@ button:active, .receipt-next a:active, .notification-list__actions a:active { tr
   @keyframes money-trace-mobile { from { transform: translateY(0) scale(.5); opacity: .8; } to { transform: translateY(28vh) scale(1.2); opacity: 0; } }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(root), ::view-transition-new(root),
-  ::view-transition-group(newgen-instrument), ::view-transition-group(financial-summary) { animation: none; }
-  .theme-lighting-transition { display: none; }
-  .dashboard [data-motion-group], .dashboard [data-motion-group] *, .balance-line__value > strong, .balance-line__trace,
-  .flow__axis, .flow__point, .pix-continuity, .pix-page .pix-stage, .pix-page .recipient-result,
-  .operation-page .operation-stage, .operation-page .charge-stage,
-  .operation-page .payment-identify, .operation-page .payment-review,
-  .receipt-stage, .balance-reaction::before, .balance-reaction__source, .balance-reaction__commit,
-  .balance-reaction__transfer, .balance-reaction__path i, .balance-reaction__result,
-  .charge-object, .charge-content, .payment-slip, .month-reading,
-  .month-reading .month-result__main, .month-reading .month-result > dl,
-  .month-reading .month-result__trajectory, .month-reading .month-category-bar > span,
-  .movement-results, .movement-results .movement-day li, .balance-trajectory__line,
-  .balance-trajectory__point, .receipt, .receipt__details > div, .card-confirmation,
-  .month-reading::before {
+html[data-reduced-motion='true']::view-transition-old(root),
+html[data-reduced-motion='true']::view-transition-new(root),
+html[data-reduced-motion='true']::view-transition-group(newgen-instrument),
+html[data-reduced-motion='true']::view-transition-group(financial-summary) { animation: none; }
+html[data-reduced-motion='true'] .theme-lighting-transition { display: none; }
+html[data-reduced-motion='true'] .dashboard [data-motion-group],
+html[data-reduced-motion='true'] .dashboard [data-motion-group] *,
+html[data-reduced-motion='true'] .balance-line__value > strong,
+html[data-reduced-motion='true'] .balance-line__trace,
+html[data-reduced-motion='true'] .flow__axis,
+html[data-reduced-motion='true'] .flow__point,
+html[data-reduced-motion='true'] .pix-continuity,
+html[data-reduced-motion='true'] .pix-page .pix-stage,
+html[data-reduced-motion='true'] .pix-page .recipient-result,
+html[data-reduced-motion='true'] .operation-page .operation-stage,
+html[data-reduced-motion='true'] .operation-page .charge-stage,
+html[data-reduced-motion='true'] .operation-page .payment-identify,
+html[data-reduced-motion='true'] .operation-page .payment-review,
+html[data-reduced-motion='true'] .receipt-stage,
+html[data-reduced-motion='true'] .balance-reaction::before,
+html[data-reduced-motion='true'] .balance-reaction__source,
+html[data-reduced-motion='true'] .balance-reaction__commit,
+html[data-reduced-motion='true'] .balance-reaction__transfer,
+html[data-reduced-motion='true'] .balance-reaction__path i,
+html[data-reduced-motion='true'] .balance-reaction__result,
+html[data-reduced-motion='true'] .charge-object,
+html[data-reduced-motion='true'] .charge-content,
+html[data-reduced-motion='true'] .payment-slip,
+html[data-reduced-motion='true'] .month-reading,
+html[data-reduced-motion='true'] .month-reading .month-result__main,
+html[data-reduced-motion='true'] .month-reading .month-result > dl,
+html[data-reduced-motion='true'] .month-reading .month-result__trajectory,
+html[data-reduced-motion='true'] .month-reading .month-category-bar > span,
+html[data-reduced-motion='true'] .movement-results,
+html[data-reduced-motion='true'] .movement-results .movement-day li,
+html[data-reduced-motion='true'] .balance-trajectory__line,
+html[data-reduced-motion='true'] .balance-trajectory__point,
+html[data-reduced-motion='true'] .receipt,
+html[data-reduced-motion='true'] .receipt__details > div,
+html[data-reduced-motion='true'] .card-confirmation,
+html[data-reduced-motion='true'] .month-reading::before {
     animation: none !important;
   }
-  .flow__axis { transform: none; }
-  .balance-line__trace { display: none; }
-  .balance-trajectory__line { stroke-dashoffset: 0; }
-  .balance-trajectory__point { opacity: 1; }
-  .newgen-card__ground-shadow, .newgen-card__ground-shadow::after, .newgen-card__lift { transition: none; }
-}
+html[data-reduced-motion='true'] .flow__axis { transform: none; }
+html[data-reduced-motion='true'] .balance-line__trace { display: none; }
+html[data-reduced-motion='true'] .balance-trajectory__line { stroke-dashoffset: 0; }
+html[data-reduced-motion='true'] .balance-trajectory__point { opacity: 1; }
+html[data-reduced-motion='true'] .newgen-card__ground-shadow,
+html[data-reduced-motion='true'] .newgen-card__ground-shadow::after,
+html[data-reduced-motion='true'] .newgen-card__lift { transition: none; }

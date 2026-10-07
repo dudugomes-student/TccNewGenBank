@@ -17,7 +17,8 @@ button { cursor: pointer; }
 .skip-link:focus { transform: translateY(0); }
 .kicker, .section-index { margin: 0; color: var(--text-secondary); font-size: .68rem; font-weight: 750; letter-spacing: .15em; text-transform: uppercase; }
 @keyframes route-settle { from { opacity: 0; transform: translateY(7px); } }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
-}
+html[data-reduced-motion='true'] { scroll-behavior: auto; }
+html[data-reduced-motion='true'],
+html[data-reduced-motion='true'] *,
+html[data-reduced-motion='true'] *::before,
+html[data-reduced-motion='true'] *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }

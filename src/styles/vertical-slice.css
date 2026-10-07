@@ -571,10 +571,10 @@
 .movement-peek li > a > strong { justify-self: end; font-size: .75rem; font-variant-numeric: tabular-nums; }
 
 .dashboard-page[data-entering] [data-slice-enter] { animation: slice-dashboard-settle 680ms cubic-bezier(.2, .72, .18, 1) both; }
-.dashboard-page[data-entering] [data-slice-enter='greeting'] { animation-delay: 340ms; animation-name: slice-greeting-arrive; }
-.dashboard-page[data-entering] [data-slice-enter='balance'] { animation-delay: 480ms; animation-name: slice-balance-arrive; animation-duration: 780ms; }
+.dashboard-page[data-entering] [data-slice-enter='greeting'] { animation-delay: 80ms; animation-name: slice-greeting-arrive; }
+.dashboard-page[data-entering] [data-slice-enter='balance'] { animation-delay: 160ms; animation-name: slice-balance-arrive; animation-duration: 780ms; }
 .dashboard-page[data-entering] [data-slice-enter='card'] { animation-delay: 600ms; animation-name: slice-card-arrive; animation-duration: 840ms; }
-.dashboard-page[data-entering] [data-slice-enter='movement'] { animation-delay: 740ms; animation-name: slice-movement-arrive; animation-duration: 720ms; }
+.dashboard-page[data-entering] [data-slice-enter='movement'] { animation-delay: 280ms; animation-name: slice-movement-arrive; animation-duration: 720ms; }
 .dashboard-page[data-entering] .mineral-backdrop { animation: slice-environment-arrive 1100ms cubic-bezier(.2, .72, .18, 1) both; }
 .dashboard-page[data-entering] .mineral-atmosphere { animation: slice-atmosphere-arrive 1200ms cubic-bezier(.14, 1, .34, 1) both; }
 .dashboard-page[data-entering] > .app-header { animation: slice-dash-header-arrive 520ms cubic-bezier(.2, .72, .18, 1) both 280ms; }
@@ -749,23 +749,23 @@ html[data-slice-transition='active']::view-transition-new(root) { animation: sli
   .movement-peek > header > a { white-space: nowrap; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .quick-actions > a, .quick-actions > a::before { transition-duration: 0.01ms; }
-  .login-page[data-transitioning] .login-panel--mineral,
-  .login-page[data-transitioning] .login-form--mineral,
-  .login-page[data-transitioning] .login-card-stage,
-  .login-page[data-transitioning] .mineral-backdrop,
-  .login-page[data-transitioning] .mineral-atmosphere,
-  .login-page[data-transitioning] .slice-header,
-  .login-page[data-transitioning] .submit-action--mineral,
-  .dashboard-page[data-entering] [data-slice-enter],
-  .dashboard-page[data-entering] .mineral-backdrop,
-  .dashboard-page[data-entering] .mineral-atmosphere,
-  .dashboard-page[data-entering] > .app-header,
-  .dashboard-page[data-entering] .mobile-nav { animation: none !important; }
-  ::view-transition-group(mineral-environment),
-  ::view-transition-group(slice-card) { animation-duration: .001ms; }
-}
+html[data-reduced-motion='true'] .quick-actions > a,
+html[data-reduced-motion='true'] .quick-actions > a::before { transition-duration: 0.01ms; }
+html[data-reduced-motion='true'] .login-page[data-transitioning] .login-panel--mineral,
+html[data-reduced-motion='true'] .login-page[data-transitioning] .login-form--mineral,
+html[data-reduced-motion='true'] .login-page[data-transitioning] .login-card-stage,
+html[data-reduced-motion='true'] .login-page[data-transitioning] .mineral-backdrop,
+html[data-reduced-motion='true'] .login-page[data-transitioning] .mineral-atmosphere,
+html[data-reduced-motion='true'] .login-page[data-transitioning] .slice-header,
+html[data-reduced-motion='true'] .login-page[data-transitioning] .submit-action--mineral,
+html[data-reduced-motion='true'] .dashboard-page[data-entering] [data-slice-enter],
+html[data-reduced-motion='true'] .dashboard-page[data-entering] .mineral-backdrop,
+html[data-reduced-motion='true'] .dashboard-page[data-entering] .mineral-atmosphere,
+html[data-reduced-motion='true'] .dashboard-page[data-entering] > .app-header,
+html[data-reduced-motion='true'] .dashboard-page[data-entering] .mobile-nav { animation: none !important; }
+html[data-reduced-motion='true']::view-transition-group(mineral-environment),
+html[data-reduced-motion='true']::view-transition-group(slice-card) { animation-duration: .001ms; }
+
 
 /* Secondary routes — compact product surfaces within the approved mineral Foundation. */
 .secondary-page.vertical-slice {
@@ -1005,16 +1005,14 @@ html[data-slice-transition='active']::view-transition-new(root) { animation: sli
   .secondary-page .notification-list__actions { display: grid; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .secondary-page .card-status-action,
-  .secondary-page .limit-control button,
-  .secondary-page .virtual-card__reveal,
-  .secondary-page .settings-ledger > div,
-  .secondary-page .invoice-section li a,
-  .secondary-page .notification-list > li,
-  .secondary-page .notification-list__actions > *,
-  .secondary-page .profile-view > button,
-  .secondary-page .profile-form__actions button,
-  .secondary-page .theme-options label,
-  .secondary-page .preference-row { transition: none !important; }
-}
+html[data-reduced-motion='true'] .secondary-page .card-status-action,
+html[data-reduced-motion='true'] .secondary-page .limit-control button,
+html[data-reduced-motion='true'] .secondary-page .virtual-card__reveal,
+html[data-reduced-motion='true'] .secondary-page .settings-ledger > div,
+html[data-reduced-motion='true'] .secondary-page .invoice-section li a,
+html[data-reduced-motion='true'] .secondary-page .notification-list > li,
+html[data-reduced-motion='true'] .secondary-page .notification-list__actions > *,
+html[data-reduced-motion='true'] .secondary-page .profile-view > button,
+html[data-reduced-motion='true'] .secondary-page .profile-form__actions button,
+html[data-reduced-motion='true'] .secondary-page .theme-options label,
+html[data-reduced-motion='true'] .secondary-page .preference-row { transition: none !important; }

@@ -1,3 +1,4 @@
+import { MotionProvider } from './motion/MotionProvider';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
@@ -16,9 +17,11 @@ import './styles/vertical-slice.css';
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter basename={import.meta.env.BASE_URL}>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
+      <MotionProvider>
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
+      </MotionProvider>
     </BrowserRouter>
   </StrictMode>,
 );

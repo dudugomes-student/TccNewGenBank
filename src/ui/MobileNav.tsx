@@ -1,12 +1,13 @@
+import { useSiteReducedMotion } from '../motion/MotionProvider';
 import { ArrowUpRight, CircleUserRound, CreditCard, Home, List } from 'lucide-react';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
 import { Link, useLocation } from 'react-router-dom';
 import { useMobileNavigation } from './useMobileNavigation';
 
 export function MobileNav() {
   const { pathname } = useLocation();
   const isMobile = useMobileNavigation();
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useSiteReducedMotion();
   const current = pathname === '/pix' ? 'pix'
     : pathname === '/cartao' ? 'card'
       : pathname === '/movimento' || pathname === '/seu-mes' || pathname.startsWith('/movimentos/') ? 'movement'

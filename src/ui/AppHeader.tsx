@@ -1,5 +1,6 @@
+import { useSiteReducedMotion } from '../motion/MotionProvider';
 import { Bell, LogOut, UserRound } from 'lucide-react';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSessionStore } from '../state/sessionStore';
 import { Brand } from './Brand';
@@ -11,7 +12,7 @@ export function AppHeader({ unreadCount, showAccent = false }: { unreadCount: nu
   const isMobile = useMobileNavigation();
   const { pathname } = useLocation();
   const signOut = useSessionStore((state) => state.signOut);
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useSiteReducedMotion();
   const current = pathname === '/cartao' ? 'card'
     : pathname === '/movimento' || pathname.startsWith('/movimentos/') ? 'movement'
       : pathname === '/seu-mes' ? 'month'

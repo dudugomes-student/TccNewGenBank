@@ -1,5 +1,6 @@
+import { useSiteReducedMotion } from '../motion/MotionProvider';
 import { Laptop, Moon, Sun } from 'lucide-react';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
 import type { ThemePreference } from '../domain/models';
 import { useFinancialStore } from '../state/financialStore';
 import { useTheme } from '../theme/ThemeProvider';
@@ -22,7 +23,7 @@ const accentOptions: Array<{ value: AccentPreference; label: string }> = [
 
 export function ThemeControl({ showAccent = false }: { showAccent?: boolean }) {
   const { preference, setPreference, accent, setAccent } = useTheme();
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useSiteReducedMotion();
   const travel = { type: 'tween' as const, duration: reduceMotion ? 0 : .58, ease: [.22, .61, .36, 1] as const };
   const setThemePreference = useFinancialStore((state) => state.setThemePreference);
   const chooseTheme = (value: ThemePreference) => {

@@ -1,3 +1,4 @@
+import { useSiteReducedMotion } from '../motion/MotionProvider';
 import { ArrowLeft, ArrowRight, Copy, Share2, Sparkles } from 'lucide-react';
 import { type FormEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -32,6 +33,7 @@ const copyText = async (text: string) => {
 };
 
 export function ReceiveRoute() {
+  const reducedMotion = useSiteReducedMotion();
   const snapshot = useFinancialStore();
   const resumableCharge = snapshot.charges.find((charge) => charge.status !== 'received');
   const [step, setStep] = useState<ReceiveStep>(resumableCharge ? 'charge' : 'form');
@@ -114,7 +116,7 @@ export function ReceiveRoute() {
     setTransaction(result.transaction);
     setError('');
     setStep('reaction');
-    const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1080;
+    const duration = reducedMotion ? 0 : 1080;
     reactionTimer.current = window.setTimeout(() => { setStep('receipt'); reactionTimer.current = null; }, duration);
   };
 

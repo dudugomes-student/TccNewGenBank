@@ -1,5 +1,6 @@
+import { useSiteReducedMotion } from './motion/MotionProvider';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
-import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from 'motion/react';
+import { AnimatePresence, LayoutGroup, motion } from 'motion/react';
 import { ProtectedRoute } from './routes/ProtectedRoute';
 import { DashboardRoute } from './routes/DashboardRoute';
 import { LoginRoute } from './routes/LoginRoute';
@@ -17,16 +18,16 @@ import { RouteMotionController } from './motion/RouteMotionController';
 
 export function App() {
   const location = useLocation();
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useSiteReducedMotion();
 
   return (
     <LayoutGroup id="newgen-shell">
       <RouteMotionController />
-      <AnimatePresence mode="wait" initial={false}>
+      <AnimatePresence mode="wait">
         <motion.div
           key={location.pathname}
           className="route-transition-frame"
-          initial={reduceMotion ? false : { opacity: 0, x: 60, scale: .97 }}
+          initial={reduceMotion ? false : { opacity: .65, x: 24, scale: .995 }}
           animate={reduceMotion ? { opacity: 1, x: 0, scale: 1, transition: { duration: 0 } } : {
             opacity: 1,
             x: 0,
@@ -38,10 +39,10 @@ export function App() {
             },
           }}
           exit={reduceMotion ? { opacity: 1, transition: { duration: 0 } } : {
-            opacity: 0,
-            x: -60,
-            scale: .97,
-            transition: { type: 'tween', duration: .24, ease: [.4, 0, 1, 1] },
+            opacity: .35,
+            x: -16,
+            scale: .995,
+            transition: { type: 'tween', duration: .18, ease: [.4, 0, 1, 1] },
           }}
           style={{ minHeight: '100%', transformOrigin: '50% 30%' }}
         >

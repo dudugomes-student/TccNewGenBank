@@ -1,3 +1,4 @@
+import { useSiteReducedMotion } from '../motion/MotionProvider';
 import { useEffect, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from 'react';
 import {
   ACESFilmicToneMapping,
@@ -237,6 +238,7 @@ const createRoundedShape = () => {
 
 export function NewGenCard3D({ card, visualScale = 1, renderOverscan = DEFAULT_RENDER_OVERSCAN, flipped, revealSensitive, onFaceChange }: NewGenCard3DProps) {
   const { accent: accentPreference } = useTheme();
+  const reducedMotion = useSiteReducedMotion();
   const rootRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const runtimeRef = useRef<CardScene | null>(null);
@@ -311,16 +313,18 @@ export function NewGenCard3D({ card, visualScale = 1, renderOverscan = DEFAULT_R
   };
 
   useEffect(() => {
+    reducedMotionRef.current = reducedMotion;
+    if (reducedMotion) {
+      cancelMotion();
+      releaseLift();
+      render();
+    }
+  }, [reducedMotion]);
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     const root = rootRef.current;
     if (!canvas || !root) return;
-    const query = window.matchMedia('(prefers-reduced-motion: reduce)');
-    reducedMotionRef.current = query.matches;
-    const syncMotion = () => {
-      reducedMotionRef.current = query.matches;
-      if (query.matches) cancelMotion();
-    };
-    query.addEventListener('change', syncMotion);
 
     try {
       const renderer = new WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
@@ -401,7 +405,6 @@ export function NewGenCard3D({ card, visualScale = 1, renderOverscan = DEFAULT_R
     }
 
     return () => {
-      query.removeEventListener('change', syncMotion);
       cancelMotion();
       const runtime = runtimeRef.current;
       if (!runtime) return;

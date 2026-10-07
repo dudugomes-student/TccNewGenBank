@@ -1,3 +1,4 @@
+import { useSiteReducedMotion } from '../motion/MotionProvider';
 import { ArrowLeft, ArrowRight, Check, Edit3, Search } from 'lucide-react';
 import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -16,6 +17,7 @@ const stepIndex: Record<PixStep, number> = { recipient: 0, amount: 1, review: 2,
 const parseMoneyInput = (value: string) => Number(value.replace(/\D/g, '')) / 100;
 
 export function PixRoute() {
+  const reducedMotion = useSiteReducedMotion();
   const snapshot = useFinancialStore();
   const [step, setStep] = useState<PixStep>('recipient');
   const [keyValue, setKeyValue] = useState('');
@@ -37,7 +39,7 @@ export function PixRoute() {
   const recipientStatus = useMemo(() => { if (!keyValue.trim()) return null; const type = detectPixKeyType(keyValue); if (!type) return { kind: 'invalid' as const, message: 'A chave não tem um formato Pix válido.' }; const found = findPixRecipient(keyValue, demoPixRecipients); if (!found) return { kind: 'not-found' as const, message: 'Não encontramos um destinatário para esta chave.' }; return { kind: 'found' as const, recipient: found }; }, [keyValue]);
   const chooseRecipient = (event: FormEvent) => { event.preventDefault(); if (!recipientStatus || recipientStatus.kind !== 'found') { setError(recipientStatus?.message ?? 'Informe uma chave Pix.'); requestAnimationFrame(() => document.getElementById('pix-key')?.focus()); return; } setRecipient(recipientStatus.recipient); setError(''); setStep('amount'); };
   const chooseAmount = (event: FormEvent) => { event.preventDefault(); const validation = validatePixAmount(amount, snapshot); if (validation && !validation.ok) { setError(validation.message); requestAnimationFrame(() => document.getElementById('pix-amount')?.focus()); return; } setError(''); setStep('review'); };
-  const confirmPix = () => { if (!recipient || processing || confirmLock.current) return; confirmLock.current = true; setProcessing(true); const result = snapshot.submitPix({ operationId, recipient, amount, createdAt: new Date().toISOString() }); if (!result.ok) { setError(result.message); setProcessing(false); confirmLock.current = false; return; } setTransaction(result.transaction); setStep('reaction'); const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1180; reactionTimer.current = window.setTimeout(() => { setStep('receipt'); setProcessing(false); reactionTimer.current = null; }, duration); };
+  const confirmPix = () => { if (!recipient || processing || confirmLock.current) return; confirmLock.current = true; setProcessing(true); const result = snapshot.submitPix({ operationId, recipient, amount, createdAt: new Date().toISOString() }); if (!result.ok) { setError(result.message); setProcessing(false); confirmLock.current = false; return; } setTransaction(result.transaction); setStep('reaction'); const duration = reducedMotion ? 0 : 1180; reactionTimer.current = window.setTimeout(() => { setStep('receipt'); setProcessing(false); reactionTimer.current = null; }, duration); };
   const startAnother = () => { if (reactionTimer.current !== null) window.clearTimeout(reactionTimer.current); reactionTimer.current = null; setKeyValue(''); setRecipient(null); setAmount(0); setAmountText(''); setError(''); setTransaction(null); setOperationId(crypto.randomUUID()); confirmLock.current = false; setStep('recipient'); };
   const datePreview = formatDateTime(new Date().toISOString());
   const recipientFeedback = error || (recipientStatus && recipientStatus.kind !== 'found' ? recipientStatus.message : '');
