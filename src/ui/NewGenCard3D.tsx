@@ -106,6 +106,8 @@ const drawCardTexture = (texture: CanvasTexture, card: BankCard, side: 'front' |
   const width = CARD_TEXTURE_WIDTH;
   const height = CARD_TEXTURE_HEIGHT;
   const pad = 72;
+  const interfaceFont = getComputedStyle(document.documentElement).getPropertyValue('--font-interface').trim()
+    || 'Inter, "Segoe UI", Arial, sans-serif';
   context.save();
   context.setTransform(canvas.width / width, 0, 0, canvas.height / height, 0, 0);
   context.clearRect(0, 0, width, height);
@@ -134,7 +136,7 @@ const drawCardTexture = (texture: CanvasTexture, card: BankCard, side: 'front' |
   context.textBaseline = 'middle';
 
   if (side === 'front') {
-    context.font = '700 29px Inter, Segoe UI, sans-serif';
+    context.font = `700 29px ${interfaceFont}`;
     context.letterSpacing = '5px';
     context.fillText('NEWGEN', pad, 88);
     context.textAlign = 'right';
@@ -152,7 +154,7 @@ const drawCardTexture = (texture: CanvasTexture, card: BankCard, side: 'front' |
     context.font = '500 31px ui-monospace, SFMono-Regular, Consolas, monospace';
     context.letterSpacing = '6px';
     context.fillText(`••••  ••••  ••••  ${card.lastFour}`, pad, height - 155);
-    context.font = '650 23px Inter, Segoe UI, sans-serif';
+    context.font = `650 23px ${interfaceFont}`;
     context.letterSpacing = '3px';
     context.fillText(card.holderName.toUpperCase(), pad, height - 72);
     context.textAlign = 'right';
@@ -162,24 +164,24 @@ const drawCardTexture = (texture: CanvasTexture, card: BankCard, side: 'front' |
     context.fillStyle = 'rgba(3,5,4,.88)';
     context.fillRect(0, 106, width, 96);
     context.fillStyle = '#edf1ee';
-    context.font = '650 20px Inter, Segoe UI, sans-serif';
+    context.font = `650 20px ${interfaceFont}`;
     context.letterSpacing = '4px';
     context.fillText('NÚMERO VIRTUAL', pad, 270);
     context.font = '500 29px ui-monospace, SFMono-Regular, Consolas, monospace';
     context.letterSpacing = '5px';
     const fullNumber = card.virtualNumber.replace(/(.{4})/g, '$1 ').trim();
     context.fillText(revealSensitive ? fullNumber : `•••• •••• •••• ${card.lastFour}`, pad, 326);
-    context.font = '650 19px Inter, Segoe UI, sans-serif';
+    context.font = `650 19px ${interfaceFont}`;
     context.letterSpacing = '3px';
     context.fillText(`VALIDADE  ${revealSensitive ? card.expiresAt : '••/••'}`, pad, 425);
     context.fillText(`CVV  ${revealSensitive ? card.virtualCvv : '•••'}`, width * .53, 425);
     context.fillStyle = 'rgba(237,241,238,.68)';
-    context.font = '650 18px Inter, Segoe UI, sans-serif';
+    context.font = `650 18px ${interfaceFont}`;
     context.fillText(card.onlinePurchasesEnabled ? 'COMPRAS ONLINE ATIVAS' : 'COMPRAS ONLINE DESATIVADAS', pad, height - 72);
   }
 
   context.fillStyle = card.status === 'active' ? accent : '#aab0ac';
-  context.font = '750 18px Inter, Segoe UI, sans-serif';
+  context.font = `750 18px ${interfaceFont}`;
   context.letterSpacing = '3px';
   context.textAlign = 'right';
   context.fillText(card.status === 'active' ? 'ATIVO' : 'BLOQUEADO', width - pad, side === 'front' ? 145 : height - 72);
